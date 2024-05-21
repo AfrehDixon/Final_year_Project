@@ -62,7 +62,7 @@ export default function AppTextInput({
             backgroundColor: Colors.lightPrimary,
             borderRadius: Spacing,
             marginVertical: Spacing,
-            // width:'100%'
+            width:'90%'     
           },
         ]}
         {...otherProps}
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
+    width:'100%',
     borderColor: "gray",
     borderRadius: 8,
     paddingHorizontal: 10,

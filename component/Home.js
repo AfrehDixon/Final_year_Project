@@ -39,8 +39,8 @@ const Homepage = () => {
         component={HomeScreen}
         options={{ headerShown: false }}
       />
-      <Tab.Screen name="Learn" component={Learn} />
-      <Tab.Screen name="Settings" component={Settings} />
+      {/* <Tab.Screen name="Learn" component={Learn} /> */}
+      <Tab.Screen name="Settings" component={Settings} options={{headerTitleAlign:'center'}}/>
     </Tab.Navigator>
   );
 };

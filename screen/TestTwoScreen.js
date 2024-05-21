@@ -1,111 +1,75 @@
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  StatusBar,
-  TouchableOpacity,
-} from "react-native";
-import React from "react";
-import { useTimer } from "react-timer-hook";
-import FontSize from "../config/FontSize";
-import Spacing from "../config/Spacing";
-import Colors from "../config/Colors";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-export default function TestTwoScreen() {
-  const targetTime = new Date();
+const TestTwoScreen = () => {
+  const [selectedLetters, setSelectedLetters] = useState([]);
+  const [score, setScore] = useState(0);
 
-  // const {seconds,isRunning} = useStopwatch({autoStart: true})
-  targetTime.setSeconds(targetTime.getSeconds() + 30); // 30 seconds from now
+  const handleLetterPress = (letter) => {
+    // Convert letter to number and update state
+    const letterToNumber = { E: 1, F: 2 };
+    const selectedNumber = letterToNumber[letter];
+    setSelectedLetters([...selectedLetters, selectedNumber]);
 
-  const { seconds, start } = useTimer({
-    expiryTimestamp: targetTime,
-    onExpire: () => console.log("Countdown complete!"),
-  });
-  const data = [
-    { title: "E" },
-    { title: "F" },
-    { title: "F" },
-    { title: "E" },
-    { title: "F" },
-    { title: "E" },
-    { title: "F" },
-    { title: "F" },
-    { title: "E" },
-    { title: "E" },
-    { title: "F" },
-    { title: "F" },
-    { title: "E" },
-    { title: "F" },
-    { title: "E" },
-    { title: "E" },
-    { title: "F" },
-    { title: "F" },
-    { title: "F" },
-    { title: "E" },
-    { title: "E" },
-    { title: "F" },
-    { title: "E" },
-    { title: "F" },
-  ];
+    // Check if the selected letter is "E"
+    if (letter === "E") {
+      // Increment the score
+      setScore(score + 10);
+    } else {
+      // Decrement the score (penalize for incorrect selection)
+      setScore(score - 5);
+    }
+  };
+
   return (
-    <View style={{ justifyContent: "center", alignItems: "center" }}>
-      <View style={styles.container}>
-        {/* <View > */}
-        <Text style={{ fontSize: FontSize.large }}>
-          Select all Alphabet that are E
-        </Text>
-        <FlatList
-          data={data}
-          renderItem={({ item }) => <Alphabert item={item.title} />}
-          numColumns={4}
-        />
-      </View>
-
-      <View
-        style={{
-          width: 100,
-          height: 100,
-          backgroundColor: "red",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: 20,
-          // flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Text style={{ fontSize: FontSize.xLarge, color: "white" }}>
-          {seconds}
-        </Text>
-      </View>
+    <View style={styles.container}>
+      <Text>Select only "E" from the list</Text>
+      {[
+        ["F", "E", "F", "E"],
+        ["F", "E", "F", "E"],
+        ["F", "E", "F", "E"],
+        ["E", "F", "E", "F"],
+        ["E", "F", "E", "F"],
+        ["E", "F", "E", "F"],
+      ].map((row, rowIndex) => (
+        <View key={rowIndex} style={styles.row}>
+          {row.map((letter, colIndex) => (
+            <TouchableOpacity
+              key={colIndex}
+              style={styles.button}
+              onPress={() => handleLetterPress(letter)}
+            >
+              <Text>{letter}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      ))}
+      {/* Display selected letters (for testing) */}
+      <Text>Selected Letters: {selectedLetters.join(", ")}</Text>
+      {/* Display user's score */}
+      <Text>Score: {score}</Text>
     </View>
-  );
-}
-
-const Alphabert = ({ item }) => {
-  return (
-    <TouchableOpacity style={styles.item}>
-      <Text style={styles.title}>{item}</Text>
-    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
-  item: {
-    backgroundColor: Colors.background,
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 10,
+  row: {
+    flexDirection: "row",
   },
-  title: {
-    fontSize: 32,
-    color: "white",
+  button: {
+    width: 50,
+    height: 50,
+    margin: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "gray",
   },
 });
+
+export default TestTwoScreen;

@@ -1,111 +1,74 @@
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  StatusBar,
-  TouchableOpacity,
-} from "react-native";
-import React from "react";
-import { useTimer } from "react-timer-hook";
-import FontSize from "../config/FontSize";
-import Spacing from "../config/Spacing";
-import Colors from "../config/Colors";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-export default function TestOneScreen() {
-  const targetTime = new Date();
+const TestOneScreen = () => {
+  const [selectedLetters, setSelectedLetters] = useState([]);
+  const [score, setScore] = useState(0);
 
-  // const {seconds,isRunning} = useStopwatch({autoStart: true})
-  targetTime.setSeconds(targetTime.getSeconds() + 30); // 30 seconds from now
+  const handleLetterPress = (letter) => {
+    // Convert letter to number and update state
+    const letterToNumber = { b: 1, d: 2, q: 3, p: 4 };
+    const selectedNumber = letterToNumber[letter];
+    setSelectedLetters([...selectedLetters, selectedNumber]);
 
-  const { seconds, start } = useTimer({
-    expiryTimestamp: targetTime,
-    onExpire: () => console.log("Countdown complete!"),
-  });
-  const data = [
-    { title: "b" },
-    { title: "q" },
-    { title: "d" },
-    { title: "b" },
-    { title: "p" },
-    { title: "q" },
-    { title: "b" },
-    { title: "q" },
-    { title: "q" },
-    { title: "b" },
-    { title: "b" },
-    { title: "b" },
-    { title: "p" },
-    { title: "q" },
-    { title: "q" },
-    { title: "b" },
-    { title: "p" },
-    { title: "q" },
-    { title: "q" },
-    { title: "q" },
-    { title: "b" },
-    { title: "p" },
-    { title: "b" },
-    { title: "q" },
-  ];
+    // Check if the selected letter is "p"
+    if (letter === "p") {
+      // Increment the score
+      setScore(score + 10);
+    } else {
+      // Decrement the score (penalize for incorrect selection)
+      setScore(score - 5);
+    }
+  };
+
   return (
-    <View style={{justifyContent:'center',alignItems:'center'}}>
-      <View style={styles.container}>
-      {/* <View > */}
-        <Text style={{ fontSize: FontSize.large }}>
-          Select all Alphabet that are b
-        </Text>
-        <FlatList
-          data={data}
-          renderItem={({ item }) => <Alphabert item={item.title} />}
-          numColumns={4}
-        />
-      </View>
-
-      <View
-        style={{
-          width: 100,
-          height: 100,
-          backgroundColor: "red",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: 20,
-          // flex: 1,
-          justifyContent: 'center',
-          alignItems:'center'
-        }}
-      >
-        <Text style={{ fontSize: FontSize.xLarge, color: "white" }}>
-          {seconds}
-        </Text>
-      </View>
+    <View style={styles.container}>
+      <Text>Select only "p" from the list</Text>
+      {[
+        ["d", "b", "p", "q"],
+        ["d", "q", "p", "b"],
+        ["d", "q", "b", "p"],
+        ["b", "q", "d", "p"],
+        ["b", "p", "q", "d"],
+      ].map((row, rowIndex) => (
+        <View key={rowIndex} style={styles.row}>
+          {row.map((letter, colIndex) => (
+            <TouchableOpacity
+              key={colIndex}
+              style={styles.button}
+              onPress={() => handleLetterPress(letter)}
+            >
+              <Text>{letter}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      ))}
+      {/* Display selected letters (for testing) */}
+      <Text>Selected Letters: {selectedLetters.join(", ")}</Text>
+      {/* Display user's score */}
+      <Text>Score: {score}</Text>
     </View>
-  );
-}
-
-const Alphabert = ({ item }) => {
-  return (
-    <TouchableOpacity style={styles.item}>
-      <Text style={styles.title}>{item}</Text>
-    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
-  item: {
-    backgroundColor: Colors.background,
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 10,
+  row: {
+    flexDirection: "row",
   },
-  title: {
-    fontSize: 32,
-    color: "white",
+  button: {
+    width: 50,
+    height: 50,
+    margin: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "gray",
   },
 });
+
+export default TestOneScreen;

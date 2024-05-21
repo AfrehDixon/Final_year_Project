@@ -1,5 +1,5 @@
 
-
+const green = 'green'
 const white = "#fff";
 const black = "#000";
 const dark = "#626262";
@@ -26,6 +26,7 @@ const Colors = {
   bluedemo: bluedemo,
   background: "#6c63ff",
   white: "#fff",
+  success: green,
 };
 
 export default Colors;

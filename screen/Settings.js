@@ -1,20 +1,185 @@
-import { View, Text, TouchableOpacity } from "react-native";
-// import MaterialIcons from '@v'
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Switch,
+  ScrollView,
+} from "react-native";
+import { Text, Appbar, List, Divider, Button } from "react-native-paper";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { Audio } from "expo-av";
+import Colors from "../config/Colors";
+import FontSize from "../config/FontSize";
 
-export default function Settings() {
+const SettingsScreen = () => {
+  const navigation = useNavigation();
+  const [sound, setSound] = useState();
+  const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
+  const [isSoundEnabled, setIsSoundEnabled] = useState(true);
+
+  useEffect(() => {
+    const playSound = async () => {
+      const { sound } = await Audio.Sound.createAsync(
+        require("../assets/child.mp3") // Ensure you have this file in your assets folder
+      );
+      setSound(sound);
+      await sound.playAsync();
+    };
+
+    if (isSoundEnabled) {
+      playSound();
+    }
+
+    return () => {
+      if (sound) {
+        sound.unloadAsync();
+      }
+    };
+  }, [isSoundEnabled]);
+
   return (
-    <View>
-      <View>
-        <View style={{ width: 50, height: 50 }}></View>
-        <Text>Joe</Text>
+    <View style={styles.container}>
+      {/* <Appbar.Header style={{ backgroundColor: Colors.white }}> */}
+      {/* <Appbar.Content title="Settings" /> */}
+      {/* </Appbar.Header> */}
+      <ScrollView contentContainerStyle={styles.scrollViewContent}></ScrollView>
+      <View style={styles.avatarContainer}>
+        <Image source={require("../assets/ddd.jpg")} style={styles.avatar} />
+        <View style={styles.infoContainer}>
+          <Text style={styles.name}>John Doe</Text>
+          <Text style={styles.grade}>Grade 5</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => navigation.navigate("RegisterChild")}
+        >
+          <MaterialCommunityIcons name="plus" size={30} color={Colors.white} />
+        </TouchableOpacity>
       </View>
+      <List.Section>
+        <List.Subheader>Preferences</List.Subheader>
+        <Divider />
+        <View style={styles.settingItem}>
+          <Text style={styles.settingText}>Enable Notifications</Text>
+          <Switch
+            value={isNotificationsEnabled}
+            onValueChange={() =>
+              setIsNotificationsEnabled(!isNotificationsEnabled)
+            }
+          />
+        </View>
+        <Divider />
+        <View style={styles.settingItem}>
+          <Text style={styles.settingText}>Play Background Sound</Text>
+          <Switch
+            value={isSoundEnabled}
+            onValueChange={() => setIsSoundEnabled(!isSoundEnabled)}
+          />
+        </View>
+        <Divider />
 
-      <TouchableOpacity>
-        <Vew>
-          {/* <Ioni */}
-        </Vew>
-      </TouchableOpacity>
+        <List.Subheader style={styles.settingItem}>
+          App Information
+        </List.Subheader>
+        <Divider />
+        <List.Item
+          style={styles.settingItem}
+          title="About the App"
+          left={() => <List.Icon icon="information" />}
+          // onPress={() => navigation.navigate("About")}
+        />
+        <Divider />
+        <List.Item
+          style={styles.settingItem}
+          title="Terms of Service"
+          left={() => <List.Icon icon="file-document" />}
+          // onPress={() => navigation.navigate("TermsOfService")}
+        />
+        <Divider />
+        <List.Item
+          style={styles.settingItem}
+          title="Privacy Policy"
+          left={() => <List.Icon icon="shield-lock" />}
+          // onPress={() => navigation.navigate("PrivacyPolicy")}
+        />
+        <Divider />
+
+        <List.Subheader>Support</List.Subheader>
+        <Divider />
+        <List.Item
+          style={styles.settingItem}
+          title="Contact Support"
+          left={() => <List.Icon icon="help-circle" />}
+          // onPress={() => navigation.navigate("ContactSupport")}
+        />
+        <Divider />
+        <List.Item
+          title="FAQ"
+          style={styles.settingItem}
+          left={() => <List.Icon icon="comment-question" />}
+          // onPress={() => navigation.navigate("FAQ")}
+        />
+        <Divider />
+        {/* </List.Section> */}
+      </List.Section>
+      {/* </ScrollView> */}
     </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.bluedemo,
+  },
+  avatarContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 20,
+  },
+  scrollViewContent: {
+    paddingBottom: 20, // Add padding to the bottom to ensure all content is visible
+  },
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    marginRight: 20,
+  },
+  infoContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  name: {
+    fontSize: FontSize.large,
+    fontWeight: "bold",
+    color: Colors.text,
+  },
+  grade: {
+    fontSize: FontSize.medium,
+    color: Colors.text,
+  },
+  addButton: {
+    backgroundColor: Colors.primary,
+    padding: 10,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  settingItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  settingText: {
+    fontSize: FontSize.medium,
+    color: Colors.text,
+  },
+});
+
+export default SettingsScreen;

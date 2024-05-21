@@ -13,6 +13,10 @@ import SplashScreen from "./screen/SplashScreen";
 import TestOneScreen from "./screen/TestOneScreen";
 import OTPScreen from "./screen/OTPScreen";
 import ForgetPassword from "./screen/ForgetPassword";
+import RegisterChild from "./screen/RegisterChild";
+import TestTwoScreen from "./screen/TestTwoScreen";
+import TestThreeScreen from "./screen/TestThreeScreen";
+import TestFourScreen from "./screen/TestFourScreen";
 
 const Stack = createNativeStackNavigator();
 export default function Navigation() {
@@ -42,13 +46,31 @@ export default function Navigation() {
         <Stack.Screen
           name="ForgetPassword"
           component={ForgetPassword}
-          options={{ headerShown: true }}
+          options={{
+            headerShown: true,
+            title: "Forget Password",
+            headerTitleAlign: "center",
+          }}
         />
         <Stack.Screen
           name="OTP"
           component={OTPScreen}
-          options={{ headerShown: true }}
+          options={{
+            headerShown: true,
+            title: "OTP Verification",
+            headerTitleAlign: "center",
+          }}
         />
+        <Stack.Screen
+          name="RegisterChild"
+          component={RegisterChild}
+          options={{
+            headerShown: true,
+            title: "Register Child",
+            headerTitleAlign: "center",
+          }}
+        />
+
         <Stack.Screen
           name="Home"
           component={Homepage}
@@ -57,6 +79,21 @@ export default function Navigation() {
         <Stack.Screen
           name="TestOne"
           component={TestOneScreen}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="TestTwo"
+          component={TestTwoScreen}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="TestThree"
+          component={TestThreeScreen}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="TestFour"
+          component={TestFourScreen}
           options={{ headerShown: true }}
         />
       </Stack.Navigator>
