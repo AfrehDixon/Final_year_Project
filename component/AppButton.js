@@ -33,7 +33,7 @@ export default function AppButton({ label, icon, style, onPress }) {
           // fontFamily: Font["poppins-regular"],
           color: Colors.onPrimary,
           textAlign: "center",
-          fontSize: FontSize.large,
+          // fontSize: FontSize.large,
         }}
       >
         {label}

@@ -22,25 +22,29 @@ const Homepage = () => {
             iconName = focused ? "book" : "book-outline";
           } else if (route.name === "Settings") {
             iconName = focused ? "settings" : "settings-outline";
-          } else if (route.name === "Home") {
+          } else if (route.name === "HomeScreen") {
             iconName = focused ? "home" : "home-outline";
           }
 
           return <Ionicons name={iconName} size={25} color={color} />;
         },
       })}
-      tabBarOptions={{
-        activeTintColor: "blue",
-        inactiveTintColor: "gray",
-      }}
+      // screenOptions={{
+      //   activeTintColor: "blue",
+      //   inactiveTintColor: "gray",
+      // }}
     >
       <Tab.Screen
-        name="Home"
+        name="HomeScreen"
         component={HomeScreen}
         options={{ headerShown: false }}
       />
       {/* <Tab.Screen name="Learn" component={Learn} /> */}
-      <Tab.Screen name="Settings" component={Settings} options={{headerTitleAlign:'center'}}/>
+      <Tab.Screen
+        name="Settings"
+        component={Settings}
+        options={{ headerTitleAlign: "center" }}
+      />
     </Tab.Navigator>
   );
 };

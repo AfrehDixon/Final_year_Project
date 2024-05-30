@@ -1,182 +1,3 @@
-// // import { View, Text } from 'react-native'
-// import React, { useState } from "react";
-// import {
-//   KeyboardAvoidingView,
-//   Platform,
-//   Text,
-//   TouchableOpacity,
-//   View,
-//   StyleSheet,
-//   Image,
-//   SafeAreaView,
-// } from "react-native";
-// import Colors from "../config/Colors";
-// import { useRoute } from "@react-navigation/native";
-
-// import OTPInputView from "@twotalltotems/react-native-otp-input";
-// import AppButton from "../component/AppButton";
-
-
-
-// export default function OTPScreen() {
-//   const route = useRoute();
-//   const { email } = route.params;
-//   const [otp, setOTP] = useState("");
-//   // const [error, setError] = useState(false);
-//   // const [success, setSuccess] = useState(false);
-//   // const [loading, setLoading] = useState(false);
-//   const handleOtpInput = (otp) => {
-//     setOTP(otp);
-//   };
-
-//    const optlink =
-//      "https://dyslexia-backend.onrender.com/api/v1/forgot_password";
-//    const sendOtp = async () => {
-//      try {
-//        const res = await fetch(optlink, {
-//          method: "POST",
-//          headers: {
-//            "Content-Type": "application/json",
-//          },
-//          body: JSON.stringify({
-//            email,
-//          }),
-//        });
-//        console.log("OTP Sent");
-//      } catch (e) {
-//        console.log(e);
-//      }
-//      // sendOtp();
-//    };
-
-//   const OTP =
-//     "https://dyslexia-backend.onrender.com/api/v1/email_verification/verify";
-//   const handleOTP = async () => {
-//     //  if (otp.length < 4) {
-//     //    setError(true);
-//     //    return;
-//     //  }
-//     //  setLoading(true);
-//     try {
-//       const res = await fetch(OTP, {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           email,
-//           otp,
-//         }),
-//       });
-//       console.log(email,otp);
-//        if (res.valid === "true") {
-//        setSuccess(true);
-//        setError(false);
-//       navigation.navigate("Login");
-//        } else {
-//        setError(true);
-//        setSuccess(false);
-//        }
-//     } catch (e) {
-//     //   console.log(e);
-//       //  setError(true);
-//     }
-//     //  setLoading(false);
-//   };
-
-//   return (
-//     <SafeAreaView style={{ flex: 1 }}>
-//       <KeyboardAvoidingView
-//         behavior={Platform.OS == "ios" ? "padding" : ""}
-//         style={{
-//           height: "100%",
-//           width: "100%",
-//           background: "#fff",
-//         }}
-//       >
-//         <View style={{ flex: 1, alignItems: "center" }}>
-//           <Image
-//             source={require("../assets/codepic.png")}
-//             style={{ width: 200, height: 200 }}
-//           />
-//           <Text style={{ fontSize: 25, color: "#111" }}>
-//             Verify your email address
-//           </Text>
-//           <Text style={{ fontSize: 15, color: "#111" }}>
-//             Enter 4 digits code received on your email
-//           </Text>
-//           <Text style={{ fontSize: 16, color: "#111", marginTop: 14 }}>
-//             {email}
-//           </Text>
-
-//           <View style={{ width: "100%", paddingHorizontal: 22 }}>
-//             <OTPInputView
-//               style={{ width: "100%", height: 200, paddingHorizontal: 32 }}
-//               pinCount={4}
-//               autoFocusOnLoad
-//               codeInputFieldStyle={{
-//                 width: 30,
-//                 height: 45,
-//                 color: "#f4a135",
-//                 borderWidth: 0,
-//                 borderBottomWidth: 3,
-//                 borderBottomColor: "#111",
-//               }}
-//               codeInputHighlightStyle={{
-//                 borderColor: Colors.success,
-//               }}
-//               // onCodeFilled={code => {
-//               //   setOTP(code);
-//               // }}
-//               placeholderTextColor="gray"
-//               keyboardType="number-pad"
-//               // code={otp}
-//               onCodeChanged={handleOtpInput}
-//             />
-//             <TouchableOpacity
-//               style={{
-//                 backgroundColor: Colors.background,
-//                 paddingVertical: 12,
-//                 alignItems: "center",
-//                 justifyContent: "center",
-//                 borderRadius: 8,
-//                 paddingVertical: 16,
-//               }}
-//               onPress={handleOTP}
-//             >
-//               <Text style={{ color: "white", fontSize: 20 }}> Submit</Text>
-//             </TouchableOpacity>
-//             <AppButton label="Send OTP" onPress={sendOtp} />
-//           </View>
-//         </View>
-//       </KeyboardAvoidingView>
-//     </SafeAreaView>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   borderStyleBase: {
-//     width: 30,
-//     height: 45,
-//   },
-
-//   borderStyleHighLighted: {
-//     borderColor: "#03DAC6",
-//   },
-
-//   underlineStyleBase: {
-//     width: 30,
-//     height: 45,
-//     borderWidth: 0,
-//     borderBottomWidth: 1,
-//   },
-
-//   underlineStyleHighLighted: {
-//     borderColor: "#03DAC6",
-//   },
-// });
-
-
 import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -187,19 +8,29 @@ import {
   StyleSheet,
   Image,
   SafeAreaView,
+  Pressable,
+  // TouchableWithoutFeedback
 } from "react-native";
 import Colors from "../config/Colors";
 import { useRoute } from "@react-navigation/native";
-import OTPInputView from "@twotalltotems/react-native-otp-input";
+// import OTPInputView from "@twotalltotems/react-native-otp-input";
 import AppButton from "../component/AppButton";
+import { Button, ActivityIndicator } from "react-native-paper";
+import Spacing from "../config/Spacing";
+import OTPInputView from "@twotalltotems/react-native-otp-input";
 
-export default function OTPScreen() {
+export default function OTPScreen({ navigation }) {
   const route = useRoute();
   const { email } = route.params;
   const [otp, setOTP] = useState("");
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
 
   const handleOtpInput = (otp) => {
     setOTP(otp);
+    setOtpSent(!otpSent);
   };
 
   const optlink =
@@ -224,6 +55,8 @@ export default function OTPScreen() {
   const OTP =
     "https://dyslexia-backend.onrender.com/api/v1/email_verification/verify";
   const handleOTP = async () => {
+    setError("");
+    setLoading(true);
     try {
       const res = await fetch(OTP, {
         method: "POST",
@@ -235,17 +68,27 @@ export default function OTPScreen() {
           otp,
         }),
       });
+      const data = await res.json();
+      const { verified } = data;
+      console.log(res);
+      // const { ok } = data;
+      console.log(data);
       console.log(email, otp);
-      if (res.valid === "true") {
-        setSuccess(true);
-        setError(false);
-        navigation.navigate("Login");
+      console.log(data.verified);
+      if (verified === true) {
+        setError(false); // Reset error state
+        navigation.navigate("Login"); // Navigate to SignIn page
       } else {
         setError(true);
-        setSuccess(false);
+        setLoading(false); // Set error state to true
       }
+
+      // console.log(data)
     } catch (e) {
       console.log(e);
+      setLoading(false);
+      setError(true);
+      // Set error state to true
     }
   };
 
@@ -277,10 +120,72 @@ export default function OTPScreen() {
               keyboardType="number-pad"
               onCodeChanged={handleOtpInput}
             />
-            <TouchableOpacity style={styles.submitButton} onPress={handleOTP}>
+            {/* {error && (
+              <Text style={{ color: "red", marginTop: 10 }}>
+                Invalid OTP. Please try again.
+              </Text>
+            )} */}
+            {/* {error ? (
+              <Text style={{ color: "red", marginTop: 10 }}>
+                Invalid OTP. Please try again.
+              </Text>
+            ) : null} */}
+            {/* <TouchableOpacity style={styles.submitButton} onPress={handleOTP}>
               <Text style={styles.submitButtonText}>Submit</Text>
+            </TouchableOpacity> */}
+            <TouchableOpacity
+              style={{
+                padding: Spacing * 2,
+                backgroundColor: Colors.background,
+                marginVertical: Spacing * 3,
+                borderRadius: Spacing,
+                shadowColor: Colors.primary,
+                shadowOffset: {
+                  width: 0,
+                  height: Spacing,
+                },
+                shadowOpacity: 0.3,
+                shadowRadius: Spacing,
+              }}
+              onPress={handleOTP}
+              disabled={loading}
+            >
+              {loading ? (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: 10,
+                  }}
+                >
+                  <ActivityIndicator size="small" color="white" />
+                  <Text
+                    style={{ color: "white", fontSize: 16, fontWeight: "bold" }}
+                  >
+                    Loading...
+                  </Text>
+                </View>
+              ) : (
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  Submit
+                </Text>
+              )}
             </TouchableOpacity>
-            <AppButton label="Send OTP" onPress={sendOtp} />
+            <Pressable onPress={sendOtp}>
+              <Text style={{ color: "red", marginTop: 5, fontSize: 15 }}>
+                Resend OTP
+              </Text>
+              <Text>{setOtpSent ? <Text>OTP sent</Text> : "null"}</Text>
+            </Pressable>
+            {/* <Button label="Send OTP" onPress={sendOtp} /> */}
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -328,22 +233,32 @@ const styles = StyleSheet.create({
   otpContainer: {
     width: "100%",
     paddingHorizontal: 22,
+    borderBottomColor: Colors.success,
   },
   otpInputView: {
     width: "100%",
     height: 200,
     paddingHorizontal: 32,
+    borderBottomColor: Colors.success,
+    // borderColor: Colors.success,
+    // borderWidth: 1,
   },
   otpInputField: {
-    width: 30,
-    height: 45,
-    color: "#f4a135",
-    borderWidth: 0,
+    width: 50,
+    height: 55,
+    color: Colors.success,
+    fontWeight: "bold",
+    fontSize: 20,
+    borderWidth: 3,
+    borderRadius: 8,
+    // borderColor: "red",
     borderBottomWidth: 3,
-    borderBottomColor: "#111",
+    borderBottomColor: Colors.success,
   },
   otpInputHighlight: {
-    borderColor: Colors.success,
+    borderColor: "red",
+    // padding:20,
+    // width: 30,
   },
   submitButton: {
     backgroundColor: Colors.background,

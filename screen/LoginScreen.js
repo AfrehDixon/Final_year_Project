@@ -7,6 +7,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Modal,
+  Platform,
+  Pressable,
+  Keyboard,
+  KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import { TextInput, Text, ActivityIndicator } from "react-native-paper";
 import AppInput from "../component/AppInput";
@@ -20,6 +26,7 @@ import Colors from "../config/Colors";
 import FontSize from "../config/FontSize";
 import Spacing from "../config/Spacing";
 import OTPScreen from "./OTPScreen";
+import ForgetPassword from "./ForgetPassword";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -27,17 +34,25 @@ export default function LoginScreen({ navigation }) {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const closeModal = () => {
+    setModalVisible(!modalVisible);
+  };
 
   const api = "https://dyslexia-backend.onrender.com/api/v1/user";
   const handlelogin = async () => {
     setError(""); // Reset error message
+    setLoading(true); // Set loading state
 
     if (!email || !password) {
       setError("Please enter both email and password.");
       return;
     }
-
-    setLoading(true); // Set loading state
 
     try {
       const res = await fetch(api, {
@@ -46,79 +61,104 @@ export default function LoginScreen({ navigation }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
+          email: email.trim(),
           password,
         }),
       });
 
-      const data = await res.json();
-      console.log(data);
+      const contentType = res.headers.get("content-type");
+      let data;
 
-      if (data.error) {
-        // Check for backend error message
-        setError(data.error);
-      } else if (!data.verified) {
-        // Check if user is not verified
-        setError("Please check your inbox to verify your email.");
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
       } else {
-        // If everything is successful, navigate to Home screen
-        navigation.replace("Home");
+        data = await res.text();
       }
+
+      console.log("Response data:", data);
+      console.log("Response data:", res);
+      console.log(email, password);
+
+      if (res.ok === true) {
+        // If the status code is not 200, it means there is an error
+        // If everything is successful, navigate to Home screen
+        // await AsyncStorage.setItem('userToken', data.fetchedUser.token); // Save token if needed
+        navigation.replace("RegisterChild");
+        setLoading(false); // Reset loading state
+      } else if (!data.verified) {
+        // Check if the user is not verified
+        setError(data);
+      }
+      // else {
+      // setError("Invalid email or password. Please try again.");
+      // }
     } catch (error) {
       console.error("Login error:", error);
-      setError("An unexpected error occurred. Please try again later.");
+      setLoading(false);
+      setError(true);
     } finally {
       setLoading(false); // Reset loading state
     }
   };
 
   return (
-    <View style={styles.loginPage}>
-      <View
-        style={{
-          padding: Spacing * 2,
-        }}
-      >
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View style={styles.loginPage}>
         <View
           style={{
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: FontSize.xLarge,
-              color: Colors.background,
-              marginVertical: Spacing * 3,
-            }}
-          >
-            Sign In To Your Account
-          </Text>
-        </View>
-        <View
-          style={{
-            marginVertical: Spacing * 5,
-          }}
-        >
-          <View style={{ marginBottom: 20 }}>
-            <TextInput
-              placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
-              leftIcon={{ type: "font-awesome", name: "envelope" }}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-          </View>
+            padding: Spacing * 2,
+            justifyContent: "center",
+            flex: 1,
 
+          }}
+        >
           <View
             style={{
-              flexDirection: "row",
               alignItems: "center",
-              marginBottom: 10,
-              width: "100%",
             }}
           >
-            <TextInput
+            <Text
+              style={{
+                fontSize: FontSize.xLarge,
+                color: Colors.background,
+                marginVertical: Spacing * 3,
+                fontWeight: "medium",
+              }}
+            >
+              Sign In To Your Account
+            </Text>
+          </View>
+          <View
+            style={{
+              // marginVertical: Spacing * 5,
+            }}
+          >
+            <View style={{ marginBottom: 15 }}>
+              <TextInput
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
+                leftIcon={{ type: "font-awesome", name: "envelope" }}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                style={{
+                  width: "100%",
+                  backgroundColor: Colors.lightPrimary,
+                  height: 60,
+                }}
+              />
+            </View>
+
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginBottom: 15,
+                width: "100%",
+                
+              }}
+            >
+              {/* <TextInput
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
@@ -127,7 +167,11 @@ export default function LoginScreen({ navigation }) {
               autoCapitalize="none"
               secureTextEntry={!showPassword}
               passwordRules={8}
-              style={{ width: "100%" }}
+              style={{
+                width: "100%",
+                backgroundColor: Colors.lightPrimary,
+                height: 60,
+              }}
             />
             <TouchableWithoutFeedback
               onPress={() => setShowPassword(!showPassword)}
@@ -139,152 +183,184 @@ export default function LoginScreen({ navigation }) {
                   color="black"
                 />
               </View>
-            </TouchableWithoutFeedback>
-          </View>
-        </View>
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate("ForgetPassword", { email })}
-        >
-          {error ? (
-            <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
-          ) : null}
-          <Text
-            style={{
-              fontSize: FontSize.medium,
-              color: Colors.primary,
-              alignSelf: "flex-end",
-            }}
-          >
-            Forgot your password ?
-          </Text>
-        </TouchableOpacity>
-        <View>
-          <TouchableOpacity
-            style={{
-              padding: Spacing * 2,
-              backgroundColor: Colors.background,
-              marginVertical: Spacing * 3,
-              borderRadius: Spacing,
-              shadowColor: Colors.primary,
-              shadowOffset: {
-                width: 0,
-                height: Spacing,
-              },
-              shadowOpacity: 0.3,
-              shadowRadius: Spacing,
-            }}
-            onPress={handlelogin}
-            disabled={loading}
-          >
-            {loading ? (
-              <View
+            </TouchableWithoutFeedback> */}
+              <TextInput
+                placeholder=" Password"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={!showPassword}
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  gap: 10,
+                  width: "100%",
+                  backgroundColor: Colors.lightPrimary,
+                  height: 60,
                 }}
-              >
-                <ActivityIndicator size="small" color="white" />
-                <Text
-                  style={{ color: "white", fontSize: 16, fontWeight: "bold" }}
-                >
-                  Loading...
-                </Text>
-              </View>
-            ) : (
+                right={
+                  <TextInput.Icon
+                    icon={showPassword ? "eye-off" : "eye"}
+                    onPress={() => setShowPassword(!showPassword)}
+                    style={{ color: "black" }}
+                  />
+                }
+              />
+            </View>
+          </View>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ForgetPassword", { email })}
+          >
+            {error ? (
+              <Text style={{ color: "red", marginBottom: 15 ,marginTop:15}}>{error}</Text>
+            ) : null}
+            <Pressable onPress={openModal} style={{alignSelf:'flex-end',justifyContent:'flex-end'}}>
               <Text
                 style={{
-                  color: "white",
-                  fontSize: 16,
-                  fontWeight: "bold",
-                  textAlign: "center",
+                  fontSize: FontSize.medium,
+                  color: Colors.primary,
+                  alignSelf: "flex-end",
+                  marginTop: 10,
+                  
                 }}
               >
-                Sign In
+                Forgot your password ?
               </Text>
-            )}
-          </TouchableOpacity>
+            </Pressable>
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Signup")}
-            style={{
-              padding: Spacing,
-            }}
-          >
-            <Text
+            {/* <ForgetPassword visible={modalVisible} onClose={closeModal} /> */}
+          </TouchableOpacity>
+          <View>
+            <TouchableOpacity
               style={{
-                // fontFamily: Font["poppins-regular"],
-                color: Colors.text,
-                textAlign: "center",
-                fontSize: FontSize.small,
+                padding: Spacing * 2,
+                backgroundColor: Colors.background,
+                marginVertical: Spacing * 3,
+                borderRadius: Spacing,
+                shadowColor: Colors.primary,
+                shadowOffset: {
+                  width: 0,
+                  height: Spacing,
+                },
+                shadowOpacity: 0.3,
+                shadowRadius: Spacing,
+              }}
+              onPress={handlelogin}
+              disabled={loading}
+            >
+              {loading ? (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: 10,
+                  }}
+                >
+                  <ActivityIndicator size="small" color="white" />
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Loading...
+                  </Text>
+                </View>
+              ) : (
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  Sign In
+                </Text>
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Signup")}
+              style={{
+                padding: Spacing,
               }}
             >
-              Create new account
-            </Text>
-          </TouchableOpacity>
-
-          <View
-            style={{
-              marginVertical: Spacing * 3,
-            }}
-          >
-            <Text
-              style={{
-                // fontFamily: Font["poppins-regular"],
-                color: Colors.primary,
-                textAlign: "center",
-                fontSize: FontSize.small,
-              }}
-            >
-              Or continue with
-            </Text>
+              <Text
+                style={{
+                  // fontFamily: Font["poppins-regular"],
+                  color: Colors.text,
+                  textAlign: "center",
+                  fontSize: FontSize.medium,
+                }}
+              >
+                Create new account
+              </Text>
+            </TouchableOpacity>
 
             <View
               style={{
-                marginTop: Spacing,
-                flexDirection: "row",
-                justifyContent: "center",
+                marginVertical: Spacing * 3,
               }}
             >
-              <TouchableOpacity
+              <Text
                 style={{
-                  padding: Spacing,
-                  backgroundColor: Colors.bluedemo,
-                  borderRadius: Spacing / 2,
-                  marginHorizontal: Spacing,
+                  // fontFamily: Font["poppins-regular"],
+                  color: Colors.primary,
+                  textAlign: "center",
+                  fontSize: FontSize.small,
                 }}
               >
-                <Ionicons name="logo-google" color={"red"} size={Spacing * 2} />
-              </TouchableOpacity>
+                Or continue with
+              </Text>
+
+              <View
+                style={{
+                  marginTop: Spacing,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
+              >
+                <TouchableOpacity
+                  style={{
+                    padding: Spacing,
+                    backgroundColor: Colors.bluedemo,
+                    borderRadius: Spacing / 2,
+                    marginHorizontal: Spacing,
+                  }}
+                >
+                  <Ionicons
+                    name="logo-google"
+                    color={"red"}
+                    size={Spacing * 2}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
       </View>
-      
-    </View>
+    </ScrollView>
   );
 }
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      width: "100%",
-    },
-    loginPage: {
-      flex: 1,
-      justifyContent: "center",
-      alignContent: "center",
-      backgroundColor: "#fff",
-    },
-    input: {
-      width: "100%",
-      borderWidth: 1,
-      borderRadius: 10,
-      padding: 10,
-      marginBottom: 20,
-      height: 30,
-    },
-  });
+const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    // justifyContent: "center",
+    // alignItems: "center",
+    // width: "100%",
+  },
+  loginPage: {
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
+    backgroundColor: "#fff",
+  },
+  input: {
+    width: "100%",
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 20,
+    height: 30,
+  },
+});

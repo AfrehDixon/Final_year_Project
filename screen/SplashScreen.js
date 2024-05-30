@@ -5,7 +5,7 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.replace("Onbording"); // Navigate to the OnboardingScreen after 10 seconds
-    }, 5000); // 10 seconds delay
+    }, 1000); // 10 seconds delay
 
     return () => clearTimeout(timer); // Cleanup function to clear the timer
   }, []);
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     resizeMode: "contain",
+    backgroundColor: "#fff",
   },
 });
 

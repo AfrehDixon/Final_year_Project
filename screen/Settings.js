@@ -18,7 +18,7 @@ const SettingsScreen = () => {
   const navigation = useNavigation();
   const [sound, setSound] = useState();
   const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
-  const [isSoundEnabled, setIsSoundEnabled] = useState(true);
+  const [isSoundEnabled, setIsSoundEnabled] = useState(false);
 
   useEffect(() => {
     const playSound = async () => {
@@ -29,22 +29,25 @@ const SettingsScreen = () => {
       await sound.playAsync();
     };
 
-    if (isSoundEnabled) {
-      playSound();
+    // if (isSoundEnabled) {
+    //   playSound();
+    // }
+    {
+      isSoundEnabled ? playSound() : null;
     }
 
     return () => {
-      if (sound) {
-        sound.unloadAsync();
+      {
+        sound ? sound.unloadAsync() : null;
       }
     };
   }, [isSoundEnabled]);
 
   return (
     <View style={styles.container}>
-      {/* <Appbar.Header style={{ backgroundColor: Colors.white }}> */}
-      {/* <Appbar.Content title="Settings" /> */}
-      {/* </Appbar.Header> */}
+      {/* <Appbar.Header style={{ backgroundColor: Colors.white,justifyContent:'center',alignItems:'center' }}>
+      <Appbar.Content title="Settings" />
+      </Appbar.Header> */}
       <ScrollView contentContainerStyle={styles.scrollViewContent}></ScrollView>
       <View style={styles.avatarContainer}>
         <Image source={require("../assets/ddd.jpg")} style={styles.avatar} />
@@ -52,6 +55,7 @@ const SettingsScreen = () => {
           <Text style={styles.name}>John Doe</Text>
           <Text style={styles.grade}>Grade 5</Text>
         </View>
+
         <TouchableOpacity
           style={styles.addButton}
           onPress={() => navigation.navigate("RegisterChild")}

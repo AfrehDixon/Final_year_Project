@@ -17,6 +17,11 @@ import RegisterChild from "./screen/RegisterChild";
 import TestTwoScreen from "./screen/TestTwoScreen";
 import TestThreeScreen from "./screen/TestThreeScreen";
 import TestFourScreen from "./screen/TestFourScreen";
+import TestResult from "./screen/TestResult";
+import TestOneInitialScreen from "./screen/TestOneInitialScreen";
+import TestTwoInitialScreen from "./screen/TestTwoInitialScreen";
+import TestThreeInitialScreen from "./screen/TestThreeInitialScreen";
+import TestFourInitialScreen from "./screen/TestFourInitialScreen";
 
 const Stack = createNativeStackNavigator();
 export default function Navigation() {
@@ -57,6 +62,8 @@ export default function Navigation() {
           component={OTPScreen}
           options={{
             headerShown: true,
+            headerLeft: null,
+            // headerBackVisible: false,
             title: "OTP Verification",
             headerTitleAlign: "center",
           }}
@@ -77,8 +84,18 @@ export default function Navigation() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="TestOneInitial"
+          component={TestOneInitialScreen}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
           name="TestOne"
           component={TestOneScreen}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="TestTwoInitial"
+          component={TestTwoInitialScreen}
           options={{ headerShown: true }}
         />
         <Stack.Screen
@@ -87,13 +104,28 @@ export default function Navigation() {
           options={{ headerShown: true }}
         />
         <Stack.Screen
+          name="TestThreeInitial"
+          component={TestThreeInitialScreen}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
           name="TestThree"
           component={TestThreeScreen}
           options={{ headerShown: true }}
         />
         <Stack.Screen
+          name="TestFourInitial"
+          component={TestFourInitialScreen}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
           name="TestFour"
           component={TestFourScreen}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="Result"
+          component={TestResult}
           options={{ headerShown: true }}
         />
       </Stack.Navigator>
