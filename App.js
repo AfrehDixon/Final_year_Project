@@ -23,16 +23,51 @@
 import { StatusBar } from "expo-status-bar";
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 //#endregion
-
+import { useCallback } from "react";
 import Onbording1 from "./screen/Onbording1";
 import Navigation from "./Navigation";
 import { useEffect, useState } from "react";
 import LoginScreen from "./screen/LoginScreen";
+// import { useFonts } from "expo-font";
+// import * as SplashScreen from "expo-splash-screen";
 
+// SplashScreen.preventAutoHideAsync();
 const image = require("./assets/splashscreen.jpeg");
 export default function App() {
+  // const [appIsReady, setAppIsReady] = useState(false);
+
+  // useEffect(() => {
+  //   async function prepare() {
+  //     try {
+  //       await Font.loadAsync(Entypo.font);
+
+  //       await new Promise((resolve) => setTimeout(resolve, 2000));
+  //     } catch (e) {
+  //       console.warn(e);
+  //     } finally {
+  //       // Tell the application to render
+  //       setAppIsReady(true);
+  //     }
+  //   }
+
+  //   prepare();
+  // }, []);
+
+  // const onLayoutRootView = useCallback(async () => {
+    // if (appIsReady) {
+    //   await SplashScreen.hideAsync();
+    // }
+
+  //   if (appIsReady) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [appIsReady]);
+
+  // if (!appIsReady) {
+  //   return null;
+  // }
   return (
-    <View style={styles.container}>
+    <View style={styles.container} >
       <Navigation />
     </View>
   );

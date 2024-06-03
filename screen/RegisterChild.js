@@ -5,99 +5,114 @@ import {
   // TextInput,
   TouchableOpacity,
   StyleSheet,
+  ScrollView
 } from "react-native";
 import Colors from "../config/Colors";
-import App from "../App";
 import AppButton from "../component/AppButton";
 import { Text, TextInput } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const RegisterChild = ({ navigation }) => {
   const [selectedAge, setSelectedAge] = useState("");
   const [childName, setChildName] = useState("");
+  const [gender, setgender] = useState("");
   const [childGrade, setChildGrade] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // const handleAgeSelection = (age) => {
   //   setSelectedAge(age);
   // };
 
   const handleRegisterChild = async () => {
-    // Perform registration logic here, using selectedAge and childName
-    console.log("Registered Child: ", { age: selectedAge, name: childName });
-    // You can perform any further actions here, like sending data to backend, etc.
+    const token = await AsyncStorage.getItem("userToken");
+
+    // console.log("Registered Child: ", { age: selectedAge, name: childName });
+
     const registerchildlink =
-      "https://dyslexia-backend.onrender.com/api/v1/child";
+      "https://dyslexia-backend.onrender.com/api/v1/user/register-child";
     try {
       const res = await fetch(registerchildlink, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Access-Token": token,
         },
         body: JSON.stringify({
           name: childName,
           age: selectedAge,
-          parentId: "66435f87bb456c37f2760a73",
-          grade: childGrade,
+          grade: 4,
+          gender: gender,
         }),
       });
+
       const data = await res.json();
       console.log(data);
-      // Navigate to some screen on success
-      navigation.navigate("Home");
-    } catch (e) {
-      console.log(e);
+      // const { age, name, parent, grade } = data;
+      // console.log(age, name, parent, grade);
+      // const text = await res.text();
+
+      // console.log("Raw response:", text); // Log the raw response
+      // const result = JSON.parse(text);
+      // console.log(res);
+      navigation.navigate("Home", { data });
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "red", justifyContent: "center" }}>
-      <View style={{ padding: 20 }}>
-        <Text style={styles.heading}>Register Your Child</Text>
-        <View style={{ marginBottom: 20 }}>
-          <TextInput
-            placeholder="child's name"
-            value={childName}
-            onChangeText={setChildName}
-            leftIcon={{ type: "font-awesome", name: "envelope" }}
-            keyboardType="default"
-            autoCapitalize="none"
-            style={{
-              width: "100%",
-              backgroundColor: Colors.lightPrimary,
-              height: 60,
-            }}
-          />
-        </View>
-        <View style={{ marginBottom: 20, flexDirection: "row", gap: 4 }}>
-          <TextInput
-            placeholder="Age"
-            value={selectedAge}
-            onChangeText={setSelectedAge}
-            leftIcon={{ type: "font-awesome", name: "envelope" }}
-            keyboardType="number-pad"
-            autoCapitalize="none"
-            style={{
-              width: "49%",
-              backgroundColor: Colors.lightPrimary,
-              height: 60,
-            }}
-          />
-          <TextInput
-            placeholder="Gender"
-            value={selectedAge}
-            onChangeText={setSelectedAge}
-            leftIcon={{ type: "font-awesome", name: "envelope" }}
-            keyboardType="number-pad"
-            autoCapitalize="none"
-            style={{
-              width: "50%",
-              backgroundColor: Colors.lightPrimary,
-              height: 60,
-            }}
-          />
-        </View>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View
+        style={{ flex: 1, backgroundColor: "#fff", justifyContent: "center" }}
+      >
+        <View style={{ padding: 20 }}>
+          <Text style={styles.heading}>Register Your Child</Text>
+          <View style={{ marginBottom: 20 }}>
+            <TextInput
+              placeholder="child's name"
+              value={childName}
+              onChangeText={setChildName}
+              leftIcon={{ type: "font-awesome", name: "envelope" }}
+              keyboardType="default"
+              autoCapitalize="none"
+              style={{
+                width: "100%",
+                backgroundColor: Colors.lightPrimary,
+                height: 60,
+              }}
+            />
+          </View>
+          <View style={{ marginBottom: 20, flexDirection: "row", gap: 4 }}>
+            <TextInput
+              placeholder="Age"
+              value={selectedAge}
+              onChangeText={setSelectedAge}
+              leftIcon={{ type: "font-awesome", name: "envelope" }}
+              keyboardType="number-pad"
+              autoCapitalize="none"
+              style={{
+                width: "49%",
+                backgroundColor: Colors.lightPrimary,
+                height: 60,
+              }}
+            />
+            <TextInput
+              placeholder="Gender"
+              value={gender}
+              onChangeText={setgender}
+              leftIcon={{ type: "font-awesome", name: "envelope" }}
+              // keyboardType=""
+              autoCapitalize="none"
+              style={{
+                width: "50%",
+                backgroundColor: Colors.lightPrimary,
+                height: 60,
+              }}
+            />
+          </View>
 
-        {/* Age Selection */}
-        {/* <View style={styles.ageContainer}>
+          {/* Age Selection */}
+          {/* <View style={styles.ageContainer}>
           <TouchableOpacity
             style={[styles.ageOption, selectedAge === 5 && styles.selected]}
             onPress={() => handleAgeSelection(5)}
@@ -151,9 +166,10 @@ const RegisterChild = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View> */}
-        <AppButton label="Register" onPress={handleRegisterChild} />
+          <AppButton label="Register" onPress={handleRegisterChild} />
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

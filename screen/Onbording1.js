@@ -10,6 +10,7 @@ import React from "react";
 import Onboarding from "react-native-onboarding-swiper";
 import Colors from "../config/Colors";
 
+
 const Dots = ({ selected }) => {
   let backgroundColor;
   backgroundColor = selected ? Colors.background : "#808080";
@@ -67,6 +68,7 @@ const OnboardingScreen = ({ navigation }) => {
         color: Colors.background,
         fontWeight: "bold",
         marginTop: -50,
+        // fontFamily: 'Poppins-Regular',
       }}
       SkipButtonComponent={(SkipButton) => (
         <TouchableOpacity

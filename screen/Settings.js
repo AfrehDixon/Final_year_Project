@@ -21,19 +21,21 @@ const SettingsScreen = () => {
   const [isSoundEnabled, setIsSoundEnabled] = useState(false);
 
   useEffect(() => {
-    const playSound = async () => {
-      const { sound } = await Audio.Sound.createAsync(
-        require("../assets/child.mp3") // Ensure you have this file in your assets folder
-      );
-      setSound(sound);
-      await sound.playAsync();
+     
+      const playSound = async () => {
+        const { sound } = await Audio.Sound.createAsync(
+          require("../assets/child.mp3") // Ensure you have this file in your assets folder
+        );
+        setSound(sound);
+        await sound.playAsync();
+      
     };
 
     // if (isSoundEnabled) {
     //   playSound();
     // }
     {
-      isSoundEnabled ? playSound() : null;
+      isSoundEnabled ? playSound() : setIsSoundEnabled(false);
     }
 
     return () => {
@@ -41,7 +43,7 @@ const SettingsScreen = () => {
         sound ? sound.unloadAsync() : null;
       }
     };
-  }, [isSoundEnabled]);
+  }, [isSoundEnabled ]);
 
   return (
     <View style={styles.container}>
@@ -52,8 +54,8 @@ const SettingsScreen = () => {
       <View style={styles.avatarContainer}>
         <Image source={require("../assets/ddd.jpg")} style={styles.avatar} />
         <View style={styles.infoContainer}>
-          <Text style={styles.name}>John Doe</Text>
-          <Text style={styles.grade}>Grade 5</Text>
+          <Text style={styles.name}>Dixon Afreh</Text>
+          <Text style={styles.grade}>Level 100</Text>
         </View>
 
         <TouchableOpacity

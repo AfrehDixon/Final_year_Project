@@ -21,6 +21,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useRoute } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Colors from "../config/Colors";
 import FontSize from "../config/FontSize";
@@ -35,6 +37,8 @@ export default function LoginScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const route = useRoute();
+  // const {token} = route.params
 
   const openModal = () => {
     setModalVisible(!modalVisible);
@@ -44,7 +48,7 @@ export default function LoginScreen({ navigation }) {
     setModalVisible(!modalVisible);
   };
 
-  const api = "https://dyslexia-backend.onrender.com/api/v1/user";
+  const api = "https://dyslexia-backend.onrender.com/api/v1/user/signin";
   const handlelogin = async () => {
     setError(""); // Reset error message
     setLoading(true); // Set loading state
@@ -53,6 +57,8 @@ export default function LoginScreen({ navigation }) {
       setError("Please enter both email and password.");
       return;
     }
+    // setLoading(false)
+    // setError("");
 
     try {
       const res = await fetch(api, {
@@ -78,20 +84,20 @@ export default function LoginScreen({ navigation }) {
       console.log("Response data:", data);
       console.log("Response data:", res);
       console.log(email, password);
+      const {token}= data
 
       if (res.ok === true) {
         // If the status code is not 200, it means there is an error
         // If everything is successful, navigate to Home screen
-        // await AsyncStorage.setItem('userToken', data.fetchedUser.token); // Save token if needed
-        navigation.replace("RegisterChild");
+        await AsyncStorage.setItem('userToken', token); // Save token if needed
+        navigation.replace("RegisterChild",{token});
         setLoading(false); // Reset loading state
       } else if (!data.verified) {
-        // Check if the user is not verified
-        setError(data);
+        //       // Check if the user is not verified
+        setError(data.error);
+      } else {
+        setError(data.error);
       }
-      // else {
-      // setError("Invalid email or password. Please try again.");
-      // }
     } catch (error) {
       console.error("Login error:", error);
       setLoading(false);
@@ -109,7 +115,6 @@ export default function LoginScreen({ navigation }) {
             padding: Spacing * 2,
             justifyContent: "center",
             flex: 1,
-
           }}
         >
           <View
@@ -129,9 +134,11 @@ export default function LoginScreen({ navigation }) {
             </Text>
           </View>
           <View
-            style={{
-              // marginVertical: Spacing * 5,
-            }}
+            style={
+              {
+                // marginVertical: Spacing * 5,
+              }
+            }
           >
             <View style={{ marginBottom: 15 }}>
               <TextInput
@@ -155,7 +162,6 @@ export default function LoginScreen({ navigation }) {
                 alignItems: "center",
                 marginBottom: 15,
                 width: "100%",
-                
               }}
             >
               {/* <TextInput
@@ -209,16 +215,20 @@ export default function LoginScreen({ navigation }) {
             onPress={() => navigation.navigate("ForgetPassword", { email })}
           >
             {error ? (
-              <Text style={{ color: "red", marginBottom: 15 ,marginTop:15}}>{error}</Text>
+              <Text style={{ color: "red", marginBottom: 15, marginTop: 15 }}>
+                {error}
+              </Text>
             ) : null}
-            <Pressable onPress={openModal} style={{alignSelf:'flex-end',justifyContent:'flex-end'}}>
+            <Pressable
+              onPress={openModal}
+              style={{ alignSelf: "flex-end", justifyContent: "flex-end" }}
+            >
               <Text
                 style={{
                   fontSize: FontSize.medium,
                   color: Colors.primary,
                   alignSelf: "flex-end",
                   marginTop: 10,
-                  
                 }}
               >
                 Forgot your password ?

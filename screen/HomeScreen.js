@@ -15,12 +15,16 @@ import {
 import Colors from "../config/Colors";
 // import { LineChart } from "react-native-svg-charts";
 import FontSize from "../config/FontSize";
+import { useRoute } from "@react-navigation/native";
 // import CardContent from "react-native-paper/lib/typescript/components/Card/CardContent";
 // import ListIcon from "react-native-paper/lib/typescript/components/List/ListIcon";
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
+  const route = useRoute();
+  const { data } = route.params
+  // const {age ,grade,name}= data
 
-  const userName = "Joe";
+  const userName = data.name;
   return (
     <View style={styles.container}>
       {/* Top Bar */}

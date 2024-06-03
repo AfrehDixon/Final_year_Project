@@ -2,8 +2,6 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { IconButton, Button } from "react-native-paper";
 
-
-
 const TestOneInitialScreen = ({ navigation }) => {
   const handleStartTest = () => {
     navigation.navigate("TestOne");
@@ -18,26 +16,27 @@ const TestOneInitialScreen = ({ navigation }) => {
 
       <View style={styles.section}>
         <View style={styles.divider} />
-        <Text style={styles.heading}>Instructions:</Text>
-        <View style={styles.divider} />
-        <Text style={styles.instructionText}>
-          Solve the test by selecting all the letter "b" in the 5 by 5 grid.
-        </Text>
-        <View style={styles.divider} />
+        <Text style={styles.heading}>Instructions</Text>
       </View>
 
       <View style={styles.section}>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
-          <Text>Better understanding of your learning profile.</Text>
+          <Text>
+            You will see a 5x5 grid containing the letters "d" and "b".
+          </Text>
         </View>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
-          <Text>Improved reading and writing skills.</Text>
+          <Text>
+            Your task is to identify and select all the "b" letters in the grid.
+          </Text>
         </View>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
-          <Text>Enhanced cognitive abilities.</Text>
+          <Text>
+            You will have 16 seconds to complete this part of the test.
+          </Text>
         </View>
       </View>
 
@@ -84,6 +83,7 @@ const styles = {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
+    width:'90%'
   },
   icon: {
     marginRight: 10,

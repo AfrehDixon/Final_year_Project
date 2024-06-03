@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import React from "react";
 import { useState, useEffect } from "react";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -24,7 +24,7 @@ import TestThreeInitialScreen from "./screen/TestThreeInitialScreen";
 import TestFourInitialScreen from "./screen/TestFourInitialScreen";
 
 const Stack = createNativeStackNavigator();
-export default function Navigation() {
+export default function Navigation({navigation}) {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -75,6 +75,8 @@ export default function Navigation() {
             headerShown: true,
             title: "Register Child",
             headerTitleAlign: "center",
+            headerLeft: () => null,
+            gestureEnabled: false,
           }}
         />
 
@@ -91,7 +93,7 @@ export default function Navigation() {
         <Stack.Screen
           name="TestOne"
           component={TestOneScreen}
-          options={{ headerShown: true }}
+          options={{ headerShown: true, headerTitleAlign: "center" }}
         />
         <Stack.Screen
           name="TestTwoInitial"
@@ -101,17 +103,17 @@ export default function Navigation() {
         <Stack.Screen
           name="TestTwo"
           component={TestTwoScreen}
-          options={{ headerShown: true }}
+          options={{ headerShown: true, headerTitleAlign: "center" }}
         />
         <Stack.Screen
           name="TestThreeInitial"
           component={TestThreeInitialScreen}
-          options={{ headerShown: true }}
+          options={{ headerShown: true, headerTitleAlign: "center" }}
         />
         <Stack.Screen
           name="TestThree"
           component={TestThreeScreen}
-          options={{ headerShown: true }}
+          options={{ headerShown: true, headerTitleAlign: "center" }}
         />
         <Stack.Screen
           name="TestFourInitial"
@@ -126,7 +128,14 @@ export default function Navigation() {
         <Stack.Screen
           name="Result"
           component={TestResult}
-          options={{ headerShown: true }}
+          options={{
+            headerShown: true,
+            headerTitleAlign: "center",
+            headerLeft: () => null,
+            headerRight: () => (
+              <Button title="Home" onPress={navigation.navigate("Home")} />
+            ),
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

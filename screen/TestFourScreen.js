@@ -10,9 +10,6 @@ const TestFourScreen = () => {
 
   const correctWords = [
     "yam",
-    "kenkey",
-    "banku",
-    "plantain",
     "mango",
     "rice",
     "fish",
@@ -80,13 +77,13 @@ const TestFourScreen = () => {
     const TestFourArray = [...FinalArrayPassThree, TestFour];
     const data = [...FinalArrayPassThree, ...TestFourArray[20]];
     navigation.navigate("Result", { data });
-    const FinalData = JSON.stringify({
-      data,
-    });
+    // const FinalData = JSON.stringify({
+    //   data,
+    // });
 
     // console.log(data);
-    console.log(FinalData);
-    SendResults(FinalData);
+    // console.log(data);
+    // SendResults(FinalData);
   };
 
   const onStart = () => {
@@ -136,24 +133,24 @@ const TestFourScreen = () => {
   const accuracy = hits + misses > 0 ? hits / clicks : 0;
   const missRate = clicks > 0 ? misses / clicks : 0;
 
-  const api = "https://game-model-2.onrender.com/predict";
-  const SendResults = async (FinalData) => {
-    try {
-      const res = await fetch(api, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({ data: FinalData }),
-      });
-      // console.log(body);
-      const result = await res.json();
-      console.log(result);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const api = "https://game-model-2.onrender.com/predict";
+  // const SendResults = async (FinalData) => {
+  //   try {
+  //     const res = await fetch(api, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Accept: "application/json",
+  //       },
+  //       body: JSON.stringify({ data: FinalData }),
+  //     });
+  //     // console.log(body);
+  //     const result = await res.json();
+  //     console.log(result);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   return (
     <View style={styles.container}>
@@ -198,16 +195,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   box: {
-    width: "20%",
+    // width: "15%",
+    width: 60,
+    height:60,
     aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#000",
     margin: 5,
+    borderRadius: 5,
+
   },
   letter: {
     fontSize: 24,
+    padding: 10,
+    textAlign:'center'
   },
   scoreContainer: {
     marginTop: 20,

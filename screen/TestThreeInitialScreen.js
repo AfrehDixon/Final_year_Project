@@ -5,8 +5,8 @@ import { IconButton, Button } from "react-native-paper";
 // Replace with your icon library
 
 const TestThreeInitialScreen = ({ navigation }) => {
-    const route = useRoute();
-    const { FinalArrayPass } = route.params;
+  const route = useRoute();
+  const { FinalArrayPass } = route.params;
   const handleStartTest = () => {
     navigation.navigate("TestThree", { FinalArrayPass });
   };
@@ -20,26 +20,26 @@ const TestThreeInitialScreen = ({ navigation }) => {
 
       <View style={styles.section}>
         <View style={styles.divider} />
-        <Text style={styles.heading}>Instructions:</Text>
-        <View style={styles.divider} />
-        <Text style={styles.instructionText}>
-          Solve the test by selecting all the letter "b" in the 5 by 5 grid.
-        </Text>
-        <View style={styles.divider} />
+        <Text style={styles.heading}>Instructions</Text>
       </View>
 
       <View style={styles.section}>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
-          <Text>Better understanding of your learning profile.</Text>
+          <Text>You will see a scramble of 5 letter words</Text>
         </View>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
-          <Text>Improved reading and writing skills.</Text>
+          <Text>
+            Your task is to identify and click on the letter provided below that
+            will make the word complete
+          </Text>
         </View>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
-          <Text>Enhanced cognitive abilities.</Text>
+          <Text>
+            You will have 40 seconds to complete this part of the test.
+          </Text>
         </View>
       </View>
 
@@ -86,6 +86,7 @@ const styles = {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
+    width:'90%'
   },
   icon: {
     marginRight: 10,

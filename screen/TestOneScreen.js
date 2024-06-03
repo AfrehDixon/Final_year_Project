@@ -43,7 +43,7 @@ const TestOneScreen = () => {
   const [misses, setMisses] = useState(0);
 
   const navigateToNext = () => {
-    const stateArray = [1, 7 , hits, clicks, misses, hits, accuracy,missRate ];
+    const stateArray = [1, 7, hits, clicks, misses, hits, accuracy, missRate];
     navigation.navigate("TestTwoInitial", { stateArray });
     console.log(stateArray);
   };
@@ -95,7 +95,7 @@ const TestOneScreen = () => {
     }
   }, [timer]);
 
-  const accuracy = hits + misses > 0 ? hits / clicks:0
+  const accuracy = hits + misses > 0 ? hits / clicks : 0;
   const missRate = clicks > 0 ? misses / clicks : 0;
 
   return (
@@ -112,12 +112,8 @@ const TestOneScreen = () => {
         ))}
       </View>
       <View style={styles.scoreContainer}>
-        {/* <Text style={styles.score}>Hits: {hits}</Text> */}
-        {/* <Text style={styles.score}>Misses: {misses}</Text> */}
-        <Text style={styles.score}>Clicks: {clicks}</Text>
-        {/* <Text style={styles.score}>Accuracy: {accuracy.toFixed(1)}</Text> */}
-        {/* <Text style={styles.score}>Miss Rate: {missRate.toFixed(1)}</Text> */}
-        <Text style={styles.timer}>Time: {timer}</Text>
+        <Text style={styles.score}>Number of clicks : {clicks}</Text>
+        <Text style={styles.timer}>Timer: {timer}</Text>
       </View>
     </View>
   );
@@ -128,12 +124,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    // backgroundColor: "red",
   },
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
     width: "80%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   box: {
     width: "20%",
@@ -143,6 +141,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#000",
     margin: 5,
+    borderRadius: 5,
   },
   letter: {
     fontSize: 24,

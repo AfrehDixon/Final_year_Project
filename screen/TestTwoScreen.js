@@ -49,9 +49,9 @@ const TestScreenTwo = ({ navigation }) => {
   // const [stateArray, setStateArray] = useState(route.params.startArray);
 
   const navigateToNext = () => {
-    const TestTwo = [ hits, clicks, misses, hits, accuracy, missRate]
+    const TestTwo = [hits, clicks, misses, hits, accuracy, missRate];
     const TestTwoArray = [...stateArray, TestTwo];
-    const FinalArrayPass = [...stateArray , ...TestTwoArray[8]];
+    const FinalArrayPass = [...stateArray, ...TestTwoArray[8]];
     navigation.navigate("TestThreeInitial", { FinalArrayPass });
     console.log(FinalArrayPass);
   };
@@ -104,8 +104,8 @@ const TestScreenTwo = ({ navigation }) => {
     setLetter(randomIndex);
   };
 
- const accuracy = hits + misses > 0 ? hits / clicks : 0;
- const missRate = clicks > 0 ? misses / clicks : 0;
+  const accuracy = hits + misses > 0 ? hits / clicks : 0;
+  const missRate = clicks > 0 ? misses / clicks : 0;
 
   return (
     <View style={styles.container}>
@@ -121,12 +121,8 @@ const TestScreenTwo = ({ navigation }) => {
         ))}
       </View>
       <View>
-        {/* <Text style={styles.score}>Score: {score}</Text> */}
-        {/* <Text style={styles.hits}>Hits: {hits}</Text> */}
-        {/* <Text style={styles.misses}>Misses: {misses}</Text> */}
         <Text style={styles.clicks}>Clicks: {clicks}</Text>
-        {/* <Text style={styles.accuracy}>Accuracy: {accuracy.toFixed(1)}</Text> */}
-        {/* <Text style={styles.missRate}>Miss Rate: {missRate.toFixed(1)}</Text> */}
+
         <Text style={styles.timer}>Time: {timer}</Text>
       </View>
     </View>
@@ -143,15 +139,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     width: "80%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   box: {
     width: "20%",
-    height: 50,
+    height: 70,
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#000",
     margin: 5,
+    borderRadius: 5,
   },
   letter: {
     fontSize: 24,

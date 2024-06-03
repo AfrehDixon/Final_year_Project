@@ -7,11 +7,14 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Learn from "../screen/Learn";
 import Settings from "../screen/Settings";
 import HomeScreen from "../screen/HomeScreen";
+import { useRoute } from "@react-navigation/native";
 // import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Tab = createBottomTabNavigator();
 
 const Homepage = () => {
+  const route = useRoute()
+  const {data} = route.params
   return (
     <Tab.Navigator
       screenOptions={({ route, focused }) => ({
@@ -38,6 +41,7 @@ const Homepage = () => {
         name="HomeScreen"
         component={HomeScreen}
         options={{ headerShown: false }}
+        initialParams={{data: data}}
       />
       {/* <Tab.Screen name="Learn" component={Learn} /> */}
       <Tab.Screen

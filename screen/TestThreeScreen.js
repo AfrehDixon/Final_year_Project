@@ -38,7 +38,7 @@ const TestThreeScreen = ({ navigation }) => {
   const { FinalArrayPass } = route.params;
 
   const navigateToNext = () => {
-    const TestThree = [hits, clicks, misses, score,accuracy,missRate];
+    const TestThree = [hits, clicks, misses, score, accuracy, missRate];
     const TestThreeArray = [...FinalArrayPass, TestThree];
     const FinalArrayPassThree = [...FinalArrayPass, ...TestThreeArray[14]];
     navigation.navigate("TestFourInitial", { FinalArrayPassThree });
@@ -69,60 +69,17 @@ const TestThreeScreen = ({ navigation }) => {
     }
   }, [timer]);
 
-  // const onStart = () => {
-  //   setTimerId(
-  //     setInterval(() => {
-  //       setTimer((state) => state + 1);
-  //     }, 1000)
-  //   );
-  // };
-
-  // const onStop = () => {
-  //   clearInterval(timerId);
-  // };
-
-  // useEffect(() => {
-  //   onStart();
-  //   return () => clearInterval(timerId);
-  // }, []);
-
   useEffect(() => {
     setWord(words[index]);
     setOptions(generateOptions(words[index][4]));
   }, [index]);
 
-  // useEffect(() => {
-  //   if (clicks > 0) {
-  //     setMissRate((misses / clicks) * 100);
-  //   }
-  // }, [clicks, misses]);
-
-  // useEffect(() => {
-  //   const id = setInterval(() => {
-  //     setTimer((prevTimer) => prevTimer + 1);
-  //   }, 1000);
-  //   setTimerId(id);
-
-  //   return () => clearInterval(id);
-  // }, []);
-
-  // const navigateToNext = () => {
-  //   navigation.navigate("TestFour");
-  //   // sendStatsToBackend();
-  // };
   useEffect(() => {
     if (timer > 41) {
       onStop();
       navigateToNext();
     }
   }, [timer]);
-
-  // useEffect(() => {
-  //   if (timer > 41) {
-  //     clearInterval(timerId);
-  //     navigation.navigate("TestFour");
-  //   }
-  // }, [timer]);
 
   const generateOptions = (correctLetter) => {
     const letters = "abcdefghijklmnopqrstuvwxyz";
@@ -149,8 +106,8 @@ const TestThreeScreen = ({ navigation }) => {
       setMisses(misses + 1);
     }
   };
-    const accuracy = hits + misses > 0 ? hits / clicks : 0;
-    const missRate = clicks > 0 ? misses / clicks : 0;
+  const accuracy = hits + misses > 0 ? hits / clicks : 0;
+  const missRate = clicks > 0 ? misses / clicks : 0;
 
   return (
     <View style={styles.container}>
@@ -160,7 +117,7 @@ const TestThreeScreen = ({ navigation }) => {
             <Text style={styles.letter}>{letter}</Text>
           </View>
         ))}
-        <View style={styles.gridItem}>
+        <View style={styles.gridItemEmpty}>
           <Text style={styles.letter}>_</Text>
         </View>
       </View>
@@ -176,17 +133,11 @@ const TestThreeScreen = ({ navigation }) => {
         ))}
       </View>
       <View style={styles.stats}>
-        {/* <Text style={styles.statText}>Score: {score}</Text> */}
         <Text style={styles.statText}>Clicks: {clicks}</Text>
-        {/* <Text style={styles.statText}>Hits: {hits}</Text> */}
-        {/* <Text style={styles.statText}>Misses: {misses}</Text> */}
-        {/* <Text style={styles.statText}>Miss Rate: {missRate.toFixed(1)}</Text> */}
-        {/* <Text style={styles.statText}>Accuracy: {accuracy.toFixed(1)}</Text> */}
       </View>
       <View>
         <Text style={styles.timer}>Time: {timer}</Text>
       </View>
-      {/* {message && <Text style={styles.message}>{message}</Text>} */}
     </View>
   );
 };
@@ -203,14 +154,25 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   gridItem: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     margin: 5,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#4682B4",
+    // backgroundColor: "#4682B4",
+    backgroundColor: "#7ac18a",
     borderRadius: 5,
   },
+  gridItemEmpty: {
+    backgroundColor: "#ffdde8",
+    width: 50,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    margin:5
+  },
+
   letter: {
     fontSize: 32,
     color: "#fff",
@@ -222,13 +184,17 @@ const styles = StyleSheet.create({
   },
   optionButton: {
     backgroundColor: "#4682B4",
-    padding: 15,
+    padding: 10,
     margin: 5,
     borderRadius: 5,
+    width: 40,
+    height: 50,
+    textAlign: 'center'
   },
   optionText: {
     color: "#fff",
     fontSize: 20,
+    textAlign:'center'
   },
   stats: {
     marginTop: 20,

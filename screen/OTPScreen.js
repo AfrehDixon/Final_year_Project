@@ -9,6 +9,7 @@ import {
   Image,
   SafeAreaView,
   Pressable,
+  ScrollView,
   // TouchableWithoutFeedback
 } from "react-native";
 import Colors from "../config/Colors";
@@ -27,10 +28,11 @@ export default function OTPScreen({ navigation }) {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleOtpInput = (otp) => {
     setOTP(otp);
-    setOtpSent(!otpSent);
+    setOtpSent(true);
   };
 
   const optlink =
@@ -47,6 +49,7 @@ export default function OTPScreen({ navigation }) {
         }),
       });
       console.log("OTP Sent");
+      setOtpSent(true);
     } catch (e) {
       console.log(e);
     }
@@ -55,6 +58,10 @@ export default function OTPScreen({ navigation }) {
   const OTP =
     "https://dyslexia-backend.onrender.com/api/v1/email_verification/verify";
   const handleOTP = async () => {
+    if (!otp) {
+      setMessage("OTP empty");
+      return;
+    }
     setError("");
     setLoading(true);
     try {
@@ -69,134 +76,144 @@ export default function OTPScreen({ navigation }) {
         }),
       });
       const data = await res.json();
-      const { verified } = data;
+      const { verified, token } = data;
       console.log(res);
       // const { ok } = data;
       console.log(data);
       console.log(email, otp);
       console.log(data.verified);
-      if (verified === true) {
-        setError(false); // Reset error state
-        navigation.navigate("Login"); // Navigate to SignIn page
+      if (res.ok === true) {
+        setError(false);
+        navigation.navigate("Login", { token });
       } else {
         setError(true);
-        setLoading(false); // Set error state to true
+        setLoading(false);
+        setMessage(data.error);
+        console.log(data.error);
       }
 
       // console.log(data)
     } catch (e) {
       console.log(e);
       setLoading(false);
-      setError(true);
-      // Set error state to true
+      // setError(true);
     }
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : null}
-        style={styles.keyboardAvoidingView}
-      >
-        <View style={styles.innerContainer}>
-          <Image
-            source={require("../assets/codepic.png")}
-            style={styles.image}
-          />
-          <Text style={styles.title}>Verify your email address</Text>
-          <Text style={styles.subtitle}>
-            Enter 4 digits code received on your email
-          </Text>
-          <Text style={styles.emailText}>{email}</Text>
-
-          <View style={styles.otpContainer}>
-            <OTPInputView
-              style={styles.otpInputView}
-              pinCount={4}
-              autoFocusOnLoad
-              codeInputFieldStyle={styles.otpInputField}
-              codeInputHighlightStyle={styles.otpInputHighlight}
-              placeholderTextColor="gray"
-              keyboardType="number-pad"
-              onCodeChanged={handleOtpInput}
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : null}
+          style={styles.keyboardAvoidingView}
+        >
+          <View style={styles.innerContainer}>
+            <Image
+              source={require("../assets/codepic.png")}
+              style={styles.image}
             />
-            {/* {error && (
-              <Text style={{ color: "red", marginTop: 10 }}>
-                Invalid OTP. Please try again.
-              </Text>
-            )} */}
-            {/* {error ? (
+            <Text style={styles.title}>Verify your email address</Text>
+            <Text style={styles.subtitle}>
+              Enter 4 digits code received on your email
+            </Text>
+            <Text style={styles.emailText}>{email}</Text>
+
+            <View style={styles.otpContainer}>
+              <OTPInputView
+                style={styles.otpInputView}
+                pinCount={4}
+                autoFocusOnLoad
+                codeInputFieldStyle={styles.otpInputField}
+                codeInputHighlightStyle={styles.otpInputHighlight}
+                placeholderTextColor="gray"
+                keyboardType="number-pad"
+                onCodeChanged={handleOtpInput}
+              />
+
+              {/* {error ? (
               <Text style={{ color: "red", marginTop: 10 }}>
                 Invalid OTP. Please try again.
               </Text>
             ) : null} */}
-            {/* <TouchableOpacity style={styles.submitButton} onPress={handleOTP}>
+              {/* <TouchableOpacity style={styles.submitButton} onPress={handleOTP}>
               <Text style={styles.submitButtonText}>Submit</Text>
             </TouchableOpacity> */}
-            <TouchableOpacity
-              style={{
-                padding: Spacing * 2,
-                backgroundColor: Colors.background,
-                marginVertical: Spacing * 3,
-                borderRadius: Spacing,
-                shadowColor: Colors.primary,
-                shadowOffset: {
-                  width: 0,
-                  height: Spacing,
-                },
-                shadowOpacity: 0.3,
-                shadowRadius: Spacing,
-              }}
-              onPress={handleOTP}
-              disabled={loading}
-            >
-              {loading ? (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: 10,
-                  }}
-                >
-                  <ActivityIndicator size="small" color="white" />
-                  <Text
-                    style={{ color: "white", fontSize: 16, fontWeight: "bold" }}
+              <TouchableOpacity
+                style={{
+                  padding: Spacing * 2,
+                  backgroundColor: Colors.background,
+                  marginVertical: Spacing * -3,
+                  borderRadius: Spacing,
+                  shadowColor: Colors.primary,
+                  shadowOffset: {
+                    width: 0,
+                    height: Spacing,
+                  },
+                  shadowOpacity: 0.3,
+                  shadowRadius: Spacing,
+                }}
+                onPress={handleOTP}
+                disabled={loading}
+              >
+                {loading ? (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: 10,
+                    }}
                   >
-                    Loading...
+                    <ActivityIndicator size="small" color="white" />
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Loading...
+                    </Text>
+                  </View>
+                ) : (
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: "bold",
+                      textAlign: "center",
+                    }}
+                  >
+                    Submit
                   </Text>
-                </View>
-              ) : (
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    textAlign: "center",
-                  }}
-                >
-                  Submit
+                )}
+              </TouchableOpacity>
+              {/* {error && <Text style={{ color: "red" }}>{message}</Text>} */}
+
+              <Pressable onPress={sendOtp}>
+                <Text style={{ color: "blue", marginTop: 50, fontSize: 15 }}>
+                  Resend OTP
                 </Text>
-              )}
-            </TouchableOpacity>
-            <Pressable onPress={sendOtp}>
-              <Text style={{ color: "red", marginTop: 5, fontSize: 15 }}>
-                Resend OTP
-              </Text>
-              <Text>{setOtpSent ? <Text>OTP sent</Text> : "null"}</Text>
-            </Pressable>
-            {/* <Button label="Send OTP" onPress={sendOtp} /> */}
+                {/* <Text> */}
+                {setOtpSent && (
+                  <Text style={{ color: "green", fontSize: 17 }}>OTP sent</Text>
+                )}
+                {/* </Text> */}
+              </Pressable>
+              {/* <Button label="Send OTP" onPress={sendOtp} /> */}
+              {error && <Text style={{ color: "red" }}>{message}</Text>}
+            </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    // backgroundColor: "red",
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -206,6 +223,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
+    // backgroundColor: "blue",
   },
   image: {
     width: 200,
@@ -234,11 +252,14 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 22,
     borderBottomColor: Colors.success,
+    // backgroundColor: 'red',
+    marginTop: -10,
   },
   otpInputView: {
     width: "100%",
     height: 200,
     paddingHorizontal: 32,
+    marginTop: -60,
     borderBottomColor: Colors.success,
     // borderColor: Colors.success,
     // borderWidth: 1,
