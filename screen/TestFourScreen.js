@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 
-const TestFourScreen = () => {
+const TestFourScreen = ({navigation}) => {
   const navigation = useNavigation();
   const route = useRoute();
   const { FinalArrayPassThree } = route.params;

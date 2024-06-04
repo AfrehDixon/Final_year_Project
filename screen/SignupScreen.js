@@ -328,7 +328,7 @@ export default function SignupScreen({ navigation }) {
                 <Text
                   style={{
                     // fontFamily: Font["poppins-semiBold"],
-                    color: Colors.text,
+                    color: Colors.background,
                     textAlign: "center",
                     fontSize: FontSize.medium,
                   }}
@@ -337,7 +337,7 @@ export default function SignupScreen({ navigation }) {
                 </Text>
               </TouchableOpacity>
 
-              <View
+              {/* <View
                 style={{
                   marginVertical: Spacing * 2,
                 }}
@@ -375,7 +375,7 @@ export default function SignupScreen({ navigation }) {
                     />
                   </TouchableOpacity>
                 </View>
-              </View>
+              </View> */}
             </View>
           </View>
         </View>

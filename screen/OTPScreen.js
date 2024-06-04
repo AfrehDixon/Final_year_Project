@@ -103,10 +103,10 @@ export default function OTPScreen({ navigation }) {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
+        {/* <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : null}
           style={styles.keyboardAvoidingView}
-        >
+        > */}
           <View style={styles.innerContainer}>
             <Image
               source={require("../assets/codepic.png")}
@@ -122,7 +122,7 @@ export default function OTPScreen({ navigation }) {
               <OTPInputView
                 style={styles.otpInputView}
                 pinCount={4}
-                autoFocusOnLoad
+                // autoFocusOnLoad
                 codeInputFieldStyle={styles.otpInputField}
                 codeInputHighlightStyle={styles.otpInputHighlight}
                 placeholderTextColor="gray"
@@ -204,7 +204,7 @@ export default function OTPScreen({ navigation }) {
               {error && <Text style={{ color: "red" }}>{message}</Text>}
             </View>
           </View>
-        </KeyboardAvoidingView>
+        {/* </KeyboardAvoidingView> */}
       </SafeAreaView>
     </ScrollView>
   );

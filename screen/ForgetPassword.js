@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   View,
@@ -90,19 +89,18 @@ export default function ForgetPassword({ visible, onClose }) {
 
   return (
     // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      // <SafeAreaView>
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Modal
-          visible={visible}
-          animationType="slide"
-          transparent={true}
-          onRequestClose={onClose}
-        >
-          <View style={styles.modalContainer}>
-            
-            {currentStep === 1 && (
+    <SafeAreaView>
+      {/* <ScrollView contentContainerStyle={{ flexGrow: 1 }}> */}
+      <Modal
+        visible={visible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={onClose}
+      >
+        <View style={styles.modalContainer}>
+          {currentStep === 1 && (
+            <View style={styles.content}>
               <SafeAreaView>
-              <View style={styles.content}>
                 <Text style={styles.head}>Forget Password</Text>
                 <Text style={styles.title}>
                   Enter your email for the verification process.we will send 4
@@ -139,88 +137,95 @@ export default function ForgetPassword({ visible, onClose }) {
                 <View style={{ width: "100%" }}>
                   <AppButton label="Continue" onPress={handleContinueEmail} />
                 </View>
-                </View>
               </SafeAreaView>
-            )}
+            </View>
+          )}
 
-            {currentStep === 2 && (
-              <SafeAreaView
-              // behavior={Platform.OS === "ios" ? "padding" : "height"}
-              >
-                <View style={styles.content2}>
-                  <Text style={styles.head}>Enter 5 Digits Code</Text>
-                  <Text style={styles.title}>
-                    Enter the 4 digit code that you received on your email
-                  </Text>
+          {currentStep === 2 && (
+            // behavior={Platform.OS === "ios" ? "padding" : "height"}
 
-                  <KeyboardAvoidingView>
-                    <OTPInputView
-                      style={styles.otpInputView}
-                      pinCount={4}
-                      codeInputFieldStyle={styles.otpInputField}
-                      codeInputHighlightStyle={styles.otpInputHighlight}
-                      placeholderTextColor="gray"
-                      keyboardType="number-pad"
-                      onCodeChanged={handleOtpInput}
-                    />
-                    <View style={{ width: "100%" }}>
-                      <AppButton label="Continue" onPress={handleContinueOtp} />
-                    </View>
-                  </KeyboardAvoidingView>
-                  {/* <Pressable onPress={sendOtp}>
+            <View style={styles.content2}>
+              <SafeAreaView>
+                <Text style={styles.head}>Enter 5 Digits Code</Text>
+                <Text style={styles.title}>
+                  Enter the 4 digit code that you received on your email
+                </Text>
+
+                <KeyboardAvoidingView>
+                  <OTPInputView
+                    style={styles.otpInputView}
+                    pinCount={4}
+                    codeInputFieldStyle={styles.otpInputField}
+                    codeInputHighlightStyle={styles.otpInputHighlight}
+                    placeholderTextColor="gray"
+                    keyboardType="number-pad"
+                    onCodeChanged={handleOtpInput}
+                  />
+                  <View style={{ width: "100%" }}>
+                    <AppButton label="Continue" onPress={handleContinueOtp} />
+                  </View>
+                </KeyboardAvoidingView>
+                {/* <Pressable onPress={sendOtp}>
                   <Text style={styles.resendOtpText}>Resend OTP</Text>
                 </Pressable> */}
-                </View>
               </SafeAreaView>
-            )}
+            </View>
+          )}
 
-            {currentStep === 3 && (
-              <SafeAreaView >
-                <View style={styles.content}>
-                  <Text style={styles.title}>Reset your password</Text>
-                  <View style={styles.passwordInputContainer}>
-                    <TextInput
-                      placeholder="New Password"
-                      value={newPassword}
-                      onChangeText={setNewPassword}
-                      secureTextEntry={!showPassword}
-                      style={styles.textInput}
-                    />
-                    <TouchableWithoutFeedback
-                      onPress={() => setShowPassword(!showPassword)}
-                    >
-                      <Ionicons
-                        name={showPassword ? "eye-off" : "eye"}
-                        size={24}
-                        color="black"
-                        style={styles.eyeIcon}
+          {currentStep === 3 && (
+            <View style={styles.content}>
+              <SafeAreaView>
+                <Text style={styles.title}>Reset your password</Text>
+                {/* <View style={styles.passwordInputContainer}> */}
+                  <TextInput
+                    placeholder="New Password"
+                    value={newPassword}
+                    onChangeText={setNewPassword}
+                    secureTextEntry={!showPassword}
+                    style={styles.textInput}
+                    right={
+                      <TextInput.Icon
+                        icon={showPassword ? "eye-off" : "eye"}
+                        onPress={() => setShowPassword(!showPassword)}
+                        style={{ color: "black" }}
                       />
-                    </TouchableWithoutFeedback>
-                  </View>
-                  <View style={{ width: "100%" }}>
-                    <AppButton label="Reset Password" onPress={searchEmail} />
-                  </View>
+                    }
+                  />
+                  {/* <TouchableWithoutFeedback
+                    onPress={() => setShowPassword(!showPassword)}
+                  >
+                    <Ionicons
+                      name={showPassword ? "eye-off" : "eye"}
+                      size={24}
+                      color="black"
+                      style={styles.eyeIcon}
+                    />
+                  </TouchableWithoutFeedback> */}
+                {/* </View> */}
+                <View style={{ width: "100%" }}>
+                  <AppButton label="Reset Password" onPress={searchEmail} />
                 </View>
               </SafeAreaView>
-            )}
-            <Pressable onPress={onClose} style={styles.closeButton}>
-              <Text style={styles.closeButtonText}>Close</Text>
-              </Pressable>
-           
-          </View>
-        </Modal>
-    </ScrollView>
-      // </SafeAreaView>
+            </View>
+          )}
+          <Pressable onPress={onClose} style={styles.closeButton}>
+            <Text style={styles.closeButtonText}>Close</Text>
+          </Pressable>
+        </View>
+      </Modal>
+      {/* </ScrollView> */}
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   modalContainer: {
-    flex: 1,
-    justifyContent: "flex-end",
+    flex: 2,
+    // justifyContent: "flex-end",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
+    // backgroundColor: "rgba(0,0,0,0.5)",
     width: "100%",
+    backgroundColor: "red",
   },
   head: {
     fontSize: 20,
@@ -241,13 +246,14 @@ const styles = StyleSheet.create({
     shadowRadius: Spacing,
   },
   content: {
-    backgroundColor: "white",
+    backgroundColor: "yellow",
     width: "100%",
-    height: "50%",
+    height: "70%",
     padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     alignItems: "center",
+    marginBottom: 0,
   },
   content2: {
     backgroundColor: "white",
@@ -318,7 +324,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
-    width: "100%",
+    // width: "100%",
   },
   textInput: {
     width: "90%",
