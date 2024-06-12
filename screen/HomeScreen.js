@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import {
   Appbar,
@@ -16,15 +16,28 @@ import Colors from "../config/Colors";
 // import { LineChart } from "react-native-svg-charts";
 import FontSize from "../config/FontSize";
 import { useRoute } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import CardContent from "react-native-paper/lib/typescript/components/Card/CardContent";
 // import ListIcon from "react-native-paper/lib/typescript/components/List/ListIcon";
 
 const HomeScreen = ({ navigation }) => {
   const route = useRoute();
-  const { data } = route.params
+  const [child, setchild] = useState() 
+  // const { data } = route.params
   // const {age ,grade,name}= data
 
-  const userName = data.name;
+  // const userName = data.name;
+  const getchild = async () => {
+    try {
+      const Childdata = await AsyncStorage.getItem("child");  
+      const childJSON = JSON.parse(Childdata)
+      // console.log(childJSON.name);
+      setchild(childJSON);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getchild();
   return (
     <View style={styles.container}>
       {/* Top Bar */}
@@ -32,7 +45,7 @@ const HomeScreen = ({ navigation }) => {
         style={{ justifyContent: "space-between", flexDirection: "row" }}
       >
         <Appbar.Content
-          title={`Welcome ${userName}`}
+          title={`Welcome ${child?.name}`}
           style={styles.appbarContent}
         />
         {/* <MaterialCommunityIcons name="brain" size={30} color={Colors.background} /> */}
@@ -56,6 +69,21 @@ const HomeScreen = ({ navigation }) => {
             style={{ backgroundColor: Colors.background }}
           >
             Start Test
+          </Button>
+        </Card.Content>
+      </Card>
+      <Card style={styles.card}>
+        <Card.Content>
+          <Title>General Handwriting Test</Title>
+          <View style={styles.cardTextContainer2}>
+            <Title style={styles.cardText}></Title>
+          </View>
+          <Button
+            mode="contained"
+            onPress={() => navigation.navigate("TestOneInitial")}
+            style={{ backgroundColor: Colors.background }}
+          >
+            Upload Image
           </Button>
         </Card.Content>
       </Card>
@@ -133,5 +161,3 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
-
-

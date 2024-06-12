@@ -76,63 +76,7 @@ export default function SignupScreen({ navigation }) {
     }
   };
 
-  // const api = "https://dyslexia-backend.onrender.com/api/v1/user/signup";
-  // const handlesignup = async () => {
-  //   setError("");
 
-  //   setLoading(true);
-
-  //   try {
-  //     if (!(name && email && password)) {
-  //       throw Error("Empty input fields!");
-  //     } else if (!/^[a-zA-Z ]*$/.test(name)) {
-  //       throw Error("Invalid name entered");
-  //     } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-  //       throw Error("Invalid email entered");
-  //     } else if (password.length < 8) {
-  //       throw Error("Password is too short");
-  //     } else if (password !== confirmPassword) {
-  //       throw Error("Passwords do not match");
-  //     } else {
-  //       const res = await fetch(api, {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           name: name.trim(),
-  //           email: email.trim(),
-  //           password: password.trim(),
-  //         }),
-  //       });
-
-  //       const data = await res.json();
-  //       console.log(data)
-  //       console.log(res)
-
-  //       // if (res.status !== 200) {
-  //       //   // Check if the error message indicates that the email already exists
-  //       //   if (data.error === "User with the provided email already exists") {
-  //       //     setError(
-  //       //       "User with this email already exists. Please use a different email."
-  //       //     );
-  //       //   } else {
-  //       //     // Handle other error messages
-  //       //     setError(data.message || "An unexpected error occurred.");
-  //       //   }
-  //       // } else {
-  //       //   await AsyncStorage.setItem("userToken", data.token); // Save token if needed
-  //       //   navigation.replace("Home");
-  //       // }
-  //     }
-  //   } catch (error) {
-  //     console.error("Signup error:", error);
-
-  //     setError(data.error);
-  //   } finally {
-  //     setLoading(false); // Reset loading state
-  //   }
-  // };
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>

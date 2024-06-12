@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import { useRoute } from "@react-navigation/native";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 import ConfettiCannon from "react-native-confetti-cannon";
+import { useNavigation } from "@react-navigation/native";
 
-export default function TestResult() {
+
+export default function TestResult({navigation}) {
   const route = useRoute();
   const [newmessage , setMessage]= useState('')
   const { data } = route.params;
@@ -51,6 +53,7 @@ export default function TestResult() {
       <Text>{newmessage}</Text>
       {/* <TouchableOpacity onPress={SendResults}><Text>Send</Text></TouchableOpacity> */}
       <Button title="Check Result" onPress={SendResults} />
+      <Button title="Check Result" onPress={()=> navigation.navigate('Home')} />
     </View>
     // </View>
   );

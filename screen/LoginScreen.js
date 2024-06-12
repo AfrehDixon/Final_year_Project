@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Button,
   View,
@@ -29,8 +29,9 @@ import FontSize from "../config/FontSize";
 import Spacing from "../config/Spacing";
 import OTPScreen from "./OTPScreen";
 import ForgetPassword from "./ForgetPassword";
+import { AuthContext, UserContext } from "../Context";
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ navigation, setUserToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +39,9 @@ export default function LoginScreen({ navigation }) {
   const [error, setError] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const route = useRoute();
-  // const {token} = route.params
+  // const {setUserToken} = route.params
+
+  const { setToken } = useContext(AuthContext);
 
   const openModal = () => {
     setModalVisible(!modalVisible);
@@ -53,14 +56,12 @@ export default function LoginScreen({ navigation }) {
     setError(""); // Reset error message
     setLoading(true); // Set loading state
 
-    if (!email || !password) {
-      setError("Please enter both email and password.");
-      return;
-    }
-    // setLoading(false)
-    // setError("");
-
     try {
+      
+      if (!email || !password) {
+        setError("Please enter both email and password.");
+      }
+      // setLoading(false);
       const res = await fetch(api, {
         method: "POST",
         headers: {
@@ -81,17 +82,28 @@ export default function LoginScreen({ navigation }) {
         data = await res.text();
       }
 
-      console.log("Response data:", data);
-      console.log("Response data:", res);
+      console.log("Response data1:", data);
+      // console.log("Response data:", res);
       console.log(email, password);
-      const {token}= data
+      // const {tokenn}= data
 
       if (res.ok === true) {
         // If the status code is not 200, it means there is an error
         // If everything is successful, navigate to Home screen
-        await AsyncStorage.setItem('userToken', token); // Save token if needed
-        navigation.replace("RegisterChild",{token});
-        setLoading(false); // Reset loading state
+        try {
+          const token = await AsyncStorage.setItem("userToken", data.token);
+          // console.log(token);
+          setLoading(false); // Reset loading state
+          navigation.navigate("RegisterChild", { token });
+          // setToken(token);
+          console.log(await AsyncStorage.getItem("userToken"));
+        } catch (e) {
+          console.log(e);
+        }
+
+        // setUserToken(token)// Save token if needed
+
+        // navigation.navigate("Home");
       } else if (!data.verified) {
         //       // Check if the user is not verified
         setError(data.error);
@@ -101,12 +113,30 @@ export default function LoginScreen({ navigation }) {
     } catch (error) {
       console.error("Login error:", error);
       setLoading(false);
-      setError(true);
+      // setError(true);
     } finally {
       setLoading(false); // Reset loading state
     }
   };
+  // const loadAsync = async () =>{
+  // const tok = await AsyncStorage.getItem('userToken')
+  // }
+  // loadAsync()
 
+  // const getData = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem("userToken");
+  //     if (value !== null) {
+  //       // value previously stored
+  //       // console.log(value)
+  //     }
+  //   } catch (e) {
+  //     // error reading value'new
+  //     console.log('new')
+  //   }
+  //   };
+
+  //   getData()
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={styles.loginPage}>

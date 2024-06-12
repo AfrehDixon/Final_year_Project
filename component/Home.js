@@ -12,9 +12,9 @@ import { useRoute } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
-const Homepage = () => {
+const Home = ({logout}) => {
   const route = useRoute()
-  const {data} = route.params
+  // const {data} = route.params
   return (
     <Tab.Navigator
       screenOptions={({ route, focused }) => ({
@@ -41,16 +41,17 @@ const Homepage = () => {
         name="HomeScreen"
         component={HomeScreen}
         options={{ headerShown: false }}
-        initialParams={{data: data}}
+        // initialParams={{data: data}}
       />
       {/* <Tab.Screen name="Learn" component={Learn} /> */}
       <Tab.Screen
         name="Settings"
         component={Settings}
         options={{ headerTitleAlign: "center" }}
+        initialParams={{logout: logout}}
       />
     </Tab.Navigator>
   );
 };
 
-export default Homepage;
+export default Home;

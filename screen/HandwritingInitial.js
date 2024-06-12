@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { IconButton, Button } from "react-native-paper";
 
-const TestOneInitialScreen = ({ navigation }) => {
+const HandwritingInitial = ({ navigation }) => {
   const handleStartTest = () => {
     navigation.navigate("TestOne");
   };
@@ -97,4 +97,4 @@ const styles = {
   },
 };
 
-export default TestOneInitialScreen;
+export default HandwritingInitial;

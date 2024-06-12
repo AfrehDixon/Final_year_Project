@@ -28,12 +28,15 @@ import Onbording1 from "./screen/Onbording1";
 import Navigation from "./Navigation";
 import { useEffect, useState } from "react";
 import LoginScreen from "./screen/LoginScreen";
+import { AuthProvider } from "./Context";
 // import { useFonts } from "expo-font";
 // import * as SplashScreen from "expo-splash-screen";
 
 // SplashScreen.preventAutoHideAsync();
 const image = require("./assets/splashscreen.jpeg");
 export default function App() {
+  //  const [isLoading, setIsLoading] = useState(true);
+  //  const [userToken, setUserToken] = useState(null);
   // const [appIsReady, setAppIsReady] = useState(false);
 
   // useEffect(() => {
@@ -54,9 +57,9 @@ export default function App() {
   // }, []);
 
   // const onLayoutRootView = useCallback(async () => {
-    // if (appIsReady) {
-    //   await SplashScreen.hideAsync();
-    // }
+  // if (appIsReady) {
+  //   await SplashScreen.hideAsync();
+  // }
 
   //   if (appIsReady) {
   //     await SplashScreen.hideAsync();
@@ -66,9 +69,22 @@ export default function App() {
   // if (!appIsReady) {
   //   return null;
   // }
+
+  // useEffect(() => {
+  //   const checkToken = async () => {
+  //     const token = await AsyncStorage.getItem("userToken");
+  //     setUserToken(token);
+  //     setIsLoading(false);
+  //   };
+
+  //   checkToken();
+  // }, []);
+
   return (
-    <View style={styles.container} >
-      <Navigation />
+    <View style={styles.container}>
+      <AuthProvider>
+        <Navigation />
+      </AuthProvider>
     </View>
   );
 }

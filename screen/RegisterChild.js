@@ -5,7 +5,7 @@ import {
   // TextInput,
   TouchableOpacity,
   StyleSheet,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import Colors from "../config/Colors";
 import AppButton from "../component/AppButton";
@@ -54,7 +54,12 @@ const RegisterChild = ({ navigation }) => {
       // console.log("Raw response:", text); // Log the raw response
       // const result = JSON.parse(text);
       // console.log(res);
-      navigation.navigate("Home", { data });
+      try {
+        const child = await AsyncStorage.setItem("child", JSON.stringify(data));
+        navigation.navigate("Home");
+      } catch (error) {
+        console.log(error);
+      }
     } catch (error) {
       console.log(error);
     }
