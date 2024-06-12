@@ -12,33 +12,38 @@ import TestFourScreen from "./screen/TestFourScreen";
 import TestResult from "./screen/TestResult";
 import HomeScreen from "./screen/HomeScreen";
 import RegisterChild from "./screen/RegisterChild";
+import HandwritingInitial from "./screen/HandwritingInitial";
+import HandwwritingScreen from "./screen/HandwritingScreen";
+import OnboardingScreen from "./screen/Onbording1";
+import LoginScreen from "./screen/LoginScreen";
 
 const MainStack = createNativeStackNavigator();
 
 export default function MainNavigator() {
   return (
     <MainStack.Navigator>
-      <MainStack.Screen
+      {/* <MainStack.Screen
         name="Onboarding"
         component={OnboardingScreen}
         options={{ headerShown: false }}
-      />
+      /> */}
       <MainStack.Screen
         name="Home"
         component={Home}
         options={{ headerShown: false }}
       />
+
       <MainStack.Screen
-        name="RegisterChild"
-        component={RegisterChild}
-        options={{
-          headerShown: true,
-          title: "Register Child",
-          headerTitleAlign: "center",
-          headerLeft: () => null,
-          gestureEnabled: false,
-        }}
+        name="HandwritingInitial"
+        component={HandwritingInitial}
+        options={{ headerShown: false }}
       />
+      <MainStack.Screen
+        name="Handwriting"
+        component={HandwwritingScreen}
+        options={{ headerShown: false }}
+      />
+
       <MainStack.Screen
         name="TestOneInitial"
         component={TestOneInitialScreen}
@@ -119,6 +124,23 @@ export default function MainNavigator() {
         component={TestResult}
         options={{
           headerShown: true,
+          headerTitleAlign: "center",
+          headerLeft: () => null,
+          gestureEnabled: false,
+        }}
+      />
+
+      <MainStack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <MainStack.Screen
+        name="RegisterChild"
+        component={RegisterChild}
+        options={{
+          headerShown: true,
+          title: "Register Child",
           headerTitleAlign: "center",
           headerLeft: () => null,
           gestureEnabled: false,

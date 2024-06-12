@@ -18,6 +18,8 @@ import TestFourScreen from "./screen/TestFourScreen";
 import TestResult from "./screen/TestResult";
 import HomeScreen from "./screen/HomeScreen";
 import Home from "./component/Home";
+import HandwritingInitial from "./screen/HandwritingInitial";
+import HandwritingScreen from "./screen/HandwritingScreen";
 
 const AuthStack = createNativeStackNavigator();
 
@@ -32,6 +34,16 @@ export default function AuthNavigator() {
       <AuthStack.Screen
         name="Login"
         component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <AuthStack.Screen
+        name="HandwritingInitial"
+        component={HandwritingInitial}
+        options={{ headerShown: false }}
+      />
+      <AuthStack.Screen
+        name="Handwriting"
+        component={HandwritingScreen}
         options={{ headerShown: false }}
       />
       <AuthStack.Screen

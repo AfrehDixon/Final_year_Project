@@ -80,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
           </View>
           <Button
             mode="contained"
-            onPress={() => navigation.navigate("TestOneInitial")}
+            onPress={() => navigation.navigate("HandwritingInitial")}
             style={{ backgroundColor: Colors.background }}
           >
             Upload Image
