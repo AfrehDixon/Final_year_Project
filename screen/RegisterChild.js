@@ -11,6 +11,8 @@ import Colors from "../config/Colors";
 import AppButton from "../component/AppButton";
 import { Text, TextInput } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useToast } from "react-native-toast-notifications";
+
 
 const RegisterChild = ({ navigation }) => {
   const [selectedAge, setSelectedAge] = useState("");
@@ -18,6 +20,8 @@ const RegisterChild = ({ navigation }) => {
   const [gender, setgender] = useState("");
   const [childGrade, setChildGrade] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const toast = useToast();
 
   // const handleAgeSelection = (age) => {
   //   setSelectedAge(age);
@@ -47,6 +51,11 @@ const RegisterChild = ({ navigation }) => {
 
       const data = await res.json();
       console.log(data);
+
+      toast.show("Child Registered Successfully", {
+        type: "success",
+        position: "top",
+      });
       // const { age, name, parent, grade } = data;
       // console.log(age, name, parent, grade);
       // const text = await res.text();
@@ -62,6 +71,10 @@ const RegisterChild = ({ navigation }) => {
       }
     } catch (error) {
       console.log(error);
+      toast.show("Error Registering Child", {
+        type: "danger",
+        position: "top",
+      });
     }
   };
 

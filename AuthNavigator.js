@@ -37,18 +37,19 @@ export default function AuthNavigator() {
         options={{ headerShown: false }}
       />
       <AuthStack.Screen
+        name="Signup"
+        component={SignupScreen}
+        options={{ headerShown: false }}
+      />
+      <AuthStack.Screen
         name="HandwritingInitial"
         component={HandwritingInitial}
         options={{ headerShown: false }}
       />
+
       <AuthStack.Screen
         name="Handwriting"
         component={HandwritingScreen}
-        options={{ headerShown: false }}
-      />
-      <AuthStack.Screen
-        name="Signup"
-        component={SignupScreen}
         options={{ headerShown: false }}
       />
       <AuthStack.Screen
@@ -90,11 +91,12 @@ export default function AuthNavigator() {
       <AuthStack.Screen
         name="TestOneInitial"
         component={TestOneInitialScreen}
-        options={{
-          headerShown: true,
-          title: "Test One Initial",
-          headerTitleAlign: "center",
-        }}
+        // options={{
+        //   headerShown: true,
+        //   title: "Test One Initial",
+        //   headerTitleAlign: "center",
+        // }}
+        options={{ headerShown: false }}
       />
       <AuthStack.Screen
         name="TestOne"
@@ -108,11 +110,12 @@ export default function AuthNavigator() {
       <AuthStack.Screen
         name="TestTwoInitial"
         component={TestTwoInitialScreen}
-        options={{
-          headerShown: true,
-          headerLeft: () => null,
-          gestureEnabled: false,
-        }}
+        // options={{
+        //   headerShown: true,
+        //   headerLeft: () => null,
+        //   gestureEnabled: false,
+        // }}
+        options={{ headerShown: false }}
       />
       <AuthStack.Screen
         name="TestTwo"
@@ -127,12 +130,7 @@ export default function AuthNavigator() {
       <AuthStack.Screen
         name="TestThreeInitial"
         component={TestThreeInitialScreen}
-        options={{
-          headerShown: true,
-          headerTitleAlign: "center",
-          headerLeft: () => null,
-          gestureEnabled: false,
-        }}
+        options={{ headerShown: false }}
       />
       <AuthStack.Screen
         name="TestThree"
@@ -147,11 +145,7 @@ export default function AuthNavigator() {
       <AuthStack.Screen
         name="TestFourInitial"
         component={TestFourInitialScreen}
-        options={{
-          headerShown: true,
-          headerLeft: () => null,
-          gestureEnabled: false,
-        }}
+        options={{ headerShown: false }}
       />
       <AuthStack.Screen
         name="TestFour"

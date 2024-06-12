@@ -106,10 +106,16 @@ const SettingsScreen = () => {
             />
           </View>
           <Divider />
+          <Divider />
+          <Divider />
+          <Divider />
 
           <List.Subheader style={styles.settingItem}>
             App Information
           </List.Subheader>
+          <Divider />
+          <Divider />
+          <Divider />
           <Divider />
           <List.Item
             style={styles.settingItem}
@@ -118,12 +124,14 @@ const SettingsScreen = () => {
             // onPress={() => navigation.navigate("About")}
           />
           <Divider />
+          <Divider />
           <List.Item
             style={styles.settingItem}
             title="Terms of Service"
             left={() => <List.Icon icon="file-document" />}
             // onPress={() => navigation.navigate("TermsOfService")}
           />
+          <Divider />
           <Divider />
           <List.Item
             style={styles.settingItem}
@@ -132,8 +140,14 @@ const SettingsScreen = () => {
             // onPress={() => navigation.navigate("PrivacyPolicy")}
           />
           <Divider />
+          <Divider />
+          <Divider />
+          <Divider />
 
           <List.Subheader>Support</List.Subheader>
+          <Divider />
+          <Divider />
+          <Divider />
           <Divider />
           <List.Item
             style={styles.settingItem}
@@ -142,6 +156,7 @@ const SettingsScreen = () => {
             // onPress={() => navigation.navigate("ContactSupport")}
           />
           <Divider />
+         
           <List.Item
             title="Logout"
             style={styles.settingItem}
@@ -149,6 +164,7 @@ const SettingsScreen = () => {
             onPress={handleLogout }
           />
           <Divider />
+          
           {/* </List.Section> */}
         </List.Section>
       </ScrollView>

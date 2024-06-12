@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
 import {
   Button,
   View,
@@ -23,6 +23,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useToast } from "react-native-toast-notifications";
 
 import Colors from "../config/Colors";
 import FontSize from "../config/FontSize";
@@ -40,6 +41,15 @@ export default function LoginScreen({ navigation, setUserToken }) {
   const [modalVisible, setModalVisible] = useState(false);
   const route = useRoute();
   // const {setUserToken} = route.params
+  const toast = useToast();
+
+  useEffect(() => {
+    toast.show("Welcome to Dyslexia App", {
+      type: "success",
+      placement: "top",
+      // icon: "success",
+    });
+  }, []);
 
   const { setToken } = useContext(AuthContext);
 
@@ -59,7 +69,10 @@ export default function LoginScreen({ navigation, setUserToken }) {
     try {
       
       if (!email || !password) {
-        setError("Please enter both email and password.");
+        // setError("Please enter both email and password.");
+        return toast.show("Please enter both email and password.", {
+          type: "danger",
+        });
       }
       // setLoading(false);
       const res = await fetch(api, {
@@ -88,6 +101,10 @@ export default function LoginScreen({ navigation, setUserToken }) {
       // const {tokenn}= data
 
       if (res.ok === true) {
+        toast.show("Login successful", {
+          type: "success",
+          placement: "top",
+        });
         // If the status code is not 200, it means there is an error
         // If everything is successful, navigate to Home screen
         try {
@@ -98,7 +115,10 @@ export default function LoginScreen({ navigation, setUserToken }) {
           // setToken(token);
           console.log(await AsyncStorage.getItem("userToken"));
         } catch (e) {
-          console.log(e);
+          // console.log(e);
+          toast.show("An error occurred", {
+            type: "danger",
+          });
         }
 
         // setUserToken(token)// Save token if needed
@@ -106,12 +126,21 @@ export default function LoginScreen({ navigation, setUserToken }) {
         // navigation.navigate("Home");
       } else if (!data.verified) {
         //       // Check if the user is not verified
-        setError(data.error);
+        // setError(data.error);
+        toast.show(data.error, {
+          type: "danger",
+        });
       } else {
-        setError(data.error);
+        // setError(data.error);
+        toast.show(data.error, {
+          type: "danger",
+        });
       }
     } catch (error) {
-      console.error("Login error:", error);
+      // console.error("Login error:", error);
+      toast.show("Login error", {
+        type: "danger",
+      });
       setLoading(false);
       // setError(true);
     } finally {
@@ -194,32 +223,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
                 width: "100%",
               }}
             >
-              {/* <TextInput
-              placeholder="Password"
-              value={password}
-              onChangeText={setPassword}
-              leftIcon={{ type: "font-awesome", name: "envelope" }}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              secureTextEntry={!showPassword}
-              passwordRules={8}
-              style={{
-                width: "100%",
-                backgroundColor: Colors.lightPrimary,
-                height: 60,
-              }}
-            />
-            <TouchableWithoutFeedback
-              onPress={() => setShowPassword(!showPassword)}
-            >
-              <View style={{ position: "absolute", right: 10 }}>
-                <Ionicons
-                  name={showPassword ? "eye-off" : "eye"}
-                  size={24}
-                  color="black"
-                />
-              </View>
-            </TouchableWithoutFeedback> */}
+         
               <TextInput
                 placeholder=" Password"
                 value={password}

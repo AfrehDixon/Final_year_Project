@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -19,6 +19,8 @@ import AppButton from "../component/AppButton";
 import { Button, ActivityIndicator } from "react-native-paper";
 import Spacing from "../config/Spacing";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
+import { useToast } from "react-native-toast-notifications";
+
 
 export default function OTPScreen({ navigation }) {
   const route = useRoute();
@@ -29,6 +31,15 @@ export default function OTPScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [message, setMessage] = useState("");
+
+  const toast = useToast();
+
+  useEffect(() => {
+    toast.show("OTP sent to your email", {
+      type: "success",
+      position: "top",
+    });
+  }, []);
 
   const handleOtpInput = (otp) => {
     setOTP(otp);
@@ -48,7 +59,11 @@ export default function OTPScreen({ navigation }) {
           email,
         }),
       });
-      console.log("OTP Sent");
+      // console.log("OTP Sent");
+      toast.show(" New OTP sent to your email", {
+        type: "success",
+        position: "top",
+      });
       setOtpSent(true);
     } catch (e) {
       console.log(e);
@@ -59,7 +74,11 @@ export default function OTPScreen({ navigation }) {
     "https://dyslexia-backend.onrender.com/api/v1/email_verification/verify";
   const handleOTP = async () => {
     if (!otp) {
-      setMessage("OTP empty");
+      // setMessage("OTP empty");
+      toast.show("OTP empty", {
+        type: "danger",
+        position: "top",
+      });
       return;
     }
     setError("");
@@ -78,6 +97,10 @@ export default function OTPScreen({ navigation }) {
       const data = await res.json();
       const { verified, token } = data;
       console.log(res);
+      toast.show("User Verified", {
+        type: "success",
+        position: "top",
+      });
       // const { ok } = data;
       console.log(data);
       console.log(email, otp);
@@ -88,13 +111,21 @@ export default function OTPScreen({ navigation }) {
       } else {
         setError(true);
         setLoading(false);
-        setMessage(data.error);
+        // setMessage(data.error);
+        toast.show(data.error, {
+          type: "danger",
+          position: "top",
+        });
         console.log(data.error);
       }
 
       // console.log(data)
     } catch (e) {
       console.log(e);
+      toast.show("Invalid OTP", {
+        type: "danger",
+        position: "top",
+      });
       setLoading(false);
       // setError(true);
     }
@@ -122,7 +153,7 @@ export default function OTPScreen({ navigation }) {
               <OTPInputView
                 style={styles.otpInputView}
                 pinCount={4}
-                // autoFocusOnLoad
+                autoFocusOnLoad
                 codeInputFieldStyle={styles.otpInputField}
                 codeInputHighlightStyle={styles.otpInputHighlight}
                 placeholderTextColor="gray"
@@ -195,9 +226,7 @@ export default function OTPScreen({ navigation }) {
                   Resend OTP
                 </Text>
                 {/* <Text> */}
-                {setOtpSent && (
-                  <Text style={{ color: "green", fontSize: 17 }}>OTP sent</Text>
-                )}
+              
                 {/* </Text> */}
               </Pressable>
               {/* <Button label="Send OTP" onPress={sendOtp} /> */}

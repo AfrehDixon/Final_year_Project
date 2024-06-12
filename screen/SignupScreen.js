@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Button,
   View,
@@ -22,6 +22,8 @@ import {
 // import AppButton from "../component/AppButton";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
+import { useToast } from "react-native-toast-notifications";
+
 
 import Colors from "../config/Colors";
 import FontSize from "../config/FontSize";
@@ -38,11 +40,19 @@ export default function SignupScreen({ navigation }) {
   const [showPassword2, setShowPassword2] = useState(false);
   const [error, setError] = useState("");
 
+  const toast = useToast();
+
+  //  useEffect(() => {
+  //    toast.show("Sign up page", {
+  //      type: "success",
+  //    });
+  //  }, []);
+
   const api = "https://dyslexia-backend.onrender.com/api/v1/user/signup";
 
   const handlesignup = async () => {
     // }
-    setError("");
+    // setError("");
     setLoading(true);
     try {
       const res = await fetch(api, {
@@ -62,15 +72,28 @@ export default function SignupScreen({ navigation }) {
       console.log(data);
 
       if (res.status === 400) {
-        setError(data.error);
+        toast.show(data.error, {
+          type: "danger",
+          position: "top",
+        });
+        // setError(data.error);
         // navigation.replace("OTP", { email });
       } else {
         // await AsyncStorage.setItem("userToken", data.token); // Save token if needed
         navigation.replace("OTP", { email });
+        toast.show(data.message, {
+          type: "success",
+          position: "top",
+          icon :"success"
+        });
       }
     } catch (error) {
       console.error("Signup error:", data.error);
-      setError(data.error);
+      // setError(data.error);
+      toast.show(data.error, {
+        type: "danger",
+        position: "top",
+      });
     } finally {
       setLoading(false);
     }

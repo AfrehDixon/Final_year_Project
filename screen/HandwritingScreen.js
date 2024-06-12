@@ -75,6 +75,7 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import Colors from "../config/Colors";
 
 export default function ImagePickerExample() {
   const [image, setImage] = useState(null);
@@ -123,13 +124,19 @@ export default function ImagePickerExample() {
           onPress={pickImageFromLibrary}
           style={styles.iconButton}
         >
-          <Icon name="photo-library" size={70} color="black" />
+          <Icon name="photo-library" size={70} color={Colors.background} />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={takeImageWithCamera}
           style={styles.iconButton}
         >
-          <Icon name="camera-alt" size={70} color="black" />
+          <Icon name="camera-alt" size={70} color={Colors.background} />
+          {/* <Icon
+            name="check-circle"
+            size={50}
+            color="green"
+            style={styles.checkIcon}
+          /> */}
         </TouchableOpacity>
       </View>
     </View>

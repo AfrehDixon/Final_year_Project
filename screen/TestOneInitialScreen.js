@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { IconButton, Button } from "react-native-paper";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const TestOneInitialScreen = ({ navigation }) => {
   const handleStartTest = () => {
@@ -21,19 +22,34 @@ const TestOneInitialScreen = ({ navigation }) => {
 
       <View style={styles.section}>
         <View style={styles.benefit}>
-          <IconButton icon="check" size={20} style={styles.icon} />
+          <Icon
+            name="check-circle"
+            size={30}
+            color="green"
+            style={styles.checkIcon}
+          />
           <Text>
             You will see a 5x5 grid containing the letters "d" and "b".
           </Text>
         </View>
         <View style={styles.benefit}>
-          <IconButton icon="check" size={20} style={styles.icon} />
+          <Icon
+            name="check-circle"
+            size={30}
+            color="green"
+            style={styles.checkIcon}
+          />
           <Text>
             Your task is to identify and select all the "b" letters in the grid.
           </Text>
         </View>
         <View style={styles.benefit}>
-          <IconButton icon="check" size={20} style={styles.icon} />
+          <Icon
+            name="check-circle"
+            size={30}
+            color="green"
+            style={styles.checkIcon}
+          />
           <Text>
             You will have 16 seconds to complete this part of the test.
           </Text>
@@ -52,6 +68,8 @@ const styles = {
     flex: 1,
     alignItems: "center",
     padding: 20,
+    paddingTop: 90,
+    
   },
   iconContainer: {
     alignItems: "center",
@@ -84,6 +102,7 @@ const styles = {
     alignItems: "center",
     marginBottom: 10,
     width: "90%",
+    gap: 10,
   },
   icon: {
     marginRight: 10,

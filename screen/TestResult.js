@@ -1,15 +1,25 @@
 import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { useNavigation } from "@react-navigation/native";
+import { useToast } from "react-native-toast-notifications";
 
 
 export default function TestResult({navigation}) {
   const route = useRoute();
   const [newmessage , setMessage]= useState('')
   const { data } = route.params;
+
+  const toast = useToast();
+
+  useEffect(() => {
+    toast.show("Game Complete", {
+      type: "success",
+      placement: "top",
+    });
+  }, []);
 
   const newdata   = {data: data}
 
@@ -40,10 +50,10 @@ export default function TestResult({navigation}) {
     <View style={styles.container}>
       <Text>Game Complete!</Text>
       <ConfettiCannon
-        count={150}
+        count={350}
         origin={{ x: -10, y: 0 }}
         fallSpeed={1000}
-        autoStartDelay={2}
+        autoStartDelay={5}
         explosionSpeed={1000}
         
       />
@@ -53,7 +63,7 @@ export default function TestResult({navigation}) {
       <Text>{newmessage}</Text>
       {/* <TouchableOpacity onPress={SendResults}><Text>Send</Text></TouchableOpacity> */}
       <Button title="Check Result" onPress={SendResults} />
-      <Button title="Check Result" onPress={()=> navigation.navigate('Home')} />
+      <Button title="Back to home" onPress={()=> navigation.navigate('Home')} />
     </View>
     // </View>
   );

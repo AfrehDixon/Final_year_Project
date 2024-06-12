@@ -22,11 +22,6 @@ const MainStack = createNativeStackNavigator();
 export default function MainNavigator() {
   return (
     <MainStack.Navigator>
-      {/* <MainStack.Screen
-        name="Onboarding"
-        component={OnboardingScreen}
-        options={{ headerShown: false }}
-      /> */}
       <MainStack.Screen
         name="Home"
         component={Home}
@@ -47,11 +42,7 @@ export default function MainNavigator() {
       <MainStack.Screen
         name="TestOneInitial"
         component={TestOneInitialScreen}
-        options={{
-          headerShown: true,
-          title: "Test One Initial",
-          headerTitleAlign: "center",
-        }}
+        options={{ headerShown: false }}
       />
       <MainStack.Screen
         name="TestOne"
@@ -65,11 +56,7 @@ export default function MainNavigator() {
       <MainStack.Screen
         name="TestTwoInitial"
         component={TestTwoInitialScreen}
-        options={{
-          headerShown: true,
-          headerLeft: () => null,
-          gestureEnabled: false,
-        }}
+        options={{ headerShown: false }}
       />
       <MainStack.Screen
         name="TestTwo"
@@ -84,12 +71,7 @@ export default function MainNavigator() {
       <MainStack.Screen
         name="TestThreeInitial"
         component={TestThreeInitialScreen}
-        options={{
-          headerShown: true,
-          headerTitleAlign: "center",
-          headerLeft: () => null,
-          gestureEnabled: false,
-        }}
+        options={{ headerShown: false }}
       />
       <MainStack.Screen
         name="TestThree"
@@ -104,11 +86,7 @@ export default function MainNavigator() {
       <MainStack.Screen
         name="TestFourInitial"
         component={TestFourInitialScreen}
-        options={{
-          headerShown: true,
-          headerLeft: () => null,
-          gestureEnabled: false,
-        }}
+        options={{ headerShown: false }}
       />
       <MainStack.Screen
         name="TestFour"
@@ -128,6 +106,11 @@ export default function MainNavigator() {
           headerLeft: () => null,
           gestureEnabled: false,
         }}
+      />
+      <MainStack.Screen
+        name="Onboarding"
+        component={OnboardingScreen}
+        options={{ headerShown: false }}
       />
 
       <MainStack.Screen

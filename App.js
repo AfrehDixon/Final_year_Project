@@ -28,6 +28,7 @@ import Onbording1 from "./screen/Onbording1";
 import Navigation from "./Navigation";
 import { useEffect, useState } from "react";
 import LoginScreen from "./screen/LoginScreen";
+import { ToastProvider } from "react-native-toast-notifications";
 import { AuthProvider } from "./Context";
 // import { useFonts } from "expo-font";
 // import * as SplashScreen from "expo-splash-screen";
@@ -82,9 +83,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <AuthProvider>
-        <Navigation />
-      </AuthProvider>
+      <ToastProvider  offsetBottom={40}>
+        <AuthProvider>
+          <Navigation />
+        </AuthProvider>
+      </ToastProvider>
     </View>
   );
 }
