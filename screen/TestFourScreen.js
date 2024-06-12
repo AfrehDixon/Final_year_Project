@@ -133,24 +133,7 @@ const TestFourScreen = () => {
   const accuracy = hits + misses > 0 ? hits / clicks : 0;
   const missRate = clicks > 0 ? misses / clicks : 0;
 
-  // const api = "https://game-model-2.onrender.com/predict";
-  // const SendResults = async (FinalData) => {
-  //   try {
-  //     const res = await fetch(api, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Accept: "application/json",
-  //       },
-  //       body: JSON.stringify({ data: FinalData }),
-  //     });
-  //     // console.log(body);
-  //     const result = await res.json();
-  //     console.log(result);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+
 
   return (
     <View style={styles.container}>

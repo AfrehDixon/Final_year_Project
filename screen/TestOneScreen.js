@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Colors from "../config/Colors"; // Assuming you have a Colors file for consistent styling.
+import Colors from "../config/Colors"; 
 
 const TestOneScreen = () => {
   const navigation = useNavigation();

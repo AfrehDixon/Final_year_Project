@@ -4,10 +4,10 @@ import { View, Image, StyleSheet } from "react-native";
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace("Onbording"); // Navigate to the OnboardingScreen after 10 seconds
-    }, 1000); // 10 seconds delay
+      navigation.replace("Onbording"); 
+    }, 1000); 
 
-    return () => clearTimeout(timer); // Cleanup function to clear the timer
+    return () => clearTimeout(timer); 
   }, []);
 
   return (

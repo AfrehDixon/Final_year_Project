@@ -13,7 +13,6 @@ import { Text, TextInput } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useToast } from "react-native-toast-notifications";
 
-
 const RegisterChild = ({ navigation }) => {
   const [selectedAge, setSelectedAge] = useState("");
   const [childName, setChildName] = useState("");
@@ -23,14 +22,8 @@ const RegisterChild = ({ navigation }) => {
 
   const toast = useToast();
 
-  // const handleAgeSelection = (age) => {
-  //   setSelectedAge(age);
-  // };
-
   const handleRegisterChild = async () => {
     const token = await AsyncStorage.getItem("userToken");
-
-    // console.log("Registered Child: ", { age: selectedAge, name: childName });
 
     const registerchildlink =
       "https://dyslexia-backend.onrender.com/api/v1/user/register-child";
@@ -56,13 +49,7 @@ const RegisterChild = ({ navigation }) => {
         type: "success",
         position: "top",
       });
-      // const { age, name, parent, grade } = data;
-      // console.log(age, name, parent, grade);
-      // const text = await res.text();
 
-      // console.log("Raw response:", text); // Log the raw response
-      // const result = JSON.parse(text);
-      // console.log(res);
       try {
         const child = await AsyncStorage.setItem("child", JSON.stringify(data));
         navigation.navigate("Home");
@@ -129,61 +116,6 @@ const RegisterChild = ({ navigation }) => {
             />
           </View>
 
-          {/* Age Selection */}
-          {/* <View style={styles.ageContainer}>
-          <TouchableOpacity
-            style={[styles.ageOption, selectedAge === 5 && styles.selected]}
-            onPress={() => handleAgeSelection(5)}
-          >
-            <Text
-              style={[
-                styles.ageText,
-                selectedAge === 5 && styles.selectedButtonText,
-              ]}
-            >
-              5
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.ageOption, selectedAge === 6 && styles.selected]}
-            onPress={() => handleAgeSelection(6)}
-          >
-            <Text
-              style={[
-                styles.ageText,
-                selectedAge === 6 && styles.selectedButtonText,
-              ]}
-            >
-              6
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.ageOption, selectedAge === 7 && styles.selected]}
-            onPress={() => handleAgeSelection(7)}
-          >
-            <Text
-              style={[
-                styles.ageText,
-                selectedAge === 7 && styles.selectedButtonText,
-              ]}
-            >
-              7
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.ageOption, selectedAge === 8 && styles.selected]}
-            onPress={() => handleAgeSelection(8)}
-          >
-            <Text
-              style={[
-                styles.ageText,
-                selectedAge === 8 && styles.selectedButtonText,
-              ]}
-            >
-              8+
-            </Text>
-          </TouchableOpacity>
-        </View> */}
           <AppButton label="Register" onPress={handleRegisterChild} />
         </View>
       </View>

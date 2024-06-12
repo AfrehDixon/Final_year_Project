@@ -27,7 +27,7 @@ const SettingsScreen = () => {
   useEffect(() => {
     const playSound = async () => {
       const { sound } = await Audio.Sound.createAsync(
-        require("../assets/child.mp3") // Ensure you have this file in your assets folder
+        require("../assets/child.mp3") 
       );
       setSound(sound);
       await sound.playAsync();
@@ -121,7 +121,7 @@ const SettingsScreen = () => {
             style={styles.settingItem}
             title="About the App"
             left={() => <List.Icon icon="information" />}
-            // onPress={() => navigation.navigate("About")}
+            
           />
           <Divider />
           <Divider />
@@ -129,7 +129,7 @@ const SettingsScreen = () => {
             style={styles.settingItem}
             title="Terms of Service"
             left={() => <List.Icon icon="file-document" />}
-            // onPress={() => navigation.navigate("TermsOfService")}
+         
           />
           <Divider />
           <Divider />
@@ -137,7 +137,7 @@ const SettingsScreen = () => {
             style={styles.settingItem}
             title="Privacy Policy"
             left={() => <List.Icon icon="shield-lock" />}
-            // onPress={() => navigation.navigate("PrivacyPolicy")}
+           
           />
           <Divider />
           <Divider />
@@ -153,7 +153,7 @@ const SettingsScreen = () => {
             style={styles.settingItem}
             title="Contact Support"
             left={() => <List.Icon icon="help-circle" />}
-            // onPress={() => navigation.navigate("ContactSupport")}
+          
           />
           <Divider />
          

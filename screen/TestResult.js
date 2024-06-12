@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
-// import { TouchableOpacity } from "react-native-gesture-handler";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { useNavigation } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
@@ -35,7 +34,6 @@ export default function TestResult({navigation}) {
           },
           body: JSON.stringify(newdata),
         });
-        // console.log(body);
         const result = await res.json();
         console.log(result);
         const {prediction ,message} = result
@@ -57,11 +55,8 @@ export default function TestResult({navigation}) {
         explosionSpeed={1000}
         
       />
-      {/* <Text>{data}</Text> */}
-      {/* <Text>{data[0]}</Text> */}
-      {/* <Text>fdgd</Text> */}
+
       <Text>{newmessage}</Text>
-      {/* <TouchableOpacity onPress={SendResults}><Text>Send</Text></TouchableOpacity> */}
       <Button title="Check Result" onPress={SendResults} />
       <Button title="Back to home" onPress={()=> navigation.navigate('Home')} />
     </View>
