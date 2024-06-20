@@ -1,4 +1,4 @@
-import React, { useState, useContext,useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Button,
   View,
@@ -67,7 +67,6 @@ export default function LoginScreen({ navigation, setUserToken }) {
     setLoading(true); // Set loading state
 
     try {
-      
       if (!email || !password) {
         // setError("Please enter both email and password.");
         return toast.show("Please enter both email and password.", {
@@ -105,11 +104,10 @@ export default function LoginScreen({ navigation, setUserToken }) {
           type: "success",
           placement: "top",
         });
-        // If the status code is not 200, it means there is an error
-        // If everything is successful, navigate to Home screen
+
         try {
           const token = await AsyncStorage.setItem("userToken", data.token);
-          // console.log(token);
+
           setLoading(false); // Reset loading state
           navigation.navigate("RegisterChild", { token });
           // setToken(token);
@@ -120,52 +118,25 @@ export default function LoginScreen({ navigation, setUserToken }) {
             type: "danger",
           });
         }
-
-        // setUserToken(token)// Save token if needed
-
-        // navigation.navigate("Home");
       } else if (!data.verified) {
-        //       // Check if the user is not verified
-        // setError(data.error);
         toast.show(data.error, {
           type: "danger",
         });
       } else {
-        // setError(data.error);
         toast.show(data.error, {
           type: "danger",
         });
       }
     } catch (error) {
-      // console.error("Login error:", error);
-      toast.show("Login error", {
+      toast.show("Network error", {
         type: "danger",
       });
       setLoading(false);
-      // setError(true);
     } finally {
       setLoading(false); // Reset loading state
     }
   };
-  // const loadAsync = async () =>{
-  // const tok = await AsyncStorage.getItem('userToken')
-  // }
-  // loadAsync()
 
-  // const getData = async () => {
-  //   try {
-  //     const value = await AsyncStorage.getItem("userToken");
-  //     if (value !== null) {
-  //       // value previously stored
-  //       // console.log(value)
-  //     }
-  //   } catch (e) {
-  //     // error reading value'new
-  //     console.log('new')
-  //   }
-  //   };
-
-  //   getData()
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={styles.loginPage}>
@@ -223,7 +194,6 @@ export default function LoginScreen({ navigation, setUserToken }) {
                 width: "100%",
               }}
             >
-         
               <TextInput
                 placeholder=" Password"
                 value={password}

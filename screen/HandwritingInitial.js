@@ -23,19 +23,19 @@ const HandwritingInitial = ({ navigation }) => {
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            You will see a 5x5 grid containing the letters "d" and "b".
+            You will see different alphabet on the screen from A to Z on your screen
           </Text>
         </View>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            Your task is to identify and select all the "b" letters in the grid.
+            Your task is to  write each alphabet you see on a paper and take the picture at the end of the test
           </Text>
         </View>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            You will have 16 seconds to complete this part of the test.
+            Take a picture and submit at the end of the test
           </Text>
         </View>
       </View>

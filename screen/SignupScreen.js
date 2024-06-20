@@ -41,18 +41,24 @@ export default function SignupScreen({ navigation }) {
 
   const toast = useToast();
 
-  //  useEffect(() => {
-  //    toast.show("Sign up page", {
-  //      type: "success",
-  //    });
-  //  }, []);
+  useEffect(() => {
+    toast.show("Sign up page", {
+      type: "success",
+    });
+  }, []);
 
   const api = "https://dyslexia-backend.onrender.com/api/v1/user/signup";
 
   const handlesignup = async () => {
     // }
-    // setError("");
+    setError("");
     setLoading(true);
+    if (!email || !password || !name || !confirmPassword) {
+      // setError("Please enter both email and password.");
+      return toast.show("Please enter all the fields.", {
+        type: "danger",
+      });
+    }
     try {
       const res = await fetch(api, {
         method: "POST",
@@ -75,21 +81,22 @@ export default function SignupScreen({ navigation }) {
           type: "danger",
           position: "top",
         });
-        // setError(data.error);
+        setError(data.error);
         // navigation.replace("OTP", { email });
       } else {
         // await AsyncStorage.setItem("userToken", data.token); // Save token if needed
-        navigation.replace("OTP", { email });
         toast.show(data.message, {
           type: "success",
           position: "top",
           icon: "success",
         });
+        navigation.replace("OTP", { email });
       }
     } catch (error) {
-      console.error("Signup error:", data.error);
+      console.error("Network error",);
+      setLoading(false);
       // setError(data.error);
-      toast.show(data.error, {
+      toast.show("Network error", {
         type: "danger",
         position: "top",
       });
@@ -230,9 +237,9 @@ export default function SignupScreen({ navigation }) {
                 />
               </View>
 
-              {error ? (
+              {/* {error ? (
                 <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
-              ) : null}
+              ) : null} */}
               <TouchableOpacity
                 style={{
                   padding: Spacing * 2,

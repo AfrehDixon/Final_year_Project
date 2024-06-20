@@ -12,18 +12,35 @@ import AppButton from "../component/AppButton";
 import { Text, TextInput } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useToast } from "react-native-toast-notifications";
+import { RadioButton, ActivityIndicator } from "react-native-paper";
+import Spacing from "../config/Spacing";
 
 const RegisterChild = ({ navigation }) => {
   const [selectedAge, setSelectedAge] = useState("");
   const [childName, setChildName] = useState("");
-  const [gender, setgender] = useState("");
+  const [gender, setGender] = useState("");
   const [childGrade, setChildGrade] = useState("");
   const [loading, setLoading] = useState(false);
+  const [checked, setChecked] = useState(["Female", "Male"]);
 
   const toast = useToast();
 
+  const handleGenderChange = (value) => {
+    setGender(value);
+  };
+
   const handleRegisterChild = async () => {
     const token = await AsyncStorage.getItem("userToken");
+    setLoading(true);
+
+    if (!childName || !selectedAge || !gender || !childGrade) {
+      toast.show("Please fill all details of your child", {
+        type: "danger",
+
+        placement: "top",
+      });
+      setLoading(false);
+    }
 
     const registerchildlink =
       "https://dyslexia-backend.onrender.com/api/v1/user/register-child";
@@ -102,9 +119,9 @@ const RegisterChild = ({ navigation }) => {
               }}
             />
             <TextInput
-              placeholder="Gender"
-              value={gender}
-              onChangeText={setgender}
+              placeholder="Grade"
+              value={childGrade}
+              onChangeText={setChildGrade}
               leftIcon={{ type: "font-awesome", name: "envelope" }}
               // keyboardType=""
               autoCapitalize="none"
@@ -115,8 +132,73 @@ const RegisterChild = ({ navigation }) => {
               }}
             />
           </View>
+          <View style={styles.radioButtonContainer}>
+            <RadioButton.Group
+              onValueChange={handleGenderChange}
+              value={gender}
+            >
+              <View style={styles.radioButtonItem}>
+                <RadioButton value="male" />
+                <Text>Male</Text>
+              </View>
+              <View style={styles.radioButtonItem}>
+                <RadioButton value="female" />
+                <Text>Female</Text>
+              </View>
+            </RadioButton.Group>
+          </View>
 
-          <AppButton label="Register" onPress={handleRegisterChild} />
+          {/* <AppButton label="Register" onPress={handleRegisterChild} /> */}
+          <TouchableOpacity
+            style={{
+              padding: Spacing * 2,
+              backgroundColor: Colors.background,
+              marginVertical: Spacing * 3,
+              borderRadius: Spacing,
+              shadowColor: Colors.primary,
+              shadowOffset: {
+                width: 0,
+                height: Spacing,
+              },
+              shadowOpacity: 0.3,
+              shadowRadius: Spacing,
+            }}
+            onPress={handleRegisterChild}
+            disabled={loading}
+          >
+            {loading ? (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: 10,
+                }}
+              >
+                <ActivityIndicator size="small" color="white" />
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Loading...
+                </Text>
+              </View>
+            ) : (
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 16,
+                  fontWeight: "bold",
+                  textAlign: "center",
+                }}
+              >
+                Register Child
+              </Text>
+            )}
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -129,6 +211,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
+  },
+  radioButtonItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  radioButtonContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   heading: {
     fontSize: 24,

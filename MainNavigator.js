@@ -16,6 +16,8 @@ import HandwritingInitial from "./screen/HandwritingInitial";
 import HandwwritingScreen from "./screen/HandwritingScreen";
 import OnboardingScreen from "./screen/Onbording1";
 import LoginScreen from "./screen/LoginScreen";
+import CaptureImage from "./screen/CaptureImage";
+import SignupScreen from "./screen/SignupScreen";
 
 const MainStack = createNativeStackNavigator();
 
@@ -38,6 +40,11 @@ export default function MainNavigator() {
         component={HandwwritingScreen}
         options={{ headerShown: false }}
       />
+      <MainStack.Screen
+        name="Capture"
+        component={CaptureImage}
+        options={{ headerShown: false }}
+      />
 
       <MainStack.Screen
         name="TestOneInitial"
@@ -53,6 +60,7 @@ export default function MainNavigator() {
           headerTitleAlign: "center",
         }}
       />
+      <MainStack.Screen name="Signup" component={SignupScreen} />
       <MainStack.Screen
         name="TestTwoInitial"
         component={TestTwoInitialScreen}

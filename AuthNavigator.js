@@ -20,6 +20,7 @@ import HomeScreen from "./screen/HomeScreen";
 import Home from "./component/Home";
 import HandwritingInitial from "./screen/HandwritingInitial";
 import HandwritingScreen from "./screen/HandwritingScreen";
+import CaptureImage from "./screen/CaptureImage";
 
 const AuthStack = createNativeStackNavigator();
 
@@ -50,6 +51,11 @@ export default function AuthNavigator() {
       <AuthStack.Screen
         name="Handwriting"
         component={HandwritingScreen}
+        options={{ headerShown: false }}
+      />
+      <AuthStack.Screen
+        name="Capture"
+        component={CaptureImage}
         options={{ headerShown: false }}
       />
       <AuthStack.Screen

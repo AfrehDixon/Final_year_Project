@@ -17,8 +17,7 @@ import Colors from "../config/Colors";
 import FontSize from "../config/FontSize";
 import { useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import CardContent from "react-native-paper/lib/typescript/components/Card/CardContent";
-// import ListIcon from "react-native-paper/lib/typescript/components/List/ListIcon";
+
 
 const HomeScreen = ({ navigation }) => {
   const route = useRoute();
@@ -107,7 +106,7 @@ const HomeScreen = ({ navigation }) => {
         </Card.Content>
       </Card>
 
-      {/* Add more cards or components as needed */}
+     
     </View>
   );
 };

@@ -1,176 +1,161 @@
-// import { useState, useEffect } from "react";
-// import { Button, Image, View, StyleSheet, Platform, Alert } from "react-native";
-// import * as ImagePicker from "expo-image-picker";
 
-// export default function ImagePickerExample() {
-//   const [image, setImage] = useState(null);
 
-//   useEffect(() => {
-//     (async () => {
-//       if (Platform.OS !== "web") {
-//         const { status } = await ImagePicker.requestCameraPermissionsAsync();
-//         if (status !== "granted") {
-//           Alert.alert("Sorry, we need camera permissions to make this work!");
-//         }
-//       }
-//     })();
-//   }, []);
-
-//   const pickImageFromLibrary = async () => {
-//     let result = await ImagePicker.launchImageLibraryAsync({
-//       mediaTypes: ImagePicker.MediaTypeOptions.All,
-//       allowsEditing: false, // Prevent cropping
-//       quality: 1,
-//     });
-
-//     if (!result.canceled) {
-//       setImage(result.assets[0].uri);
-//     }
-//   };
-
-//   const takeImageWithCamera = async () => {
-//     let result = await ImagePicker.launchCameraAsync({
-//       allowsEditing: false, // Prevent cropping
-//       quality: 1,
-//     });
-
-//     if (!result.canceled) {
-//       setImage(result.assets[0].uri);
-//       }
-//       };
-//     // takeImageWithCamera();
-
-//   return (
-//     <View style={styles.container}>
-//       <Button
-//         title="Pick an image from camera roll"
-//         onPress={pickImageFromLibrary}
-//       />
-//       <Button title="Take a photo" onPress={takeImageWithCamera} />
-//       {image && <Image source={{ uri: image }} style={styles.image} />}
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-//   image: {
-//     width: 200,
-//     height: 200,
-//     marginTop: 20,
-//   },
-// });
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Image,
   View,
-  StyleSheet,
-  Platform,
-  Alert,
+  Text,
   TouchableOpacity,
+  StyleSheet,
+  Image,
+  Alert,
 } from "react-native";
-import * as ImagePicker from "expo-image-picker";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import Colors from "../config/Colors";
+import { launchCameraAsync } from "expo-image-picker";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Button } from "react-native-paper";
 
-export default function ImagePickerExample() {
-  const [image, setImage] = useState(null);
+
+
+const alphabetList = "AbCdEfGHIJKlMNOpQRSTUVWXYZ".split("");
+
+const generateRandomAlphabets = () => {
+  const randomAlphabets = [];
+  while (randomAlphabets.length < 2) {
+    const randomIndex = Math.floor(Math.random() * alphabetList.length);
+    const randomLetter = alphabetList[randomIndex];
+    if (!randomAlphabets.includes(randomLetter)) {
+      randomAlphabets.push(randomLetter);
+    }
+  }
+  return randomAlphabets;
+};
+
+const DyslexiaTestScreen = ({ navigation }) => {
+  const [alphabets, setAlphabets] = useState([]);
+  const [showCaptureButton, setShowCaptureButton] = useState(false);
+  const [imageUri, setImageUri] = useState(null);
+  const [clickCount, setClickCount] = useState(0);
 
   useEffect(() => {
-    (async () => {
-      if (Platform.OS !== "web") {
-        const { status } = await ImagePicker.requestCameraPermissionsAsync();
-        if (status !== "granted") {
-          Alert.alert("Sorry, we need camera permissions to make this work!");
-        }
-      }
-    })();
+    setAlphabets(generateRandomAlphabets());
   }, []);
 
-  const pickImageFromLibrary = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: false, // Prevent cropping
-      quality: 1,
-    });
+  const handleNextClick = () => {
+    setClickCount((prevCount) => prevCount + 1);
+    if (clickCount < 4) {
+      
+      setAlphabets(generateRandomAlphabets());
+      setShowCaptureButton(false); 
+    } else {
+      setShowCaptureButton(true); 
+    }
+  };
 
+  const handleCaptureClick = async () => {
+    const result = await launchCameraAsync();
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      setImageUri(result.uri);
+    } else {
+      Alert.alert("Capture Cancelled", "No image was captured.");
     }
   };
 
   const takeImageWithCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
-      allowsEditing: false, // Prevent cropping
+      allowsEditing: false, 
       quality: 1,
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      setImageUri(result.assets[0].uri);
     }
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.imagee}>
-        {image && <Image source={{ uri: image }} style={styles.image} />}
+      <View style={styles.grid}>
+        {alphabets.map((alphabet, index) => (
+          <View key={index} style={styles.alphabetBox}>
+            <Text style={styles.alphabetText}>{alphabet}</Text>
+          </View>
+        ))}
       </View>
-      <View style={styles.icon}>
-        <TouchableOpacity
-          onPress={pickImageFromLibrary}
-          style={styles.iconButton}
+      <View style={styles.buttonContainer}>
+        {/* <Button
+          mode="contained"
+          onPress={handleNextClick}
+          style={styles.button}
         >
-          <Icon name="photo-library" size={70} color={Colors.background} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={takeImageWithCamera}
-          style={styles.iconButton}
-        >
-          <Icon name="camera-alt" size={70} color={Colors.background} />
-          {/* <Icon
-            name="check-circle"
-            size={50}
-            color="green"
-            style={styles.checkIcon}
-          /> */}
-        </TouchableOpacity>
+          Next
+        </Button> */}
+        {/* {showCaptureButton && ( */}
+          <Button
+            style={styles.button1}
+            mode="text"
+            onPress={() => navigation.navigate("Capture")}
+          >
+            Capture
+          </Button>
+        {/* )} */}
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#f5f5f5",
   },
-  icon: {
-    flex: 1,
+  grid: {
     flexDirection: "row",
-    
+    flexWrap: "wrap",
     justifyContent: "center",
-    alignItems: "flex-end",
-    justifyContent: "space-around",
-    flexDirection: "row",
+    marginBottom: 20,
   },
-  iconButton: {
-    margin: 20,
-    },
-    imagee: {
-        flex: 2,
-        justifyContent: "center",
-        alignItems: "center",
-        width: 400,
-        height: 400,
-    },
-  image: {
-    width: 400,
-    height: 400,
+  alphabetBox: {
+    width: 60,
+    height: 60,
+    margin: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#4682B4",
+    borderRadius: 5,
+  },
+  alphabetText: {
+    fontSize: 32,
+    color: "#fff",
+  },
+  buttonContainer: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    width: "90%",
+    borderRadius: 30,
+    marginBottom: 20,
+    gap: 20,
+  },
+  capturedImage: {
+    width: 200,
+    height: 200,
     marginTop: 20,
+    borderRadius: 10,
   },
+  button: {
+    backgroundColor: "blue",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  button1: {
+    paddingVertical: 10,
+    backgroundColor: 'white',
+    color: 'red',
+    borderStyle: "dashed",
+    borderWidth:3
+
+  }
 });
+
+export default DyslexiaTestScreen;
