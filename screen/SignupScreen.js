@@ -93,7 +93,7 @@ export default function SignupScreen({ navigation }) {
         navigation.replace("OTP", { email });
       }
     } catch (error) {
-      console.error("Network error",);
+      console.error("Network error");
       setLoading(false);
       // setError(data.error);
       toast.show("Network error", {

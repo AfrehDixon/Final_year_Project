@@ -209,6 +209,8 @@ const PreviewScreen = ({ route, navigation }) => {
   const handleSend = () => {
     // Logic to send the photo to the backend
     console.log("Sending photo to backend:", photoUri);
+    navigation.navigate("Capture");
+
   };
 
   return (
