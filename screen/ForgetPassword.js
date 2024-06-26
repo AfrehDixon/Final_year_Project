@@ -75,125 +75,113 @@ export default function ForgetPassword({ visible, onClose }) {
     }
   };
 
-
   const handleOtpInput = (otp) => {
     setOTP(otp);
   };
 
   return (
-   
-     
-        <View style={styles.modalContainer}>
-          
-            <View style={styles.content}>
-              <SafeAreaView>
-                <Text style={styles.head}>Forget Password</Text>
-                <Text style={styles.title}>
-                  Enter your email for the verification process.we will send 4
-                  digits code to your email
-                </Text>
+    <SafeAreaView>
+      <View>
+        <View style={styles.content}>
+          <Text style={styles.head}>Forget Password</Text>
+          <Text style={styles.title}>
+            Enter your email for the verification process.we will send 4 digits
+            code to your email
+          </Text>
 
-                <View style={{ marginBottom: 20, width: "100%" }}>
-                  <TextInput
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={setEmail}
-                    leftIcon={{ type: "font-awesome", name: "envelope" }}
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    style={{
-                      width: "100%",
-                      backgroundColor: Colors.lightPrimary,
-                      height: 60,
-                    }}
-                  />
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: 16,
-                      fontWeight: "bold",
-                      textAlign: "center",
-                    }}
-                  >
-                    Continue
-                  </Text>
-                </View>
-                <View style={{ width: "100%" }}>
-                  {/* <AppButton label="Continue" onPress={handleContinueEmail} /> */}
-                </View>
-              </SafeAreaView>
-            </View>
-     
-
-            <View style={styles.content2}>
-              <SafeAreaView>
-                <Text style={styles.head}>Enter 5 Digits Code</Text>
-                <Text style={styles.title}>
-                  Enter the 4 digit code that you received on your email
-                </Text>
-
-                <KeyboardAvoidingView>
-                  <OTPInputView
-                    style={styles.otpInputView}
-                    pinCount={4}
-                    codeInputFieldStyle={styles.otpInputField}
-                    codeInputHighlightStyle={styles.otpInputHighlight}
-                    placeholderTextColor="gray"
-                    keyboardType="number-pad"
-                    onCodeChanged={handleOtpInput}
-                  />
-                  <View style={{ width: "100%" }}>
-                    {/* <AppButton label="Continue" onPress={handleContinueOtp} /> */}
-                  </View>
-                </KeyboardAvoidingView>
-                <Pressable onPress={sendOtp}>
-                  <Text style={styles.resendOtpText}>Resend OTP</Text>
-                </Pressable>
-              </SafeAreaView>
-            </View>
-    
-         
-            <View style={styles.content}>
-              <SafeAreaView>
-                <Text style={styles.title}>Reset your password</Text>
-                {/* <View style={styles.passwordInputContainer}> */}
-                  <TextInput
-                    placeholder="New Password"
-                    value={newPassword}
-                    onChangeText={setNewPassword}
-                    secureTextEntry={!showPassword}
-                    style={styles.textInput}
-                    right={
-                      <TextInput.Icon
-                        icon={showPassword ? "eye-off" : "eye"}
-                        onPress={() => setShowPassword(!showPassword)}
-                        style={{ color: "black" }}
-                      />
-                    }
-                  />
-                  
-                
-              </SafeAreaView>
-            </View>
-         
-          <Pressable onPress={onClose} style={styles.closeButton}>
-            <Text style={styles.closeButtonText}>Close</Text>
-          </Pressable>
+          <View style={{ marginBottom: 20, width: "100%" }}>
+            <TextInput
+              placeholder="Email"
+              value={email}
+              onChangeText={setEmail}
+              leftIcon={{ type: "font-awesome", name: "envelope" }}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              style={{
+                width: "100%",
+                backgroundColor: Colors.lightPrimary,
+                height: 60,
+              }}
+            />
+          </View>
+          <View>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 16,
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Continue
+            </Text>
+          </View>
+          <View style={{ width: "100%" }}>
+            {/* <AppButton label="Continue" onPress={handleContinueEmail} /> */}
+          </View>
         </View>
-    
+
+        {/* <View style={styles.content2}>
+          <SafeAreaView>
+            <Text style={styles.head}>Enter 5 Digits Code</Text>
+            <Text style={styles.title}>
+              Enter the 4 digit code that you received on your email
+            </Text>
+
+            <KeyboardAvoidingView>
+              <OTPInputView
+                style={styles.otpInputView}
+                pinCount={4}
+                codeInputFieldStyle={styles.otpInputField}
+                codeInputHighlightStyle={styles.otpInputHighlight}
+                placeholderTextColor="gray"
+                keyboardType="number-pad"
+                onCodeChanged={handleOtpInput}
+              />
+              <View style={{ width: "100%" }}>
+                <AppButton label="Continue" onPress={handleContinueOtp} />
+              </View>
+            </KeyboardAvoidingView>
+            <Pressable onPress={sendOtp}>
+              <Text style={styles.resendOtpText}>Resend OTP</Text>
+            </Pressable>
+          </SafeAreaView>
+        </View> */}
+
+        {/* <View style={styles.content}>
+          <SafeAreaView>
+            <Text style={styles.title}>Reset your password</Text>
+            <View style={styles.passwordInputContainer}>
+            <TextInput
+              placeholder="New Password"
+              value={newPassword}
+              onChangeText={setNewPassword}
+              secureTextEntry={!showPassword}
+              style={styles.textInput}
+              right={
+                <TextInput.Icon
+                  icon={showPassword ? "eye-off" : "eye"}
+                  onPress={() => setShowPassword(!showPassword)}
+                  style={{ color: "black" }}
+                />
+              }
+            />
+          </SafeAreaView>
+        </View> */}
+        {/* 
+        <Pressable onPress={onClose} style={styles.closeButton}>
+          <Text style={styles.closeButtonText}>Close</Text>
+        </Pressable> */}
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   modalContainer: {
-    flex: 2,
-    // justifyContent: "flex-end",
+    justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "rgba(0,0,0,0.5)",
-    width: "100%",
-    backgroundColor: "red",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   head: {
     fontSize: 20,
@@ -214,19 +202,18 @@ const styles = StyleSheet.create({
     shadowRadius: Spacing,
   },
   content: {
-    // backgroundColor: "yellow",
+    backgroundColor: "yellow",
     width: "100%",
-    height: "70%",
+
     padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     alignItems: "center",
-    marginBottom: 0,
   },
   content2: {
-    backgroundColor: "white",
+    backgroundColor: "red",
     width: "100%",
-    height: 450,
+
     padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
