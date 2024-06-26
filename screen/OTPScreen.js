@@ -21,7 +21,6 @@ import Spacing from "../config/Spacing";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import { useToast } from "react-native-toast-notifications";
 
-
 export default function OTPScreen({ navigation }) {
   const route = useRoute();
   const { email } = route.params;
@@ -138,105 +137,105 @@ export default function OTPScreen({ navigation }) {
           behavior={Platform.OS === "ios" ? "padding" : null}
           style={styles.keyboardAvoidingView}
         > */}
-          <View style={styles.innerContainer}>
-            <Image
-              source={require("../assets/codepic.png")}
-              style={styles.image}
+        <View style={styles.innerContainer}>
+          <Image
+            source={require("../assets/codepic.png")}
+            style={styles.image}
+          />
+          <Text style={styles.title}>Verify your email address</Text>
+          <Text style={styles.subtitle}>
+            Enter 4 digits code received on your email
+          </Text>
+          <Text style={styles.emailText}>{email}</Text>
+
+          <View style={styles.otpContainer}>
+            <OTPInputView
+              style={styles.otpInputView}
+              pinCount={4}
+              autoFocusOnLoad
+              codeInputFieldStyle={styles.otpInputField}
+              codeInputHighlightStyle={styles.otpInputHighlight}
+              placeholderTextColor="gray"
+              keyboardType="number-pad"
+              onCodeChanged={handleOtpInput}
             />
-            <Text style={styles.title}>Verify your email address</Text>
-            <Text style={styles.subtitle}>
-              Enter 4 digits code received on your email
-            </Text>
-            <Text style={styles.emailText}>{email}</Text>
 
-            <View style={styles.otpContainer}>
-              <OTPInputView
-                style={styles.otpInputView}
-                pinCount={4}
-                autoFocusOnLoad
-                codeInputFieldStyle={styles.otpInputField}
-                codeInputHighlightStyle={styles.otpInputHighlight}
-                placeholderTextColor="gray"
-                keyboardType="number-pad"
-                onCodeChanged={handleOtpInput}
-              />
-
-              {/* {error ? (
+            {/* {error ? (
               <Text style={{ color: "red", marginTop: 10 }}>
                 Invalid OTP. Please try again.
               </Text>
             ) : null} */}
-              {/* <TouchableOpacity style={styles.submitButton} onPress={handleOTP}>
+            {/* <TouchableOpacity style={styles.submitButton} onPress={handleOTP}>
               <Text style={styles.submitButtonText}>Submit</Text>
             </TouchableOpacity> */}
-              <TouchableOpacity
-                style={{
-                  padding: Spacing * 2,
-                  backgroundColor: Colors.background,
-                  marginVertical: Spacing * -3,
-                  borderRadius: Spacing,
-                  shadowColor: Colors.primary,
-                  shadowOffset: {
-                    width: 0,
-                    height: Spacing,
-                  },
-                  shadowOpacity: 0.3,
-                  shadowRadius: Spacing,
-                }}
-                onPress={handleOTP}
-                disabled={loading}
-              >
-                {loading ? (
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      gap: 10,
-                    }}
-                  >
-                    <ActivityIndicator size="small" color="white" />
-                    <Text
-                      style={{
-                        color: "white",
-                        fontSize: 16,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Loading...
-                    </Text>
-                  </View>
-                ) : (
+            <TouchableOpacity
+              style={{
+                padding: Spacing * 2,
+                backgroundColor: Colors.background,
+                marginVertical: Spacing * -3,
+                borderRadius: Spacing,
+                shadowColor: Colors.primary,
+                shadowOffset: {
+                  width: 0,
+                  height: Spacing,
+                },
+                shadowOpacity: 0.3,
+                shadowRadius: Spacing,
+              }}
+              onPress={handleOTP}
+              disabled={loading}
+            >
+              {loading ? (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: 10,
+                  }}
+                >
+                  <ActivityIndicator size="small" color="white" />
                   <Text
                     style={{
                       color: "white",
                       fontSize: 16,
                       fontWeight: "bold",
-                      textAlign: "center",
                     }}
                   >
-                    Submit
+                    Loading...
                   </Text>
-                )}
-              </TouchableOpacity>
-              {/* {error && <Text style={{ color: "red" }}>{message}</Text>} */}
-
-              <Pressable onPress={sendOtp}>
-                <Text style={{ color: "blue", marginTop: 50, fontSize: 15 }}>
-                  Resend OTP
+                </View>
+              ) : (
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  Submit
                 </Text>
-                {/* <Text> */}
-              
-                {/* </Text> */}
-              </Pressable>
-              {/* <Button label="Send OTP" onPress={sendOtp} /> */}
-              {error && <Text style={{ color: "red" }}>{message}</Text>}
-            </View>
+              )}
+            </TouchableOpacity>
+            {/* {error && <Text style={{ color: "red" }}>{message}</Text>} */}
+
+            <Pressable onPress={sendOtp}>
+              <Text style={{ color: "blue", marginTop: 50, fontSize: 15 }}>
+                Resend OTP
+              </Text>
+              {/* <Text> */}
+
+              {/* </Text> */}
+            </Pressable>
+            {/* <Button label="Send OTP" onPress={sendOtp} /> */}
+            {error && <Text style={{ color: "red" }}>{message}</Text>}
           </View>
+        </View>
         {/* </KeyboardAvoidingView> */}
       </SafeAreaView>
     </ScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({

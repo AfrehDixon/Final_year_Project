@@ -224,7 +224,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
               </Text>
             ) : null}
             <Pressable
-              onPress={openModal}
+              onPress={() => navigation.navigate("ForgetPassword")}
               style={{ alignSelf: "flex-end", justifyContent: "flex-end" }}
             >
               <Text
