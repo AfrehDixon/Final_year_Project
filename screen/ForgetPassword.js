@@ -75,30 +75,16 @@ export default function ForgetPassword({ visible, onClose }) {
     }
   };
 
-  const handleContinueEmail = () => {
-    setCurrentStep(2);
-    sendOtp();
-  };
 
-  const handleContinueOtp = () => {
-    setCurrentStep(3);
-  };
   const handleOtpInput = (otp) => {
     setOTP(otp);
   };
 
   return (
-    // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-    <SafeAreaView>
-      {/* <ScrollView contentContainerStyle={{ flexGrow: 1 }}> */}
-      <Modal
-        visible={visible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={onClose}
-      >
+   
+     
         <View style={styles.modalContainer}>
-          {currentStep === 1 && (
+          
             <View style={styles.content}>
               <SafeAreaView>
                 <Text style={styles.head}>Forget Password</Text>
@@ -135,14 +121,11 @@ export default function ForgetPassword({ visible, onClose }) {
                   </Text>
                 </View>
                 <View style={{ width: "100%" }}>
-                  <AppButton label="Continue" onPress={handleContinueEmail} />
+                  {/* <AppButton label="Continue" onPress={handleContinueEmail} /> */}
                 </View>
               </SafeAreaView>
             </View>
-          )}
-
-          {currentStep === 2 && (
-            // behavior={Platform.OS === "ios" ? "padding" : "height"}
+     
 
             <View style={styles.content2}>
               <SafeAreaView>
@@ -162,17 +145,16 @@ export default function ForgetPassword({ visible, onClose }) {
                     onCodeChanged={handleOtpInput}
                   />
                   <View style={{ width: "100%" }}>
-                    <AppButton label="Continue" onPress={handleContinueOtp} />
+                    {/* <AppButton label="Continue" onPress={handleContinueOtp} /> */}
                   </View>
                 </KeyboardAvoidingView>
-                {/* <Pressable onPress={sendOtp}>
+                <Pressable onPress={sendOtp}>
                   <Text style={styles.resendOtpText}>Resend OTP</Text>
-                </Pressable> */}
+                </Pressable>
               </SafeAreaView>
             </View>
-          )}
-
-          {currentStep === 3 && (
+    
+         
             <View style={styles.content}>
               <SafeAreaView>
                 <Text style={styles.title}>Reset your password</Text>
@@ -191,30 +173,16 @@ export default function ForgetPassword({ visible, onClose }) {
                       />
                     }
                   />
-                  {/* <TouchableWithoutFeedback
-                    onPress={() => setShowPassword(!showPassword)}
-                  >
-                    <Ionicons
-                      name={showPassword ? "eye-off" : "eye"}
-                      size={24}
-                      color="black"
-                      style={styles.eyeIcon}
-                    />
-                  </TouchableWithoutFeedback> */}
-                {/* </View> */}
-                <View style={{ width: "100%" }}>
-                  <AppButton label="Reset Password" onPress={searchEmail} />
-                </View>
+                  
+                
               </SafeAreaView>
             </View>
-          )}
+         
           <Pressable onPress={onClose} style={styles.closeButton}>
             <Text style={styles.closeButtonText}>Close</Text>
           </Pressable>
         </View>
-      </Modal>
-      {/* </ScrollView> */}
-    </SafeAreaView>
+    
   );
 }
 
@@ -246,7 +214,7 @@ const styles = StyleSheet.create({
     shadowRadius: Spacing,
   },
   content: {
-    backgroundColor: "yellow",
+    // backgroundColor: "yellow",
     width: "100%",
     height: "70%",
     padding: 20,
