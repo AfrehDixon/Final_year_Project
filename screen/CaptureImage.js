@@ -4,14 +4,14 @@ import * as ImagePicker from "expo-image-picker";
 import { ProgressBar, Colors } from "react-native-paper";
 
 const CaptureImage = ({ route, navigation }) => {
-  const {
-    alphabet,
-    images,
-    setImages,
-    alphabetIndex,
-    setAlphabetIndex,
-    randomAlphabets,
-  } = route.params;
+  // const {
+  //   alphabet,
+  //   images,
+  //   setImages,
+  //   alphabetIndex,
+  //   setAlphabetIndex,
+  //   randomAlphabets,
+  // } = route.params;
   const [image, setImage] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
@@ -115,7 +115,7 @@ const CaptureImage = ({ route, navigation }) => {
       const uriParts = image.split(".");
       const fileType = uriParts[uriParts.length - 1];
 
-      formData.append("image", {
+      formData.append("file", {
         uri: image,
         type: `image/${fileType}`,
         name: `photo.${fileType}`,
@@ -139,7 +139,8 @@ const CaptureImage = ({ route, navigation }) => {
       //   }
 
         const responseData = await response.json();
-          console.log(response);
+        console.log(formData)
+          // console.log(response);
           console.log(responseData);
           navigation.navigate('Alphabet')
       } catch (error) {
@@ -161,7 +162,12 @@ const CaptureImage = ({ route, navigation }) => {
           <Button title="Upload" onPress={uploadImage} />
         </>
       ) : (
-        <Button title="Take Image" onPress={takeImageWithCamera} />
+        <>
+          <View style={{ backgroundColor: "red" }}>
+            <Image source={{ uri: image }} style={styles.image} />
+          </View>
+          <Button title="Take Image" onPress={takeImageWithCamera} />
+        </>
       )}
     </View>
   );
