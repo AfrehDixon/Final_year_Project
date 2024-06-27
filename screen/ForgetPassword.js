@@ -52,22 +52,33 @@ export default function ForgetPassword({ navigation }) {
         },
         body: JSON.stringify({
           email,
-          password: newPassword,
+          newPassword,
           otp,
         }),
       });
       const data = await res.json();
-       toast.show("Password reset Sucessfull", {
-         type: "success",
-         placement: "top",
-       });
-      navigation.navigate('Login')
-      console.log(data)
-
-      console.log(otp, newPassword,email);
-      
+      console.log(data);
+      console.log(otp, newPassword, email);
+      if (res.status === 400) {
+        toast.show(data.error, {
+          type: "danger",
+          placement: "top",
+        });
+      } else if (res.status === 200) {
+        toast.show("Password reset Sucessfull", {
+          type: "success",
+          placement: "top",
+        });
+        navigation.navigate("Login");
+      } else {
+        toast.show(data.error, {
+          type: "danger",
+          placement: "top",
+        });
+      }
     } catch (e) {
       console.log(e);
+      console.log(data.error);
     }
   };
 
@@ -96,8 +107,6 @@ export default function ForgetPassword({ navigation }) {
     } catch (e) {
       console.log(e);
     }
-
-    
   };
 
   const handleOtpInput = (otp) => {
@@ -210,7 +219,7 @@ export default function ForgetPassword({ navigation }) {
                 {/* <Button mode="contained" onPress={handlePasswordReset}>
               Submit
             </Button> */}
-                <AppButton label="Reset Password"  onPress={searchEmail} />
+                <AppButton label="Reset Password" onPress={searchEmail} />
 
                 <TouchableOpacity onPress={() => setModalVisible(false)}>
                   <Text style={styles.cancelText}>Cancel</Text>
@@ -257,7 +266,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalBackground: {
-    flex: 1,
+    flex: 2,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
