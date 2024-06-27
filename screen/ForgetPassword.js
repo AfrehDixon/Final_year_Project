@@ -17,19 +17,27 @@ import AppTextInput from "../component/AppInput"; // Adjust the import path
 import AppButton from "../component/AppButton"; // Adjust the import path
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import Colors from "../config/Colors";
-import { Button, TextInput } from "react-native-paper";
+import { Button, PaperProvider, TextInput } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import { Spacing } from "../config/Spacing";
+import { useToast } from "react-native-toast-notifications";
+
 // import { KeyboardAvoidingView } from "react-native-web";
 // import {TextInput} from 'react-native-paper'
 
-export default function ForgetPassword({ visible, onClose }) {
+export default function ForgetPassword({ navigation }) {
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [otp, setOTP] = useState("");
-  const [currentStep, setCurrentStep] = useState(1);
+  const [showotp, setShowotp] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const toast = useToast();
   // const email = useRoute().params.email;
 
   const searchEmail = async () => {
@@ -44,12 +52,20 @@ export default function ForgetPassword({ visible, onClose }) {
         },
         body: JSON.stringify({
           email,
-          newpassword: newPassword,
+          password: newPassword,
           otp,
         }),
       });
       const data = await res.json();
-      console.log(otp, newPassword);
+       toast.show("Password reset Sucessfull", {
+         type: "success",
+         placement: "top",
+       });
+      navigation.navigate('Login')
+      console.log(data)
+
+      console.log(otp, newPassword,email);
+      
     } catch (e) {
       console.log(e);
     }
@@ -58,6 +74,7 @@ export default function ForgetPassword({ visible, onClose }) {
   const sendOtp = async () => {
     const optlink =
       "https://dyslexia-backend.onrender.com/api/v1/forgot_password";
+    setShowotp(!showotp);
 
     try {
       const res = await fetch(optlink, {
@@ -70,9 +87,17 @@ export default function ForgetPassword({ visible, onClose }) {
         }),
       });
       console.log("OTP Sent");
+      setShowotp(!showotp);
+
+      toast.show("OTP sent to email", {
+        type: "success",
+        placement: "top",
+      });
     } catch (e) {
       console.log(e);
     }
+
+    
   };
 
   const handleOtpInput = (otp) => {
@@ -80,8 +105,8 @@ export default function ForgetPassword({ visible, onClose }) {
   };
 
   return (
-    <SafeAreaView>
-      <View>
+    <SafeAreaView style={styles.modalContainer}>
+      {showotp ? (
         <View style={styles.content}>
           <Text style={styles.head}>Forget Password</Text>
           <Text style={styles.title}>
@@ -105,50 +130,98 @@ export default function ForgetPassword({ visible, onClose }) {
             />
           </View>
           <View>
-            <Text
-              style={{
-                color: "white",
-                fontSize: 16,
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              Continue
-            </Text>
-          </View>
-          <View style={{ width: "100%" }}>
-            {/* <AppButton label="Continue" onPress={handleContinueEmail} /> */}
+            <AppButton label="Continue" onPress={sendOtp} />
           </View>
         </View>
+      ) : (
+        <View style={styles.content}>
+          <Text style={styles.head}>Enter 5 Digits Code</Text>
+          <Text style={styles.title1}>
+            Enter the 4 digit code that you received on your email
+          </Text>
 
-        {/* <View style={styles.content2}>
-          <SafeAreaView>
-            <Text style={styles.head}>Enter 5 Digits Code</Text>
-            <Text style={styles.title}>
-              Enter the 4 digit code that you received on your email
-            </Text>
+          {/* <KeyboardAvoidingView> */}
+          <OTPInputView
+            style={styles.otpInputView}
+            pinCount={4}
+            codeInputFieldStyle={styles.otpInputField}
+            codeInputHighlightStyle={styles.otpInputHighlight}
+            placeholderTextColor="gray"
+            keyboardType="number-pad"
+            onCodeChanged={handleOtpInput}
+          />
+          <View style={{ width: "100%" }}>
+            {/* <AppButton label="Continue" onPress={handleContinueOtp} /> */}
+          </View>
+          <AppButton
+            label="Confirm OTP"
+            onPress={() => setModalVisible(true)}
+          />
+          {/* </KeyboardAvoidingView> */}
 
-            <KeyboardAvoidingView>
-              <OTPInputView
-                style={styles.otpInputView}
-                pinCount={4}
-                codeInputFieldStyle={styles.otpInputField}
-                codeInputHighlightStyle={styles.otpInputHighlight}
-                placeholderTextColor="gray"
-                keyboardType="number-pad"
-                onCodeChanged={handleOtpInput}
-              />
-              <View style={{ width: "100%" }}>
-                <AppButton label="Continue" onPress={handleContinueOtp} />
+          <Pressable onPress={sendOtp}>
+            <Text style={styles.resendOtpText}>Resend OTP</Text>
+          </Pressable>
+        </View>
+      )}
+
+      <PaperProvider>
+        <View style={styles.container}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => setModalVisible(false)}
+          >
+            <View style={styles.modalBackground}>
+              <View style={styles.modalContainer2}>
+                <Text style={styles.title}>Reset Password</Text>
+
+                <TextInput
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChangeText={setNewPassword}
+                  secureTextEntry={!showPassword}
+                  style={styles.textInput}
+                  right={
+                    <TextInput.Icon
+                      icon={showPassword ? "eye-off" : "eye"}
+                      onPress={() => setShowPassword(!showPassword)}
+                      style={{ color: "black" }}
+                    />
+                  }
+                />
+                <TextInput
+                  placeholder="Confirm New Password"
+                  value={newPassword}
+                  onChangeText={setNewPassword}
+                  secureTextEntry={!showPassword}
+                  style={styles.textInput}
+                  right={
+                    <TextInput.Icon
+                      icon={showPassword ? "eye-off" : "eye"}
+                      onPress={() => setShowPassword(!showPassword)}
+                      style={{ color: "black" }}
+                    />
+                  }
+                />
+
+                {error ? <Text style={styles.errorText}>{error}</Text> : null}
+                {/* <Button mode="contained" onPress={handlePasswordReset}>
+              Submit
+            </Button> */}
+                <AppButton label="Reset Password"  onPress={searchEmail} />
+
+                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                  <Text style={styles.cancelText}>Cancel</Text>
+                </TouchableOpacity>
               </View>
-            </KeyboardAvoidingView>
-            <Pressable onPress={sendOtp}>
-              <Text style={styles.resendOtpText}>Resend OTP</Text>
-            </Pressable>
-          </SafeAreaView>
-        </View> */}
+            </View>
+          </Modal>
+        </View>
+      </PaperProvider>
 
-        {/* <View style={styles.content}>
+      {/* <View style={styles.content}>
           <SafeAreaView>
             <Text style={styles.title}>Reset your password</Text>
             <View style={styles.passwordInputContainer}>
@@ -168,20 +241,34 @@ export default function ForgetPassword({ visible, onClose }) {
             />
           </SafeAreaView>
         </View> */}
-        {/* 
+      {/* 
         <Pressable onPress={onClose} style={styles.closeButton}>
           <Text style={styles.closeButtonText}>Close</Text>
         </Pressable> */}
-      </View>
+      {/* </View> */}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   modalContainer: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  modalBackground: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContainer2: {
+    width: 350,
+    height: 400,
+    padding: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    alignItems: "center",
   },
   head: {
     fontSize: 20,
@@ -202,9 +289,11 @@ const styles = StyleSheet.create({
     shadowRadius: Spacing,
   },
   content: {
-    backgroundColor: "yellow",
+    // backgroundColor: "yellow",
     width: "100%",
-
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -249,6 +338,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     paddingHorizontal: 32,
+    // backgroundColor: "red",
     borderBottomColor: Colors.success,
     // borderColor: Colors.success,
     // borderWidth: 1,
@@ -270,11 +360,7 @@ const styles = StyleSheet.create({
     // padding:20,
     // width: 30,
   },
-  resendOtpText: {
-    color: "red",
-    marginTop: 5,
-    fontSize: 15,
-  },
+
   passwordInputContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -284,6 +370,7 @@ const styles = StyleSheet.create({
   textInput: {
     width: "90%",
     backgroundColor: "white",
+    marginBottom: 20,
   },
   eyeIcon: {
     position: "absolute",
