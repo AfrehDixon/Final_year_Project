@@ -19,6 +19,7 @@ import LoginScreen from "./screen/LoginScreen";
 import CaptureImage from "./screen/CaptureImage";
 import SignupScreen from "./screen/SignupScreen";
 import ForgetPassword from "./screen/ForgetPassword";
+import AlphabetScreen from "./screen/AlphabetScreen";
 
 const MainStack = createNativeStackNavigator();
 
@@ -42,7 +43,12 @@ export default function MainNavigator() {
         options={{ headerShown: false }}
       />
       <MainStack.Screen
-        name='ForgetPassword'
+        name="Alphabet"
+        component={AlphabetScreen}
+        options={{ headerShown: false }}
+      />
+      <MainStack.Screen
+        name="ForgetPassword"
         component={ForgetPassword}
         options={{ headerShown: true }}
       />

@@ -4,7 +4,7 @@ import { IconButton, Button } from "react-native-paper";
 
 const HandwritingInitial = ({ navigation }) => {
   const handleStartTest = () => {
-    navigation.navigate("Handwriting");
+    navigation.navigate("Alphabet");
   };
 
   return (
