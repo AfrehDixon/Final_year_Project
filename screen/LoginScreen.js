@@ -109,8 +109,8 @@ export default function LoginScreen({ navigation, setUserToken }) {
           const token = await AsyncStorage.setItem("userToken", data.token);
 
           setLoading(false); // Reset loading state
-          navigation.navigate("RegisterChild", { token });
-          navigation.navigate("RegisterChild", { token });
+          // navigation.navigate("RegisterChild", { token });
+          navigation.navigate("Home", { token });
           // setToken(token);
           console.log(await AsyncStorage.getItem("userToken"));
         } catch (e) {

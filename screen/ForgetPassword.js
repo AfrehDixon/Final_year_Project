@@ -58,24 +58,28 @@ export default function ForgetPassword({ navigation }) {
       });
       const data = await res.json();
       console.log(data);
+      console.log(res);
       console.log(otp, newPassword, email);
       if (res.status === 400) {
         toast.show(data.error, {
           type: "danger",
           placement: "top",
         });
+        navigation.navigate("Login");
       } else if (res.status === 200) {
         toast.show("Password reset Sucessfull", {
           type: "success",
           placement: "top",
         });
         navigation.navigate("Login");
-      } else {
-        toast.show(data.error, {
-          type: "danger",
-          placement: "top",
-        });
+
       }
+      // else {
+      //   toast.show(data.error, {
+      //     type: "danger",
+      //     placement: "top",
+      //   });
+      // }
     } catch (e) {
       console.log(e);
       console.log(data.error);
