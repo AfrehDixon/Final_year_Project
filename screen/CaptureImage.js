@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { View, Button, StyleSheet, Image, Text, Platform } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { ProgressBar, Colors } from "react-native-paper";
+import { ProgressBar, ActivityIndicator, Button } from "react-native-paper";
+
+import Spacing from "../config/Spacing";
+import Colors from "../config/Colors";
 
 const CaptureImage = ({ route, navigation }) => {
   // const {
-  //   alphabet,
+  //   //   alphabet,
   //   images,
   //   setImages,
-  //   alphabetIndex,
-  //   setAlphabetIndex,
-  //   randomAlphabets,
+  //   //   alphabetIndex,
+  //   //   setAlphabetIndex,
+  //   //   randomAlphabets,
   // } = route.params;
   const [image, setImage] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -108,64 +119,141 @@ const CaptureImage = ({ route, navigation }) => {
   //   }
   // };
 
-    const uploadImage = async () => {
-      if (!image) return;
+  const uploadImage = async () => {
+    setLoading(true);
+    if (!image) return;
 
-      const formData = new FormData();
-      const uriParts = image.split(".");
-      const fileType = uriParts[uriParts.length - 1];
+    const formData = new FormData();
+    const uriParts = image.split(".");
+    const fileType = uriParts[uriParts.length - 1];
 
-      formData.append("file", {
-        uri: image,
-        type: `image/${fileType}`,
-        name: `photo.${fileType}`,
-      });
+    formData.append("file", {
+      uri: image,
+      type: `image/${fileType}`,
+      name: `photo.${fileType}`,
+    });
 
-      try {
-        const response = await fetch(
-          "https://final-handwriting-model.onrender.com/upload",
-          {
-            method: "POST",
-            body: formData,
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+    try {
+      const response = await fetch(
+        "https://final-handwriting-model.onrender.com/upload",
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       //   if (!response.ok) {
       //     throw new Error(`HTTP error! Status: ${response.status}`);
       //   }
 
-        const responseData = await response.json();
-        console.log(formData)
-          // console.log(response);
-          console.log(responseData);
-          navigation.navigate('Alphabet')
-      } catch (error) {
-        console.error("Upload failed:", error.message);
+      const responseData = await response.json();
 
-        // Log the entire response text to debug
-        const responseText = await response.text();
-        console.log("Response text:", responseText);
-      }
-    };
+      console.log(formData);
+      // console.log(response);
+      console.log(responseData);
+      navigation.navigate("Alphabet");
+    } catch (error) {
+      console.error("Upload failed:", error.message);
+
+      // Log the entire response text to debug
+      const responseText = await response.text();
+      console.log("Response text:", responseText);
+    }
+  };
 
   return (
     <View style={styles.container}>
       {isUploading ? (
         <>
-          <View style={{ backgroundColor: "red" }}>
+          <View
+            style={{
+              // backgroundColor: "yellow",
+              borderWidth: 2,
+              borderStyle: "dashed",
+              borderColor: "green",
+            }}
+          >
             <Image source={{ uri: image }} style={styles.image} />
           </View>
-          <Button title="Upload" onPress={uploadImage} />
+          {/* <Button title="Upload" onPress={uploadImage} /> */}
+          <TouchableOpacity
+            style={{
+              padding: Spacing * 2,
+              backgroundColor: Colors.background,
+              marginVertical: Spacing * 3,
+              borderRadius: Spacing,
+              shadowColor: Colors.primary,
+              shadowOffset: {
+                width: 0,
+                height: Spacing,
+              },
+              shadowOpacity: 0.3,
+              shadowRadius: Spacing,
+            }}
+            onPress={uploadImage}
+            disabled={loading}
+          >
+            {loading ? (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: 10,
+                }}
+              >
+                <ActivityIndicator size="small" color="white" />
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Uploading...
+                </Text>
+              </View>
+            ) : (
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 16,
+                  fontWeight: "bold",
+                  textAlign: "center",
+                }}
+              >
+                Sign In
+              </Text>
+            )}
+          </TouchableOpacity>
         </>
       ) : (
-        <>
-          <View style={{ backgroundColor: "red" }}>
+          <>
+            <Text>Take a picture of the alphabet </Text>
+          <View
+            style={{
+              // backgroundColor: "yellow",
+              borderWidth: 2,
+              borderStyle: "dashed",
+              borderColor: "red",
+              borderRadius: 20,
+            }}
+            >
+              
             <Image source={{ uri: image }} style={styles.image} />
           </View>
+          <Button
+            mode="contained"
+            style={styles.button}
+            onPress={takeImageWithCamera}
+          >
+            Capture
+          </Button>
+
           <Button title="Take Image" onPress={takeImageWithCamera} />
         </>
       )}
@@ -181,9 +269,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   image: {
-    width: 300,
-    height: 300,
-    marginBottom: 20,
+    width: 350,
+    height: 350,
+    // marginBottom: 20,
   },
   progressContainer: {
     marginTop: 20,
@@ -191,6 +279,13 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     height: 10,
+  },
+  button: {
+    backgroundColor: "blue",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 20,
   },
 });
 

@@ -14,26 +14,23 @@ const AlphabetScreen = ({ navigation }) => {
   const [randomAlphabets, setRandomAlphabets] = useState(getRandomAlphabets(5));
   const [images, setImages] = useState([]);
 
-   const letters =  useEffect(() => {
-      setCurrentAlphabet(randomAlphabets[alphabetIndex]);
-   }, [alphabetIndex]);
-    
-    letters
+  const letters = useEffect(() => {
+    setCurrentAlphabet(randomAlphabets[alphabetIndex]);
+  }, [alphabetIndex]);
 
+  letters;
 
   const handleCapture = () => {
-    
-    navigation.navigate(
-      "Capture"
-      //       {
+      navigation.navigate("Capture"
+        //   {
       //   alphabet: randomAlphabets[alphabetIndex],
-      //   images,
-      //   setImages,
+    //   images,
+    //   setImages,
       //   alphabetIndex,
       //   setAlphabetIndex,
       //   randomAlphabets,
-      //       }
-    );
+    // }
+);
   };
 
   useEffect(() => {
