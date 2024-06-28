@@ -153,15 +153,20 @@ const CaptureImage = ({ route, navigation }) => {
       const responseData = await response.json();
 
       console.log(formData);
-      // console.log(response);
+      console.log(response);
       console.log(responseData);
-      navigation.navigate("Alphabet");
+      if (response.status === 200) {
+        navigation.navigate("Alphabet");
+      } else {
+        console.log("error");
+      }
     } catch (error) {
       console.error("Upload failed:", error.message);
-
-      // Log the entire response text to debug
+      setLoading(false);
       const responseText = await response.text();
       console.log("Response text:", responseText);
+
+      // Log the entire response text to debug
     }
   };
 
@@ -175,6 +180,7 @@ const CaptureImage = ({ route, navigation }) => {
               borderWidth: 2,
               borderStyle: "dashed",
               borderColor: "green",
+              borderRadius: 20,
             }}
           >
             <Image source={{ uri: image }} style={styles.image} />
@@ -226,14 +232,14 @@ const CaptureImage = ({ route, navigation }) => {
                   textAlign: "center",
                 }}
               >
-                Sign In
+                Upload
               </Text>
             )}
           </TouchableOpacity>
         </>
       ) : (
-          <>
-            <Text>Take a picture of the alphabet </Text>
+        <>
+          <Text>Take a picture of the alphabet </Text>
           <View
             style={{
               // backgroundColor: "yellow",
@@ -242,8 +248,7 @@ const CaptureImage = ({ route, navigation }) => {
               borderColor: "red",
               borderRadius: 20,
             }}
-            >
-              
+          >
             <Image source={{ uri: image }} style={styles.image} />
           </View>
           <Button
@@ -271,6 +276,8 @@ const styles = StyleSheet.create({
   image: {
     width: 350,
     height: 350,
+    borderRadius: 20,
+
     // marginBottom: 20,
   },
   progressContainer: {

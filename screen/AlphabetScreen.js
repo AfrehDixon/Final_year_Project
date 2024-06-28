@@ -7,6 +7,17 @@ const getRandomAlphabets = (count) => {
   const shuffled = alphabets.sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 };
+const generateRandomLetters = (count) => {
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let randomLetters = [];
+
+  for (let i = 0; i < count; i++) {
+    const randomIndex = Math.floor(Math.random() * alphabet.length);
+    randomLetters.push(alphabet[randomIndex]);
+  }
+
+  return randomLetters;
+};
 
 const AlphabetScreen = ({ navigation }) => {
   const [currentAlphabet, setCurrentAlphabet] = useState("");
@@ -14,23 +25,35 @@ const AlphabetScreen = ({ navigation }) => {
   const [randomAlphabets, setRandomAlphabets] = useState(getRandomAlphabets(5));
   const [images, setImages] = useState([]);
 
-  const letters = useEffect(() => {
-    setCurrentAlphabet(randomAlphabets[alphabetIndex]);
-  }, [alphabetIndex]);
+  //   const letters = () => {
+  //     setCurrentAlphabet(randomAlphabets[alphabetIndex]);
+  //   };
 
-  letters;
+  //   letters();
+
+  const [letters, setLetters] = useState([]);
+  const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
+
+  useEffect(() => {
+    const randomLetters = generateRandomLetters(5); // Generates 5 random letters
+    setLetters(randomLetters);
+  }, []);
 
   const handleCapture = () => {
-      navigation.navigate("Capture"
-        //   {
+    if (currentLetterIndex < letters.length - 1) {
+      setCurrentLetterIndex(currentLetterIndex + 1);
+    }
+    navigation.navigate(
+      "Capture"
+      //   {
       //   alphabet: randomAlphabets[alphabetIndex],
-    //   images,
-    //   setImages,
+      //   images,
+      //   setImages,
       //   alphabetIndex,
       //   setAlphabetIndex,
       //   randomAlphabets,
-    // }
-);
+      // }
+    );
   };
 
   useEffect(() => {
@@ -41,7 +64,8 @@ const AlphabetScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.alphabet}>{currentAlphabet}</Text>
+      {/* <Text style={styles.alphabet}>{currentAlphabet}</Text> */}
+      <Text style={styles.letter}>{letters[currentLetterIndex]}</Text>
       <Button title="Capture" onPress={handleCapture} />
     </View>
   );
