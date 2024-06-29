@@ -25,11 +25,7 @@ const AlphabetScreen = ({ navigation }) => {
   const [randomAlphabets, setRandomAlphabets] = useState(getRandomAlphabets(5));
   const [images, setImages] = useState([]);
 
-  //   const letters = () => {
-  //     setCurrentAlphabet(randomAlphabets[alphabetIndex]);
-  //   };
-
-  //   letters();
+  
 
   const [letters, setLetters] = useState([]);
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
@@ -45,14 +41,7 @@ const AlphabetScreen = ({ navigation }) => {
     }
     navigation.navigate(
       "Capture"
-      //   {
-      //   alphabet: randomAlphabets[alphabetIndex],
-      //   images,
-      //   setImages,
-      //   alphabetIndex,
-      //   setAlphabetIndex,
-      //   randomAlphabets,
-      // }
+     
     );
   };
 

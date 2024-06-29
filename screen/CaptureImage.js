@@ -14,14 +14,7 @@ import Spacing from "../config/Spacing";
 import Colors from "../config/Colors";
 
 const CaptureImage = ({ route, navigation }) => {
-  // const {
-  //   //   alphabet,
-  //   images,
-  //   setImages,
-  //   //   alphabetIndex,
-  //   //   setAlphabetIndex,
-  //   //   randomAlphabets,
-  // } = route.params;
+
   const [image, setImage] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
@@ -39,17 +32,7 @@ const CaptureImage = ({ route, navigation }) => {
     })();
   }, []);
 
-  // const pickImageFromLibrary = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: false, // Prevent cropping
-  //     quality: 1,
-  //   });
 
-  //   if (!result.canceled) {
-  //     setImage(result.assets[0].uri);
-  //   }
-  // };
 
   const takeImageWithCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -63,62 +46,6 @@ const CaptureImage = ({ route, navigation }) => {
     setIsUploading(!isUploading);
   };
 
-  // const takeImage = async () => {
-  //   const result = await ImagePicker.launchCameraAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
-  //     allowsEditing: false,
-  //     quality: 1,
-  //   });
-
-  //   if (!result.canceled) {
-  //     setImage(result.uri);
-  //   }
-  //   setIsUploading(!isUploading);
-  // };
-
-  // const uploadImage = async () => {
-  //   setIsUploading(true);
-  //   const formData = new FormData();
-  //   formData.append("image", {
-  //     uri: image,
-  //     type: "image/jpeg",
-  //     name: "photo.jpg",
-  //   });
-
-  //   try {
-  //     const response = await fetch(
-  //       "https://final-handwriting-model.onrender.com/upload",
-  //       {
-  //         method: "POST",
-  //         body: formData,
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       }
-  //     );
-  //     console.log(formData, uri);
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log("Upload success:", data.message);
-  //       const newImages = [...images, image];
-  //       setImages(newImages);
-
-  //       if (alphabetIndex < randomAlphabets.length - 1) {
-  //         setAlphabetIndex(alphabetIndex + 1);
-  //         navigation.navigate("Alphabet");
-  //       } else {
-  //         navigation.navigate("Result");
-  //       }
-  //     } else {
-  //       console.error("Upload failed:", response.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error("Upload failed:", error.message);
-  //   }
-  //   finally {
-  //     setIsUploading(false);
-  //   }
-  // };
 
   const uploadImage = async () => {
     // setImageCount(ImageCount + 1);
@@ -182,7 +109,7 @@ const CaptureImage = ({ route, navigation }) => {
       const responseText = await response.text();
       console.log("Response text:", responseText);
 
-      // Log the entire response text to debug
+     
     }
   };
 
