@@ -20,6 +20,7 @@ import CaptureImage from "./screen/CaptureImage";
 import SignupScreen from "./screen/SignupScreen";
 import ForgetPassword from "./screen/ForgetPassword";
 import AlphabetScreen from "./screen/AlphabetScreen";
+import HandwritinResult from "./screen/HandwritingResult";
 
 const MainStack = createNativeStackNavigator();
 
@@ -35,6 +36,11 @@ export default function MainNavigator() {
       <MainStack.Screen
         name="HandwritingInitial"
         component={HandwritingInitial}
+        options={{ headerShown: false }}
+      />
+      <MainStack.Screen
+        name="ResultTwo"
+        component={HandwritinResult}
         options={{ headerShown: false }}
       />
       <MainStack.Screen

@@ -160,15 +160,21 @@ const CaptureImage = ({ route, navigation }) => {
       setImageCount((prev) => prev + 1);
       if (ImageCount === 5) {
         navigation.navigate("Result");
-        
       }
       console.log(ImageCount);
-      if (responseData.uploaded_images <=4 ) {
+      // if (response.status === 200) {
+      //   navigation.navigate("Alphabet");
+      // } else {
+      //   console.log("error");
+      // }
+
+      if (responseData.uploaded_images <= 4) {
         navigation.navigate("Alphabet");
-      } else {
-        navigation.navigate("Result");
         
-        console.log("error");
+      }
+      else {
+        navigation.navigate("ResultTwo");
+        
       }
     } catch (error) {
       console.error("Upload failed:", error.message);
