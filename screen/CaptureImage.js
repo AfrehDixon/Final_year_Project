@@ -26,6 +26,7 @@ const CaptureImage = ({ route, navigation }) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [ImageCount, setImageCount] = useState(1);
 
   useEffect(() => {
     (async () => {
@@ -120,6 +121,7 @@ const CaptureImage = ({ route, navigation }) => {
   // };
 
   const uploadImage = async () => {
+    // setImageCount(ImageCount + 1);
     setLoading(true);
     if (!image) return;
 
@@ -155,9 +157,17 @@ const CaptureImage = ({ route, navigation }) => {
       console.log(formData);
       console.log(response);
       console.log(responseData);
-      if (response.status === 200) {
+      setImageCount((prev) => prev + 1);
+      if (ImageCount === 5) {
+        navigation.navigate("Result");
+        
+      }
+      console.log(ImageCount);
+      if (responseData.uploaded_images <=4 ) {
         navigation.navigate("Alphabet");
       } else {
+        navigation.navigate("Result");
+        
         console.log("error");
       }
     } catch (error) {
