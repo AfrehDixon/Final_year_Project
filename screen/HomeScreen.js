@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import {
   Appbar,
   Card,
@@ -11,6 +11,7 @@ import {
   RadioButton,
   Icon,
   Text,
+  
 } from "react-native-paper";
 import Colors from "../config/Colors";
 // import { LineChart } from "react-native-svg-charts";
@@ -21,15 +22,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreen = ({ navigation }) => {
   const route = useRoute();
-  const [child, setchild] = useState() 
+  const [child, setchild] = useState();
   // const { data } = route.params
   // const {age ,grade,name}= data
 
   // const userName = data.name;
   const getchild = async () => {
     try {
-      const Childdata = await AsyncStorage.getItem("child");  
-      const childJSON = JSON.parse(Childdata)
+      const Childdata = await AsyncStorage.getItem("child");
+      const childJSON = JSON.parse(Childdata);
       // console.log(childJSON.name);
       setchild(childJSON);
     } catch (error) {
@@ -38,76 +39,91 @@ const HomeScreen = ({ navigation }) => {
   };
   getchild();
   return (
-    <View style={styles.container}>
-      {/* Top Bar */}
-      <Appbar.Header
-        style={{ justifyContent: "space-between", flexDirection: "row" }}
-      >
-        <Appbar.Content
-          title={`Welcome ${child?.name}`}
-          style={styles.appbarContent}
-        />
-        {/* <MaterialCommunityIcons name="brain" size={30} color={Colors.background} /> */}
-        <MaterialCommunityIcons
-          name="bell"
-          size={30}
-          color={Colors.background}
-        />
-        {/* </View> */}
-      </Appbar.Header>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View style={styles.container}>
+        {/* Top Bar */}
+        <Appbar.Header
+          style={{ justifyContent: "space-between", flexDirection: "row" }}
+        >
+          <Appbar.Content
+            title={`Welcome ${child?.name}`}
+            style={styles.appbarContent}
+          />
+          {/* <MaterialCommunityIcons name="brain" size={30} color={Colors.background} /> */}
+          <MaterialCommunityIcons
+            name="bell"
+            size={30}
+            color={Colors.background}
+          />
+          {/* </View> */}
+        </Appbar.Header>
 
-      <Card style={styles.card}>
-        <Card.Content>
-          <Title>General Cognitive Test</Title>
-          <View style={styles.cardTextContainer2}>
-            <Title style={styles.cardText}></Title>
-          </View>
-          <Button
-            mode="contained"
-            onPress={() => navigation.navigate("TestOneInitial")}
-            style={{ backgroundColor: Colors.background }}
-          >
-            Start Test
-          </Button>
-        </Card.Content>
-      </Card>
-      <Card style={styles.card}>
-        <Card.Content>
-          <Title>General Handwriting Test</Title>
-          <View style={styles.cardTextContainer2}>
-            <Title style={styles.cardText}></Title>
-          </View>
-          <Button
-            mode="contained"
-            onPress={() => navigation.navigate("HandwritingInitial")}
-            style={{ backgroundColor: Colors.background }}
-          >
-            Upload Image
-          </Button>
-        </Card.Content>
-      </Card>
-      <Card style={styles.cardd}>
-        <Card.Content style={{ justifyContent: "center" }}>
-          <View style={{ flexDirection: "row", gap: 10 }}>
-            <MaterialCommunityIcons
-              name="alphabetical-variant"
-              size={40}
-              color={Colors.white}
-            />
-            <MaterialCommunityIcons
-              name="brain"
-              size={40}
-              color={Colors.white}
-            />
-          </View>
-          <Text style={{ color: Colors.white, fontSize: FontSize.large }}>
-            Daily Crosswordd
-          </Text>
-        </Card.Content>
-      </Card>
-
-     
-    </View>
+        <Card style={styles.card}>
+          <Card.Content>
+            <Title>General Cognitive Test</Title>
+            <View style={styles.cardTextContainer2}>
+              <Title style={styles.cardText}></Title>
+            </View>
+            <Button
+              mode="contained"
+              onPress={() => navigation.navigate("TestOneInitial")}
+              style={{ backgroundColor: Colors.background }}
+            >
+              Start Test
+            </Button>
+          </Card.Content>
+        </Card>
+        <Card style={styles.card}>
+          <Card.Content>
+            <Title>General Handwriting Test</Title>
+            <View style={styles.cardTextContainer2}>
+              <Title style={styles.cardText}></Title>
+            </View>
+            <Button
+              mode="contained"
+              onPress={() => navigation.navigate("HandwritingInitial")}
+              style={{ backgroundColor: Colors.background }}
+            >
+              Upload Image
+            </Button>
+          </Card.Content>
+        </Card>
+        <Card style={styles.card}>
+          <Card.Content>
+            <Title>General Handwriting Test</Title>
+            <View style={styles.cardTextContainer2}>
+              <Title style={styles.cardText}></Title>
+            </View>
+            <Button
+              mode="contained"
+              onPress={() => navigation.navigate("HandwritingInitial")}
+              style={{ backgroundColor: Colors.background }}
+            >
+              Upload Image
+            </Button>
+          </Card.Content>
+        </Card>
+        <Card style={styles.cardd}>
+          <Card.Content style={{ justifyContent: "center" }}>
+            <View style={{ flexDirection: "row", gap: 10 }}>
+              <MaterialCommunityIcons
+                name="alphabetical-variant"
+                size={40}
+                color={Colors.white}
+              />
+              <MaterialCommunityIcons
+                name="brain"
+                size={40}
+                color={Colors.white}
+              />
+            </View>
+            <Text style={{ color: Colors.white, fontSize: FontSize.large }}>
+              Daily Crosswordd
+            </Text>
+          </Card.Content>
+        </Card>
+      </View>
+    </ScrollView>
   );
 };
 
