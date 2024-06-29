@@ -90,16 +90,16 @@ const HomeScreen = ({ navigation }) => {
         </Card>
         <Card style={styles.card}>
           <Card.Content>
-            <Title>General Handwriting Test</Title>
+            <Title>General Reading Test</Title>
             <View style={styles.cardTextContainer2}>
               <Title style={styles.cardText}></Title>
             </View>
             <Button
               mode="contained"
-              onPress={() => navigation.navigate("HandwritingInitial")}
+              onPress={() => navigation.navigate("ReadingInitial")}
               style={{ backgroundColor: Colors.background }}
             >
-              Upload Image
+              Upload Video
             </Button>
           </Card.Content>
         </Card>
