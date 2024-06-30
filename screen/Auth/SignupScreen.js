@@ -24,9 +24,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
 
-import Colors from "../config/Colors";
-import FontSize from "../config/FontSize";
-import Spacing from "../config/Spacing";
+import Colors from "../../config/Colors";
+import FontSize from "../../config/FontSize";
+import Spacing from "../../config/Spacing";
 // import AppPicker from "../component/AppPicker";
 
 export default function SignupScreen({ navigation }) {

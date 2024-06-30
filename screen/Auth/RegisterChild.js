@@ -7,13 +7,13 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import Colors from "../config/Colors";
-import AppButton from "../component/AppButton";
+import Colors from "../../config/Colors";
+import AppButton from "../../component/AppButton";
 import { Text, TextInput } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useToast } from "react-native-toast-notifications";
 import { RadioButton, ActivityIndicator } from "react-native-paper";
-import Spacing from "../config/Spacing";
+import Spacing from "../../config/Spacing";
 
 const RegisterChild = ({ navigation }) => {
   const [selectedAge, setSelectedAge] = useState("");

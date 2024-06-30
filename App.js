@@ -24,10 +24,10 @@ import { StatusBar } from "expo-status-bar";
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 //#endregion
 import { useCallback } from "react";
-import Onbording1 from "./screen/Onbording1";
+// import Onbording1 from "./screen/Onbording1";
 import Navigation from "./Navigation";
 import { useEffect, useState } from "react";
-import LoginScreen from "./screen/LoginScreen";
+import LoginScreen from "./screen/Auth/LoginScreen";
 import { ToastProvider } from "react-native-toast-notifications";
 import { AuthProvider } from "./Context";
 // import { useFonts } from "expo-font";
@@ -83,7 +83,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <ToastProvider  offsetBottom={40}>
+      <ToastProvider offsetBottom={40}>
         <AuthProvider>
           <Navigation />
         </AuthProvider>

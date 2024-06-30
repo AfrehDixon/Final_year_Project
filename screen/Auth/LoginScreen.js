@@ -15,8 +15,8 @@ import {
   ScrollView,
 } from "react-native";
 import { TextInput, Text, ActivityIndicator } from "react-native-paper";
-import AppInput from "../component/AppInput";
-import AppButton from "../component/AppButton";
+import AppInput from "../../component/AppInput";
+import AppButton from "../../component/AppButton";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
@@ -25,12 +25,12 @@ import { useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useToast } from "react-native-toast-notifications";
 
-import Colors from "../config/Colors";
-import FontSize from "../config/FontSize";
-import Spacing from "../config/Spacing";
+import Colors from "../../config/Colors";
+import FontSize from "../../config/FontSize";
+import Spacing from "../../config/Spacing";
 import OTPScreen from "./OTPScreen";
 import ForgetPassword from "./ForgetPassword";
-import { AuthContext, UserContext } from "../Context";
+import { AuthContext, UserContext } from "../../Context";
 
 export default function LoginScreen({ navigation, setUserToken }) {
   const [email, setEmail] = useState("");

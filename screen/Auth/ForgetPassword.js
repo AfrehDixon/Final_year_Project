@@ -13,14 +13,14 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
 } from "react-native";
-import AppTextInput from "../component/AppInput"; // Adjust the import path
-import AppButton from "../component/AppButton"; // Adjust the import path
+import AppTextInput from "../../component/AppInput"; // Adjust the import path
+import AppButton from "../../component/AppButton"; // Adjust the import path
 import OTPInputView from "@twotalltotems/react-native-otp-input";
-import Colors from "../config/Colors";
+import Colors from "../../config/Colors";
 import { Button, PaperProvider, TextInput } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
-import { Spacing } from "../config/Spacing";
+import { Spacing } from "../../config/Spacing";
 import { useToast } from "react-native-toast-notifications";
 
 // import { KeyboardAvoidingView } from "react-native-web";
@@ -72,7 +72,6 @@ export default function ForgetPassword({ navigation }) {
           placement: "top",
         });
         navigation.navigate("Login");
-
       }
       // else {
       //   toast.show(data.error, {

@@ -1,27 +1,31 @@
 import React from "react";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import OnboardingScreen from "./screen/Onbording1";
-import LoginScreen from "./screen/LoginScreen";
-import SignupScreen from "./screen/SignupScreen";
-import ForgetPassword from "./screen/ForgetPassword";
-import OTPScreen from "./screen/OTPScreen";
-import RegisterChild from "./screen/RegisterChild";
-import TestOneInitialScreen from "./screen/TestOneInitialScreen";
-import TestOneScreen from "./screen/TestOneScreen";
-import TestTwoInitialScreen from "./screen/TestTwoInitialScreen";
-import TestTwoScreen from "./screen/TestTwoScreen";
-import TestThreeInitialScreen from "./screen/TestThreeInitialScreen";
-import TestThreeScreen from "./screen/TestThreeScreen";
-import TestFourInitialScreen from "./screen/TestFourInitialScreen";
-import TestFourScreen from "./screen/TestFourScreen";
-import TestResult from "./screen/TestResult";
+import OnboardingScreen from "./screen/Auth/Onbording1";
+import LoginScreen from "./screen/Auth/LoginScreen";
+import SignupScreen from "./screen/Auth/SignupScreen";
+import ForgetPassword from "./screen/Auth/ForgetPassword";
+import OTPScreen from "./screen/Auth/OTPScreen";
+import RegisterChild from "./screen/Auth/RegisterChild";
+import TestOneInitialScreen from "./screen/TestOne/TestOneInitialScreen";
+import TestOneScreen from "./screen/TestOne/TestOneScreen";
+import TestTwoInitialScreen from "./screen/TestOne/TestTwoInitialScreen";
+import TestTwoScreen from "./screen/TestOne/TestTwoScreen";
+import TestThreeInitialScreen from "./screen/TestOne/TestThreeInitialScreen";
+import TestThreeScreen from "./screen/TestOne/TestThreeScreen";
+import TestFourInitialScreen from "./screen/TestOne/TestFourInitialScreen";
+import TestFourScreen from "./screen/TestOne/TestFourScreen";
+import TestResult from "./screen/TestOne/TestResult";
 import HomeScreen from "./screen/HomeScreen";
 import Home from "./component/Home";
-import HandwritingInitial from "./screen/HandwritingInitial";
-import HandwritingScreen from "./screen/HandwritingScreen";
-import CaptureImage from "./screen/CaptureImage";
-import AlphabetScreen from "./screen/AlphabetScreen";
+import HandwritingInitial from "./screen/TestTwo/HandwritingInitial";
+import HandwritingScreen from "./screen/TestTwo/HandwritingScreen";
+import CaptureImage from "./screen/TestTwo/CaptureImage";
+import AlphabetScreen from "./screen/TestTwo/AlphabetScreen";
+import ReadingScreenIntial from "./screen/TestThree/ReadingScreenInitial";
+import ReadingScreen from "./screen/TestThree/ReadingScreen";
+import HandwritinResult from "./screen/TestTwo/HandwritingResult";
+
 
 const AuthStack = createNativeStackNavigator();
 
@@ -53,7 +57,16 @@ export default function AuthNavigator() {
         component={AlphabetScreen}
         options={{ headerShown: false }}
       />
-
+      <AuthStack.Screen
+        name="ReadingInitial"
+        component={ReadingScreenIntial}
+        options={{ headerShown: false }}
+      />
+      <AuthStack.Screen
+        name="ReadingScreen"
+        component={ReadingScreen}
+        options={{ headerShown: false }}
+      />
       <AuthStack.Screen
         name="Handwriting"
         component={HandwritingScreen}
@@ -62,6 +75,11 @@ export default function AuthNavigator() {
       <AuthStack.Screen
         name="Capture"
         component={CaptureImage}
+        options={{ headerShown: false }}
+      />
+      <AuthStack.Screen
+        name="ResultTwo"
+        component={HandwritinResult}
         options={{ headerShown: false }}
       />
       <AuthStack.Screen

@@ -10,8 +10,8 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { ProgressBar, ActivityIndicator, Button } from "react-native-paper";
 
-import Spacing from "../config/Spacing";
-import Colors from "../config/Colors";
+import Spacing from "../../config/Spacing";
+import Colors from "../../config/Colors";
 
 const CaptureImage = ({ route, navigation }) => {
   // const {
@@ -63,7 +63,6 @@ const CaptureImage = ({ route, navigation }) => {
     setIsUploading(!isUploading);
   };
 
-
   const uploadImage = async () => {
     // setImageCount(ImageCount + 1);
     setLoading(true);
@@ -114,11 +113,8 @@ const CaptureImage = ({ route, navigation }) => {
 
       if (responseData.uploaded_images <= 4) {
         navigation.navigate("Alphabet");
-        
-      }
-      else {
+      } else {
         navigation.navigate("ResultTwo");
-        
       }
     } catch (error) {
       console.error("Upload failed:", error.message);

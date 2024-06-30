@@ -12,12 +12,12 @@ import {
   ScrollView,
   // TouchableWithoutFeedback
 } from "react-native";
-import Colors from "../config/Colors";
+import Colors from "../../config/Colors";
 import { useRoute } from "@react-navigation/native";
 // import OTPInputView from "@twotalltotems/react-native-otp-input";
-import AppButton from "../component/AppButton";
+import AppButton from "../../component/AppButton";
 import { Button, ActivityIndicator } from "react-native-paper";
-import Spacing from "../config/Spacing";
+import Spacing from "../../config/Spacing";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import { useToast } from "react-native-toast-notifications";
 
@@ -139,7 +139,7 @@ export default function OTPScreen({ navigation }) {
         > */}
         <View style={styles.innerContainer}>
           <Image
-            source={require("../assets/codepic.png")}
+            source={require("../../assets/codepic.png")}
             style={styles.image}
           />
           <Text style={styles.title}>Verify your email address</Text>
@@ -235,7 +235,7 @@ export default function OTPScreen({ navigation }) {
         {/* </KeyboardAvoidingView> */}
       </SafeAreaView>
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({

@@ -94,7 +94,8 @@ const ReadingScreen = () => {
           <Button title="Pick a Video" onPress={pickImageFromLibrary} />
         </>
       ) : (
-        <>
+          <>
+            <Text>Upload video of your child reading</Text>
           <View
             style={{
               // backgroundColor: "yellow",
