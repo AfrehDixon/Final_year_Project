@@ -4,7 +4,7 @@ import { IconButton, Button } from "react-native-paper";
 
 const ReadingScreenIntial = ({ navigation }) => {
   const handleStartTest = () => {
-    navigation.navigate("Alphabet");
+    navigation.navigate("ReadingScreen");
   };
 
   return (

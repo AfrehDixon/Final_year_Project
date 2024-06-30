@@ -22,6 +22,7 @@ import ForgetPassword from "./screen/ForgetPassword";
 import AlphabetScreen from "./screen/AlphabetScreen";
 import HandwritinResult from "./screen/HandwritingResult";
 import ReadingScreenIntial from "./screen/ReadingScreenInitial";
+import ReadingScreen from "./screen/ReadingScreen";
 
 const MainStack = createNativeStackNavigator();
 
@@ -52,6 +53,11 @@ export default function MainNavigator() {
       <MainStack.Screen
         name="ReadingInitial"
         component={ReadingScreenIntial}
+        options={{ headerShown: false }}
+      />
+      <MainStack.Screen
+        name="ReadingScreen"
+        component={ReadingScreen}
         options={{ headerShown: false }}
       />
 

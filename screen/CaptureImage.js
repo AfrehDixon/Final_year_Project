@@ -14,7 +14,14 @@ import Spacing from "../config/Spacing";
 import Colors from "../config/Colors";
 
 const CaptureImage = ({ route, navigation }) => {
-
+  // const {
+  //   //   alphabet,
+  //   images,
+  //   setImages,
+  //   //   alphabetIndex,
+  //   //   setAlphabetIndex,
+  //   //   randomAlphabets,
+  // } = route.params;
   const [image, setImage] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
@@ -32,7 +39,17 @@ const CaptureImage = ({ route, navigation }) => {
     })();
   }, []);
 
+  // const pickImageFromLibrary = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: false, // Prevent cropping
+  //     quality: 1,
+  //   });
 
+  //   if (!result.canceled) {
+  //     setImage(result.assets[0].uri);
+  //   }
+  // };
 
   const takeImageWithCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -109,7 +126,7 @@ const CaptureImage = ({ route, navigation }) => {
       const responseText = await response.text();
       console.log("Response text:", responseText);
 
-     
+      // Log the entire response text to debug
     }
   };
 

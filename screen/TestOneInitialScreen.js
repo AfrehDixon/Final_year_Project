@@ -22,34 +22,22 @@ const TestOneInitialScreen = ({ navigation }) => {
 
       <View style={styles.section}>
         <View style={styles.benefit}>
-          <Icon
-            name="check-circle"
-            size={30}
-            color="green"
-            style={styles.checkIcon}
-          />
+          <IconButton icon="check" size={20} style={styles.icon} />
+
           <Text>
             You will see a 5x5 grid containing the letters "d" and "b".
           </Text>
         </View>
         <View style={styles.benefit}>
-          <Icon
-            name="check-circle"
-            size={30}
-            color="green"
-            style={styles.checkIcon}
-          />
+          <IconButton icon="check" size={20} style={styles.icon} />
+
           <Text>
             Your task is to identify and select all the "b" letters in the grid.
           </Text>
         </View>
         <View style={styles.benefit}>
-          <Icon
-            name="check-circle"
-            size={30}
-            color="green"
-            style={styles.checkIcon}
-          />
+          <IconButton icon="check" size={20} style={styles.icon} />
+
           <Text>
             You will have 16 seconds to complete this part of the test.
           </Text>
@@ -69,7 +57,6 @@ const styles = {
     alignItems: "center",
     padding: 20,
     paddingTop: 90,
-    
   },
   iconContainer: {
     alignItems: "center",
