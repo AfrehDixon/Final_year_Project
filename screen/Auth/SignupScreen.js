@@ -23,6 +23,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
+import Checkbox from "expo-checkbox";
 
 import Colors from "../../config/Colors";
 import FontSize from "../../config/FontSize";
@@ -38,14 +39,15 @@ export default function SignupScreen({ navigation }) {
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [error, setError] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
   const toast = useToast();
 
-  useEffect(() => {
-    toast.show("Sign up page", {
-      type: "success",
-    });
-  }, []);
+  // useEffect(() => {
+  //   toast.show("Sign up page", {
+  //     type: "success",
+  //   });
+  // }, []);
 
   const api = "https://dyslexia-backend.onrender.com/api/v1/user/signup";
 
@@ -58,6 +60,7 @@ export default function SignupScreen({ navigation }) {
       return toast.show("Please enter all the fields.", {
         type: "danger",
       });
+      setLoading(false)
     }
     try {
       const res = await fetch(api, {
@@ -236,6 +239,14 @@ export default function SignupScreen({ navigation }) {
                   }
                 />
               </View>
+              <View style={styles.checkboxContainer}>
+                <Checkbox
+                  value={rememberMe}
+                  onValueChange={setRememberMe}
+                  color={rememberMe ? Colors.primary : undefined}
+                />
+                <Text style={styles.checkboxLabel}>Remember me</Text>
+              </View>
 
               {/* {error ? (
                 <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
@@ -314,3 +325,17 @@ export default function SignupScreen({ navigation }) {
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10
+    // marginBottom: 15,
+  },
+  checkboxLabel: {
+    marginLeft: 8,
+    fontSize: FontSize.medium,
+    color: Colors.text,
+  },
+});

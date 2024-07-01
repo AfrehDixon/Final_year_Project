@@ -43,13 +43,13 @@ export default function LoginScreen({ navigation, setUserToken }) {
   // const {setUserToken} = route.params
   const toast = useToast();
 
-  useEffect(() => {
-    toast.show("Welcome to Dyslexia App", {
-      type: "success",
-      placement: "top",
-      // icon: "success",
-    });
-  }, []);
+  // useEffect(() => {
+  //   toast.show("Welcome to Dyslexia App", {
+  //     type: "success",
+  //     placement: "top",
+  //     // icon: "success",
+  //   });
+  // }, []);
 
   const { setToken } = useContext(AuthContext);
 

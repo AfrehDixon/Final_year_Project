@@ -4,7 +4,7 @@ import { IconButton, Button } from "react-native-paper";
 
 const ReadingScreenIntial = ({ navigation }) => {
   const handleStartTest = () => {
-    navigation.navigate("ReadingScreen");
+    navigation.navigate("CaptureVideo");
   };
 
   return (

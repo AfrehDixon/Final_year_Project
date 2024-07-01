@@ -6,19 +6,13 @@ import {
   Card,
   Title,
   Button,
-  ProgressBar,
-  IconButton,
-  RadioButton,
-  Icon,
+
   Text,
-  
 } from "react-native-paper";
 import Colors from "../config/Colors";
-// import { LineChart } from "react-native-svg-charts";
 import FontSize from "../config/FontSize";
 import { useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 const HomeScreen = ({ navigation }) => {
   const route = useRoute();

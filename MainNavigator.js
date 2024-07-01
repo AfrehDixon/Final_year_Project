@@ -23,6 +23,7 @@ import AlphabetScreen from "./screen/TestTwo/AlphabetScreen";
 import HandwritinResult from "./screen/TestTwo/HandwritingResult";
 import ReadingScreenIntial from "./screen/TestThree/ReadingScreenInitial";
 import ReadingScreen from "./screen/TestThree/ReadingScreen";
+import CaptureVideo from "./screen/TestThree/CaptureVideo";
 
 const MainStack = createNativeStackNavigator();
 
@@ -74,6 +75,11 @@ export default function MainNavigator() {
       <MainStack.Screen
         name="Capture"
         component={CaptureImage}
+        options={{ headerShown: false }}
+      />
+      <MainStack.Screen
+        name="CaptureVideo"
+        component={CaptureVideo}
         options={{ headerShown: false }}
       />
 
