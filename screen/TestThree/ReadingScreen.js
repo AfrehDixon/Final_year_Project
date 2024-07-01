@@ -5,10 +5,13 @@ import { View, Button, Text, StyleSheet, Alert } from "react-native";
 import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
 import { Video } from "expo-av";
+import { useRoute } from "@react-navigation/native";
 
 const ReadingScreen = () => {
-  const [videoUri, setVideoUri] = useState(null);
+  // const [videoUri, setVideoUri] = useState(null);
   const [videoStatus, setVideoStatus] = useState({});
+  const route = useRoute();
+  const { videoUri } = route.params;
 
   const pickImageFromLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();

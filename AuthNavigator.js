@@ -25,6 +25,7 @@ import AlphabetScreen from "./screen/TestTwo/AlphabetScreen";
 import ReadingScreenIntial from "./screen/TestThree/ReadingScreenInitial";
 import ReadingScreen from "./screen/TestThree/ReadingScreen";
 import HandwritinResult from "./screen/TestTwo/HandwritingResult";
+import CaptureVideo from "./screen/TestThree/CaptureVideo";
 
 
 const AuthStack = createNativeStackNavigator();
@@ -80,6 +81,11 @@ export default function AuthNavigator() {
       <AuthStack.Screen
         name="ResultTwo"
         component={HandwritinResult}
+        options={{ headerShown: false }}
+      />
+      <AuthStack.Screen
+        name="CaptureVideo"
+        component={CaptureVideo}
         options={{ headerShown: false }}
       />
       <AuthStack.Screen
