@@ -23,20 +23,18 @@ const ReadingScreenIntial = ({ navigation }) => {
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            You will see different alphabet on the screen from A to Z on your
-            screen
+            You will see a passage of text on the screen. Your task is to read
           </Text>
         </View>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            Your task is to write each alphabet you see on a paper and take the
-            picture at the end of the test
+            Press the Start icon to start recording while you read and Stop to Stop recording when you are done reading. 
           </Text>
         </View>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
-          <Text>Take a picture and submit at the end of the test</Text>
+          <Text>Click on the Next button to Preview the recorded video</Text>
         </View>
       </View>
 
