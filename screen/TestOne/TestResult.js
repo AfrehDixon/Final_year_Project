@@ -1,14 +1,15 @@
-import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 import ConfettiCannon from "react-native-confetti-cannon";
-import { useNavigation } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
+import { IconButton, Button } from "react-native-paper";
 
-
-export default function TestResult({navigation}) {
+export default function TestResult() {
+  const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
   const route = useRoute();
-  const [newmessage , setMessage]= useState('')
+  const [newMessage, setMessage] = useState("");
   const { data } = route.params;
 
   const toast = useToast();
@@ -20,31 +21,27 @@ export default function TestResult({navigation}) {
     });
   }, []);
 
-  const newdata   = {data: data}
-
-  console.log(data);
   const api = "https://game-model-2.onrender.com/predict";
   const SendResults = async () => {
-      try {
-        const res = await fetch(api, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(newdata),
-        });
-        const result = await res.json();
-        console.log(result);
-        const {prediction ,message} = result
-        setMessage(message)
-      } catch (e) {
-        console.log(e);
-      }
+    setLoading(true);
+    try {
+      const res = await fetch(api, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ data }),
+      });
+      const result = await res.json();
+      const { message } = result;
+      setMessage(message);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
-    // <View>
     <View style={styles.container}>
       <Text>Game Complete!</Text>
       <ConfettiCannon
@@ -53,14 +50,40 @@ export default function TestResult({navigation}) {
         fallSpeed={1000}
         autoStartDelay={5}
         explosionSpeed={1000}
-        
       />
+      <Text style={styles.prediction}>{newMessage}</Text>
+      <View style={styles.btn}>
+        {loading ? (
+          <>
+            <Button
+              mode="contained"
+              style={styles.button}
+              onPress={SendResults}
+            >
+              Loading.....
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              mode="contained"
+              style={styles.button}
+              onPress={SendResults}
+            >
+              Check Result
+            </Button>
+          </>
+        )}
 
-      <Text>{newmessage}</Text>
-      <Button title="Check Result" onPress={SendResults} />
-      <Button title="Back to home" onPress={()=> navigation.navigate('Home')} />
+        <Button
+          mode="contained"
+          style={styles.button}
+          onPress={() => navigation.navigate("Home")}
+        >
+          Back to Home
+        </Button>
+      </View>
     </View>
-    // </View>
   );
 }
 
@@ -69,5 +92,27 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  prediction: {
+    fontSize: 15,
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: "blue",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 50,
+  },
+  btn: {
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "90%",
+    gap: 40,
+  },
+  text: {
+    fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: 20,
   },
 });

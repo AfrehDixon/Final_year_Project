@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { useNavigation } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
+import { IconButton, Button } from "react-native-paper";
 
 export default function HandwritinResult({ navigation }) {
   const route = useRoute();
@@ -13,24 +14,20 @@ export default function HandwritinResult({ navigation }) {
   const toast = useToast();
 
   useEffect(() => {
-    toast.show("Game Complete", {
+    toast.show("Test Complete", {
       type: "success",
       placement: "top",
     });
   }, []);
 
-  //   const newdata = { data: data };
-
-  //   console.log(data);
-  const api = "https://game-model-2.onrender.com/predict";
   const SendResults = async () => {
-    setMessage("Model_Prediction");
+    setMessage(Model_Prediction);
   };
 
   return (
     // <View>
     <View style={styles.container}>
-      <Text>Game Complete!</Text>
+      <Text style={styles.text}>Test Complete!</Text>
       <ConfettiCannon
         count={350}
         origin={{ x: -10, y: 0 }}
@@ -39,16 +36,21 @@ export default function HandwritinResult({ navigation }) {
         explosionSpeed={1000}
       />
 
-      <Text>{newmessage}</Text>
-      <Button title="Check Result" onPress={SendResults} />
-      <Button
-        title="Back to home"
-        onPress={() => navigation.navigate("Home")}
-      />
-      <Button
-        title="Get Prediction"
-        onPress={() => console.log(Model_Prediction)}
-      />
+      <Text style={styles.prediction}>{newmessage}</Text>
+      <View style={styles.btn}>
+       
+        <Button mode="contained" style={styles.button} onPress={SendResults}>
+          Check Result
+        </Button>
+        <Button
+          mode="contained"
+          style={styles.button}
+          onPress={() => navigation.navigate("Home")}
+        >
+          Back to Home
+        </Button>
+      </View>
+     
     </View>
     // </View>
   );
@@ -60,4 +62,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  text: {
+    fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  prediction: {
+    fontSize: 15,
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: "blue",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 50,
+  },
+  btn: {
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "90%",
+    gap:40
+  }
 });

@@ -3,31 +3,21 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableWithoutFeedback,
   Pressable,
   Modal,
-  ScrollView,
-  Keyboard,
-  Platform,
-  TouchableOpacity,
-  KeyboardAvoidingView,
   SafeAreaView,
+  TouchableOpacity
 } from "react-native";
-import AppTextInput from "../../component/AppInput"; 
-import AppButton from "../../component/AppButton"; 
+import AppTextInput from "../../component/AppInput";
+import AppButton from "../../component/AppButton";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import Colors from "../../config/Colors";
 import { Button, PaperProvider, TextInput } from "react-native-paper";
-import { Ionicons } from "@expo/vector-icons";
-import { useRoute } from "@react-navigation/native";
-import { Spacing } from "../../config/Spacing";
 import { useToast } from "react-native-toast-notifications";
-
 
 export default function ForgetPassword({ navigation }) {
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
-
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +26,6 @@ export default function ForgetPassword({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const toast = useToast();
-  // const email = useRoute().params.email;
 
   const searchEmail = async () => {
     const resetPasswordlink =
@@ -55,9 +44,6 @@ export default function ForgetPassword({ navigation }) {
         }),
       });
       const data = await res.json();
-      console.log(data);
-      console.log(res);
-      console.log(otp, newPassword, email);
       if (res.status === 400) {
         toast.show(data.error, {
           type: "danger",
@@ -71,15 +57,8 @@ export default function ForgetPassword({ navigation }) {
         });
         navigation.navigate("Login");
       }
-      // else {
-      //   toast.show(data.error, {
-      //     type: "danger",
-      //     placement: "top",
-      //   });
-      // }
     } catch (e) {
       console.log(e);
-      console.log(data.error);
     }
   };
 
@@ -98,7 +77,6 @@ export default function ForgetPassword({ navigation }) {
           email,
         }),
       });
-      console.log("OTP Sent");
       setShowotp(!showotp);
 
       toast.show("OTP sent to email", {
@@ -150,7 +128,6 @@ export default function ForgetPassword({ navigation }) {
             Enter the 4 digit code that you received on your email
           </Text>
 
-          {/* <KeyboardAvoidingView> */}
           <OTPInputView
             style={styles.otpInputView}
             pinCount={4}
@@ -160,14 +137,11 @@ export default function ForgetPassword({ navigation }) {
             keyboardType="number-pad"
             onCodeChanged={handleOtpInput}
           />
-          <View style={{ width: "100%" }}>
-          
-          </View>
+          <View style={{ width: "100%" }}></View>
           <AppButton
             label="Confirm OTP"
             onPress={() => setModalVisible(true)}
           />
-          
 
           <Pressable onPress={sendOtp}>
             <Text style={styles.resendOtpText}>Resend OTP</Text>
@@ -257,34 +231,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
   },
-  btn: {
-    padding: Spacing * 2,
-    backgroundColor: Colors.background,
-    marginVertical: Spacing * 3,
-    borderRadius: Spacing,
-    shadowColor: Colors.primary,
-    shadowOffset: {
-      width: 0,
-      height: Spacing,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: Spacing,
-  },
   content: {
-    // backgroundColor: "yellow",
     width: "100%",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    alignItems: "center",
-  },
-  content2: {
-    backgroundColor: "red",
-    width: "100%",
-
     padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -295,22 +246,6 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     color: "#ccccc",
   },
-  // otpInputView: {
-  //   width: "100%",
-  //   height: 200,
-  //   paddingHorizontal: 32,
-  // },
-  // otpInputField: {
-  //   width: 50,
-  //   height: 55,
-  //   color: "#f4a135",
-  //   borderWidth: 0,
-  //   borderBottomWidth: 3,
-  //   borderBottomColor: "#111",
-  // },
-  // otpInputHighlight: {
-  //   borderColor: Colors.success,
-  // },
   otpContainer: {
     width: "100%",
     paddingHorizontal: 22,
@@ -320,10 +255,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     paddingHorizontal: 32,
-    // backgroundColor: "red",
     borderBottomColor: Colors.success,
-    // borderColor: Colors.success,
-    // borderWidth: 1,
   },
   otpInputField: {
     width: 50,
@@ -333,21 +265,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     borderWidth: 3,
     borderRadius: 8,
-    // borderColor: "red",
     borderBottomWidth: 3,
     borderBottomColor: Colors.success,
   },
   otpInputHighlight: {
     borderColor: "red",
-    // padding:20,
-    // width: 30,
   },
 
   passwordInputContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
-    // width: "100%",
   },
   textInput: {
     width: "90%",
@@ -366,5 +294,3 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
-
-// export default ForgetPassword;

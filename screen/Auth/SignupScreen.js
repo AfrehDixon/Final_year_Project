@@ -1,25 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Button,
   View,
-  Image,
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  // ActivityIndicator,
-  TouchableWithoutFeedback,
   Alert,
+  Text
 } from "react-native";
 import {
   TextInput,
-  Text,
-  //   TouchableWithFeedback,
+  // Text,
   ActivityIndicator,
   PaperProvider,
 } from "react-native-paper";
-// import AppInput from "../component/AppInput";
-// import AppButton from "../component/AppButton";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
@@ -28,7 +23,6 @@ import Checkbox from "expo-checkbox";
 import Colors from "../../config/Colors";
 import FontSize from "../../config/FontSize";
 import Spacing from "../../config/Spacing";
-// import AppPicker from "../component/AppPicker";
 
 export default function SignupScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -43,25 +37,12 @@ export default function SignupScreen({ navigation }) {
 
   const toast = useToast();
 
-  // useEffect(() => {
-  //   toast.show("Sign up page", {
-  //     type: "success",
-  //   });
-  // }, []);
-
   const api = "https://dyslexia-backend.onrender.com/api/v1/user/signup";
 
   const handlesignup = async () => {
-    // }
-    setError("");
-    setLoading(true);
-    if (!email || !password || !name || !confirmPassword) {
-      // setError("Please enter both email and password.");
-      return toast.show("Please enter all the fields.", {
-        type: "danger",
-      });
-      setLoading(false)
-    }
+    // navigation.replace("OTP", { email });
+      setError("");
+      setLoading(true);
     try {
       const res = await fetch(api, {
         method: "POST",
@@ -76,7 +57,6 @@ export default function SignupScreen({ navigation }) {
       });
 
       const data = await res.json();
-      // console.log(data.message);
       console.log(data);
 
       if (res.status === 400) {
@@ -85,20 +65,17 @@ export default function SignupScreen({ navigation }) {
           position: "top",
         });
         setError(data.error);
-        // navigation.replace("OTP", { email });
       } else {
-        // await AsyncStorage.setItem("userToken", data.token); // Save token if needed
         toast.show(data.message, {
           type: "success",
           position: "top",
-          icon: "success",
         });
+        console.log(data.message)
         navigation.replace("OTP", { email });
       }
     } catch (error) {
       console.error("Network error");
       setLoading(false);
-      // setError(data.error);
       toast.show("Network error", {
         type: "danger",
         position: "top",
@@ -106,7 +83,58 @@ export default function SignupScreen({ navigation }) {
     } finally {
       setLoading(false);
     }
-  };
+  }
+
+  // const handlesignup = async () => {
+  //   setError("");
+  //   setLoading(true);
+  //   if (!email || !password || !name || !confirmPassword) {
+  //     return toast.show("Please enter all the fields.", {
+  //       type: "danger",
+  //     });
+  //     setLoading(false);
+  //   }
+  //   try {
+  //     const res = await fetch(api, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         name: name.trim(),
+  //         email: email.trim(),
+  //         password: password.trim(),
+  //       }),
+  //     });
+
+  //     const data = await res.json();
+  //     console.log(data);
+
+  //     if (res.status === 400) {
+  //       toast.show(data.error, {
+  //         type: "danger",
+  //         position: "top",
+  //       });
+  //       setError(data.error);
+  //     } else {
+  //       toast.show(data.message, {
+  //         type: "success",
+  //         position: "top",
+  //         icon: "success",
+  //       });
+  //       navigation.replace("OTP", { email });
+  //     }
+  //   } catch (error) {
+  //     console.error("Network error");
+  //     setLoading(false);
+  //     toast.show("Network error", {
+  //       type: "danger",
+  //       position: "top",
+  //     });
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -132,21 +160,10 @@ export default function SignupScreen({ navigation }) {
                 style={{
                   fontSize: FontSize.xLarge,
                   color: Colors.background,
-                  // fontFamily: Font["poppins-bold"],
                   marginVertical: Spacing * 2,
                 }}
               >
                 Create account as Parent
-              </Text>
-              <Text
-                style={{
-                  // fontFamily: Font["poppins-regular"],
-                  fontSize: 13,
-                  maxWidth: "80%",
-                  textAlign: "center",
-                }}
-              >
-                Create an account so you can explore!
               </Text>
             </View>
             <View
@@ -159,14 +176,12 @@ export default function SignupScreen({ navigation }) {
                   placeholder="username"
                   value={name}
                   onChangeText={setUsername}
-                  // leftIcon={{ type: "font-awesome", name: "envelope" }}
                   autoCapitalize="none"
                   style={{
                     width: "100%",
                     backgroundColor: Colors.lightPrimary,
                     height: 60,
                   }}
-                  // right={<TextInput.Icon icon="eye" onPress={()=>setShowPassword(!showPassword)}/>}
                 />
               </View>
               <View style={{ marginBottom: 7.5 }}>
@@ -175,7 +190,6 @@ export default function SignupScreen({ navigation }) {
                   value={email}
                   onChangeText={setEmail}
                   keyboardType="email-address"
-                  // leftIcon={{ type: "font-awesome", name: "envelope" }}
                   autoCapitalize="none"
                   style={{
                     width: "100%",
@@ -187,10 +201,7 @@ export default function SignupScreen({ navigation }) {
 
               <View
                 style={{
-                  // flexDirection: "row",
-                  // alignItems: "center",
                   marginBottom: 7.5,
-                  // width: "100%",
                 }}
               >
                 <TextInput
@@ -248,9 +259,6 @@ export default function SignupScreen({ navigation }) {
                 <Text style={styles.checkboxLabel}>Remember me</Text>
               </View>
 
-              {/* {error ? (
-                <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
-              ) : null} */}
               <TouchableOpacity
                 style={{
                   padding: Spacing * 2,
@@ -309,7 +317,6 @@ export default function SignupScreen({ navigation }) {
               >
                 <Text
                   style={{
-                    // fontFamily: Font["poppins-semiBold"],
                     color: Colors.background,
                     textAlign: "center",
                     fontSize: FontSize.medium,
@@ -323,15 +330,14 @@ export default function SignupScreen({ navigation }) {
         </View>
       </PaperProvider>
     </ScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10
-    // marginBottom: 15,
+    marginTop: 10,
   },
   checkboxLabel: {
     marginLeft: 8,

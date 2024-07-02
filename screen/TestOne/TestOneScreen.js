@@ -112,7 +112,7 @@ const TestOneScreen = () => {
         ))}
       </View>
       <View style={styles.scoreContainer}>
-        <Text style={styles.score}>Number of clicks : {clicks}</Text>
+        <Text style={styles.score}> {clicks}</Text>
         <Text style={styles.timer}>Timer: {timer}</Text>
       </View>
     </View>

@@ -27,19 +27,19 @@ const TestFourInitialScreen = ({ navigation }) => {
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            You will see a 5x5 grid containing the letters "d" and "b".
+            You will see words on the screen.
           </Text>
         </View>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            Your task is to identify and select all the "b" letters in the grid.
+            Your task is to identify and click on the letters that doesnt make the word correct.
           </Text>
         </View>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            You will have 16 seconds to complete this part of the test.
+            You will have 40 seconds to complete this part of the test.
           </Text>
         </View>
       </View>
@@ -56,6 +56,7 @@ const styles = {
     flex: 1,
     alignItems: "center",
     padding: 20,
+    paddingTop: 90,
   },
   iconContainer: {
     alignItems: "center",

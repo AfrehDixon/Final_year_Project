@@ -55,6 +55,7 @@ const styles = {
     flex: 1,
     alignItems: "center",
     padding: 20,
+    paddingTop: 90,
   },
   iconContainer: {
     alignItems: "center",
@@ -86,7 +87,7 @@ const styles = {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
-    width:'90%'
+    width: "90%",
   },
   icon: {
     marginRight: 10,

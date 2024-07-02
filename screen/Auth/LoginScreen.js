@@ -51,17 +51,17 @@ export default function LoginScreen({ navigation, setUserToken }) {
 
   const api = "https://dyslexia-backend.onrender.com/api/v1/user/signin";
   const handlelogin = async () => {
-    setError(""); 
-    setLoading(true); 
+    setError("");
+    setLoading(true);
 
     try {
       if (!email || !password) {
-        // setError("Please enter both email and password.");
+        setLoading(false); // Update loading state immediately
         return toast.show("Please enter both email and password.", {
           type: "danger",
         });
       }
-      // setLoading(false);
+
       const res = await fetch(api, {
         method: "POST",
         headers: {
@@ -82,27 +82,19 @@ export default function LoginScreen({ navigation, setUserToken }) {
         data = await res.text();
       }
 
-      console.log("Response data1:", data);
-      // console.log("Response data:", res);
-      console.log(email, password);
-      // const {tokenn}= data
-
       if (res.ok === true) {
         toast.show("Login successful", {
           type: "success",
           placement: "top",
         });
 
-        try {
-          const token = await AsyncStorage.setItem("userToken", data.token);
+        // Move navigation outside of AsyncStorage operation
+        navigation.navigate("RegisterChild", { token: data.token });
 
-          setLoading(false); // Reset loading state
-          navigation.navigate("RegisterChild", { token });
-          // navigation.navigate("Home", { token });
-          // setToken(token);
+        try {
+          await AsyncStorage.setItem("userToken", data.token);
           console.log(await AsyncStorage.getItem("userToken"));
         } catch (e) {
-          // console.log(e);
           toast.show("An error occurred", {
             type: "danger",
           });
@@ -120,9 +112,8 @@ export default function LoginScreen({ navigation, setUserToken }) {
       toast.show("Network error", {
         type: "danger",
       });
-      setLoading(false);
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false); // Ensure loading state is updated at the end
     }
   };
 
