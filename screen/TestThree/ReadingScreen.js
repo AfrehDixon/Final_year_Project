@@ -16,13 +16,13 @@ const ReadingScreen = () => {
   const pickImageFromLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     console.log("Permission status:", status);
-    if (status !== "granted") {
-      Alert.alert(
-        "Permission required",
-        "We need media library permissions to make this work!"
-      );
-      return;
-    }
+    // if (status !== "granted") {
+    //   Alert.alert(
+    //     "Permission required",
+    //     "We need media library permissions to make this work!"
+    //   );
+    //   return;
+    // }
 
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Videos,
@@ -120,40 +120,7 @@ const ReadingScreen = () => {
           <Button title="Pick a Video" onPress={pickImageFromLibrary} />
         </>
       )}
-      {/* <View
-        style={{
-          // backgroundColor: "yellow",
-          borderWidth: 2,
-          borderStyle: "dashed",
-          borderColor: "red",
-          borderRadius: 20,
-        }}
-      >
-        <View
-          style={{
-            width: 350,
-            height: 350,
-            borderRadius: 20,
-            marginBottom: 20,
-          }}
-        ></View>
-      </View>
-      <Button title="Pick a Video" onPress={pickImageFromLibrary} />
-      {videoUri && (
-        <>
-          <View style={styles.videocontainer}>
-            <Video
-              source={{ uri: videoUri }}
-              style={styles.video}
-              useNativeControls
-              resizeMode="cover"
-              isLooping
-              onPlaybackStatusUpdate={(status) => setVideoStatus(() => status)}
-            />
-          </View>
-          <Button title="Upload Video" onPress={uploadVideo} />
-        </>
-      )} */}
+    
     </View>
   );
 };

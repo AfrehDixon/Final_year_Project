@@ -19,7 +19,7 @@ import TestResult from "./screen/TestOne/TestResult";
 import HomeScreen from "./screen/HomeScreen";
 import Home from "./component/Home";
 import HandwritingInitial from "./screen/TestTwo/HandwritingInitial";
-import HandwritingScreen from "./screen/TestTwo/HandwritingScreen";
+// import HandwritingScreen from "./screen/TestTwo/HandwritingScreen";
 import CaptureImage from "./screen/TestTwo/CaptureImage";
 import AlphabetScreen from "./screen/TestTwo/AlphabetScreen";
 import ReadingScreenIntial from "./screen/TestThree/ReadingScreenInitial";
@@ -68,16 +68,17 @@ export default function AuthNavigator() {
         component={ReadingScreen}
         options={{ headerShown: false }}
       />
-      <AuthStack.Screen
+      {/* <AuthStack.Screen
         name="Handwriting"
         component={HandwritingScreen}
         options={{ headerShown: false }}
-      />
+      /> */}
       <AuthStack.Screen
         name="Capture"
         component={CaptureImage}
         options={{ headerShown: false }}
       />
+
       <AuthStack.Screen
         name="ResultTwo"
         component={HandwritinResult}
@@ -88,6 +89,7 @@ export default function AuthNavigator() {
         component={CaptureVideo}
         options={{ headerShown: false }}
       />
+      
       <AuthStack.Screen
         name="ForgetPassword"
         component={ForgetPassword}

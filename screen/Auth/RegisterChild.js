@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import {
   View,
-  // Text,
-  // TextInput,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
@@ -148,7 +146,7 @@ const RegisterChild = ({ navigation }) => {
             </RadioButton.Group>
           </View>
 
-          {/* <AppButton label="Register" onPress={handleRegisterChild} /> */}
+
           <TouchableOpacity
             style={{
               padding: Spacing * 2,

@@ -8,7 +8,7 @@ import { useToast } from "react-native-toast-notifications";
 export default function HandwritinResult({ navigation }) {
   const route = useRoute();
   const [newmessage, setMessage] = useState("");
-//   const { data } = route.params;
+  const { Model_Prediction } = route.params;
 
   const toast = useToast();
 
@@ -19,27 +19,12 @@ export default function HandwritinResult({ navigation }) {
     });
   }, []);
 
-//   const newdata = { data: data };
+  //   const newdata = { data: data };
 
-//   console.log(data);
+  //   console.log(data);
   const api = "https://game-model-2.onrender.com/predict";
   const SendResults = async () => {
-    try {
-      const res = await fetch(api, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(newdata),
-      });
-      const result = await res.json();
-      console.log(result);
-      const { prediction, message } = result;
-      setMessage(message);
-    } catch (e) {
-      console.log(e);
-    }
+    setMessage("Model_Prediction");
   };
 
   return (
@@ -55,10 +40,14 @@ export default function HandwritinResult({ navigation }) {
       />
 
       <Text>{newmessage}</Text>
-      {/* <Button title="Check Result" onPress={SendResults} /> */}
+      <Button title="Check Result" onPress={SendResults} />
       <Button
         title="Back to home"
         onPress={() => navigation.navigate("Home")}
+      />
+      <Button
+        title="Get Prediction"
+        onPress={() => console.log(Model_Prediction)}
       />
     </View>
     // </View>

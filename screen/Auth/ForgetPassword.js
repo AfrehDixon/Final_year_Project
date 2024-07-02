@@ -13,8 +13,8 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
 } from "react-native";
-import AppTextInput from "../../component/AppInput"; // Adjust the import path
-import AppButton from "../../component/AppButton"; // Adjust the import path
+import AppTextInput from "../../component/AppInput"; 
+import AppButton from "../../component/AppButton"; 
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import Colors from "../../config/Colors";
 import { Button, PaperProvider, TextInput } from "react-native-paper";
@@ -23,8 +23,6 @@ import { useRoute } from "@react-navigation/native";
 import { Spacing } from "../../config/Spacing";
 import { useToast } from "react-native-toast-notifications";
 
-// import { KeyboardAvoidingView } from "react-native-web";
-// import {TextInput} from 'react-native-paper'
 
 export default function ForgetPassword({ navigation }) {
   const [email, setEmail] = useState("");
@@ -163,13 +161,13 @@ export default function ForgetPassword({ navigation }) {
             onCodeChanged={handleOtpInput}
           />
           <View style={{ width: "100%" }}>
-            {/* <AppButton label="Continue" onPress={handleContinueOtp} /> */}
+          
           </View>
           <AppButton
             label="Confirm OTP"
             onPress={() => setModalVisible(true)}
           />
-          {/* </KeyboardAvoidingView> */}
+          
 
           <Pressable onPress={sendOtp}>
             <Text style={styles.resendOtpText}>Resend OTP</Text>
@@ -219,9 +217,7 @@ export default function ForgetPassword({ navigation }) {
                 />
 
                 {error ? <Text style={styles.errorText}>{error}</Text> : null}
-                {/* <Button mode="contained" onPress={handlePasswordReset}>
-              Submit
-            </Button> */}
+
                 <AppButton label="Reset Password" onPress={searchEmail} />
 
                 <TouchableOpacity onPress={() => setModalVisible(false)}>
@@ -232,32 +228,6 @@ export default function ForgetPassword({ navigation }) {
           </Modal>
         </View>
       </PaperProvider>
-
-      {/* <View style={styles.content}>
-          <SafeAreaView>
-            <Text style={styles.title}>Reset your password</Text>
-            <View style={styles.passwordInputContainer}>
-            <TextInput
-              placeholder="New Password"
-              value={newPassword}
-              onChangeText={setNewPassword}
-              secureTextEntry={!showPassword}
-              style={styles.textInput}
-              right={
-                <TextInput.Icon
-                  icon={showPassword ? "eye-off" : "eye"}
-                  onPress={() => setShowPassword(!showPassword)}
-                  style={{ color: "black" }}
-                />
-              }
-            />
-          </SafeAreaView>
-        </View> */}
-      {/* 
-        <Pressable onPress={onClose} style={styles.closeButton}>
-          <Text style={styles.closeButtonText}>Close</Text>
-        </Pressable> */}
-      {/* </View> */}
     </SafeAreaView>
   );
 }

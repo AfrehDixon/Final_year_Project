@@ -13,7 +13,7 @@ import TestResult from "./screen/TestOne/TestResult";
 import HomeScreen from "./screen/HomeScreen";
 import RegisterChild from "./screen/Auth/RegisterChild";
 import HandwritingInitial from "./screen/TestTwo/HandwritingInitial";
-import HandwwritingScreen from "./screen/TestTwo/HandwritingScreen";
+// import HandwwritingScreen from "./screen/TestTwo/HandwritingScreen";
 import OnboardingScreen from "./screen/Auth/Onbording1";
 import LoginScreen from "./screen/Auth/LoginScreen";
 import CaptureImage from "./screen/TestTwo/CaptureImage";
@@ -24,6 +24,7 @@ import HandwritinResult from "./screen/TestTwo/HandwritingResult";
 import ReadingScreenIntial from "./screen/TestThree/ReadingScreenInitial";
 import ReadingScreen from "./screen/TestThree/ReadingScreen";
 import CaptureVideo from "./screen/TestThree/CaptureVideo";
+
 
 const MainStack = createNativeStackNavigator();
 
@@ -46,11 +47,11 @@ export default function MainNavigator() {
         component={HandwritinResult}
         options={{ headerShown: false }}
       />
-      <MainStack.Screen
+      {/* <MainStack.Screen
         name="Handwriting"
         component={HandwwritingScreen}
         options={{ headerShown: false }}
-      />
+      /> */}
       <MainStack.Screen
         name="ReadingInitial"
         component={ReadingScreenIntial}

@@ -43,28 +43,16 @@ export default function LoginScreen({ navigation, setUserToken }) {
   // const {setUserToken} = route.params
   const toast = useToast();
 
-  // useEffect(() => {
-  //   toast.show("Welcome to Dyslexia App", {
-  //     type: "success",
-  //     placement: "top",
-  //     // icon: "success",
-  //   });
-  // }, []);
+ 
 
   const { setToken } = useContext(AuthContext);
 
-  const openModal = () => {
-    setModalVisible(!modalVisible);
-  };
 
-  const closeModal = () => {
-    setModalVisible(!modalVisible);
-  };
 
   const api = "https://dyslexia-backend.onrender.com/api/v1/user/signin";
   const handlelogin = async () => {
-    setError(""); // Reset error message
-    setLoading(true); // Set loading state
+    setError(""); 
+    setLoading(true); 
 
     try {
       if (!email || !password) {
@@ -109,8 +97,8 @@ export default function LoginScreen({ navigation, setUserToken }) {
           const token = await AsyncStorage.setItem("userToken", data.token);
 
           setLoading(false); // Reset loading state
-          // navigation.navigate("RegisterChild", { token });
-          navigation.navigate("Home", { token });
+          navigation.navigate("RegisterChild", { token });
+          // navigation.navigate("Home", { token });
           // setToken(token);
           console.log(await AsyncStorage.getItem("userToken"));
         } catch (e) {

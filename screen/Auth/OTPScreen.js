@@ -133,10 +133,7 @@ export default function OTPScreen({ navigation }) {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView style={styles.container}>
-        {/* <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : null}
-          style={styles.keyboardAvoidingView}
-        > */}
+       
         <View style={styles.innerContainer}>
           <Image
             source={require("../../assets/codepic.png")}
@@ -160,14 +157,7 @@ export default function OTPScreen({ navigation }) {
               onCodeChanged={handleOtpInput}
             />
 
-            {/* {error ? (
-              <Text style={{ color: "red", marginTop: 10 }}>
-                Invalid OTP. Please try again.
-              </Text>
-            ) : null} */}
-            {/* <TouchableOpacity style={styles.submitButton} onPress={handleOTP}>
-              <Text style={styles.submitButtonText}>Submit</Text>
-            </TouchableOpacity> */}
+        
             <TouchableOpacity
               style={{
                 padding: Spacing * 2,
@@ -218,21 +208,19 @@ export default function OTPScreen({ navigation }) {
                 </Text>
               )}
             </TouchableOpacity>
-            {/* {error && <Text style={{ color: "red" }}>{message}</Text>} */}
+
 
             <Pressable onPress={sendOtp}>
               <Text style={{ color: "blue", marginTop: 50, fontSize: 15 }}>
                 Resend OTP
               </Text>
-              {/* <Text> */}
 
-              {/* </Text> */}
             </Pressable>
-            {/* <Button label="Send OTP" onPress={sendOtp} /> */}
+
             {error && <Text style={{ color: "red" }}>{message}</Text>}
           </View>
         </View>
-        {/* </KeyboardAvoidingView> */}
+
       </SafeAreaView>
     </ScrollView>
   );

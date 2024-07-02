@@ -9,19 +9,15 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { ProgressBar, ActivityIndicator, Button } from "react-native-paper";
+import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
+import { useToast } from "react-native-toast-notifications";
 
 import Spacing from "../../config/Spacing";
 import Colors from "../../config/Colors";
 
 const CaptureImage = ({ route, navigation }) => {
-  // const {
-  //   //   alphabet,
-  //   images,
-  //   setImages,
-  //   //   alphabetIndex,
-  //   //   setAlphabetIndex,
-  //   //   randomAlphabets,
-  // } = route.params;
+  const toast = useToast();
+
   const [image, setImage] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
@@ -38,18 +34,6 @@ const CaptureImage = ({ route, navigation }) => {
       }
     })();
   }, []);
-
-  // const pickImageFromLibrary = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: false, // Prevent cropping
-  //     quality: 1,
-  //   });
-
-  //   if (!result.canceled) {
-  //     setImage(result.assets[0].uri);
-  //   }
-  // };
 
   const takeImageWithCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -91,38 +75,30 @@ const CaptureImage = ({ route, navigation }) => {
         }
       );
 
-      //   if (!response.ok) {
-      //     throw new Error(`HTTP error! Status: ${response.status}`);
-      //   }
-
       const responseData = await response.json();
 
-      console.log(formData);
-      console.log(response);
       console.log(responseData);
-      setImageCount((prev) => prev + 1);
-      if (ImageCount === 5) {
-        navigation.navigate("Result");
-      }
-      console.log(ImageCount);
-      // if (response.status === 200) {
-      //   navigation.navigate("Alphabet");
-      // } else {
-      //   console.log("error");
-      // }
 
       if (responseData.uploaded_images <= 4) {
         navigation.navigate("Alphabet");
       } else {
-        navigation.navigate("ResultTwo");
+        const { Model_Prediction } = responseData;
+        navigation.navigate("ResultTwo", { Model_Prediction });
       }
-    } catch (error) {
-      console.error("Upload failed:", error.message);
-      setLoading(false);
-      const responseText = await response.text();
-      console.log("Response text:", responseText);
 
-      // Log the entire response text to debug
+      toast.show("Upload Succesfull", {
+        type: "success",
+        placement: "top",
+      });
+    } catch (error) {
+      // console.error("Upload failed:", error.message);
+      toast.show(error.message, {
+        type: "danger",
+        placement: "top",
+      });
+      setLoading(false);
+      // const responseText = await response.text();
+      // console.log("Response text:", responseText);
     }
   };
 
@@ -130,12 +106,15 @@ const CaptureImage = ({ route, navigation }) => {
     <View style={styles.container}>
       {isUploading ? (
         <>
+          <Text style={{ fontSize: 20, marginBottom: 20 }}>
+            Upload the image
+          </Text>
           <View
             style={{
               // backgroundColor: "yellow",
               borderWidth: 2,
-              borderStyle: "dashed",
-              borderColor: "green",
+              // borderStyle: "dashed",
+              borderColor: "grey",
               borderRadius: 20,
             }}
           >
@@ -195,17 +174,32 @@ const CaptureImage = ({ route, navigation }) => {
         </>
       ) : (
         <>
-          <Text>Take a picture of the alphabet </Text>
+          <Text style={{ fontSize: 20, marginBottom: 20 }}>
+            Take a picture of the alphabet
+          </Text>
           <View
             style={{
               // backgroundColor: "yellow",
               borderWidth: 2,
               borderStyle: "dashed",
-              borderColor: "red",
+              borderColor: "grey",
+              borderRadius: 20,
+              justifyContent: "center",
+              alignItems: "center",
+              width: 350,
+              height: 350,
               borderRadius: 20,
             }}
           >
-            <Image source={{ uri: image }} style={styles.image} />
+            <View>
+              <MaterialCommunityIcons
+                name="camera"
+                size={50}
+                color={Colors.black}
+                style={{ alignSelf: "center" }}
+                onPress={takeImageWithCamera}
+              />
+            </View>
           </View>
           <Button
             mode="contained"
