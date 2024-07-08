@@ -16,9 +16,25 @@ export default function CaptureVideo({ navigation }) {
   const [videoUri, setVideoUri] = useState(null);
   const [videoStatus, setVideoStatus] = useState({});
   const [cameraVisible, setCameraVisible] = useState(false);
+  const [randomPassage, setRandomPassage] = useState('');
+
   let intervalRef = useRef(null);
 
+  const getRandomPassage = () => {
+    return passages[Math.floor(Math.random() * passages.length)];
+  };
+
+  const passages = [
+    "The quick brown fox jumps over the lazy dog.",
+    "A journey of a thousand miles begins with a single step.",
+    "To be or not to be, that is the question.",
+    "All that glitters is not gold.",
+    "Actions speak louder than words.",
+    // Add more passages here
+  ];
+
   useEffect(() => {
+     setRandomPassage(getRandomPassage());
     (async () => {
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       const audioStatus = await Camera.requestMicrophonePermissionsAsync();
@@ -53,9 +69,7 @@ export default function CaptureVideo({ navigation }) {
   return (
     <View style={styles.container}>
       <View>
-        <Text>
-          He llo my name is Dixon Afreh Frimpong and I am a software developer
-        </Text>
+        <Text>{randomPassage}</Text>
       </View>
       <View
         style={{
@@ -187,90 +201,3 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
-
-// import React, { useState, useEffect, useRef } from "react";
-// import { View, StyleSheet, Button } from "react-native";
-// import { Camera } from "expo-camera";
-// import { Video } from "expo-av";
-
-// export default function CaptureVideo() {
-//   const [hasPermission, setHasPermission] = useState(null);
-//   const [isRecording, setIsRecording] = useState(false);
-//   const [videoUri, setVideoUri] = useState(null); // Ensure this state is defined
-//   const cameraRef = useRef(null);
-
-//   useEffect(() => {
-//     (async () => {
-//       const cameraStatus = await Camera.requestCameraPermissionsAsync();
-//       const audioStatus = await Camera.requestMicrophonePermissionsAsync();
-//       setHasPermission(
-//         cameraStatus.status === "granted" && audioStatus.status === "granted"
-//       );
-//     })();
-//   }, []);
-
-//   const startRecording = async () => {
-//     if (cameraRef.current) {
-//       setIsRecording(true);
-//       const video = await cameraRef.current.recordAsync();
-//       setVideoUri(video.uri); // Store the video URI
-//       console.log("Video recorded: ", video.uri);
-//       setIsRecording(false);
-//     }
-//   };
-
-//   const stopRecording = () => {
-//     if (cameraRef.current) {
-//       cameraRef.current.stopRecording();
-//     }
-//   };
-
-// //   if (hasPermission === null) {
-// //     return <View />;
-// //   }
-// //   if (hasPermission === false) {
-// //     return <Text>No access to camera</Text>;
-// //   }
-
-//   return (
-//     <View style={styles.container}>
-//       <Camera style={styles.camera} ref={cameraRef}>
-//         <Button
-//                   //   title={isRecording ? "Stop Recording" : "Start Recording"}
-//                   title="record"
-//                   //   onPress={isRecording ? stopRecording : startRecording}
-//                   onPress={startRecording}
-//         />
-//       </Camera>
-//       {videoUri && (
-//         <Video
-//           source={{ uri: videoUri }}
-//           rate={1.0}
-//           volume={1.0}
-//           isMuted={false}
-//           resizeMode="cover"
-//           shouldPlay
-//           isLooping
-//           style={styles.video}
-//         />
-//       )}
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//   },
-//   camera: {
-//     flex: 1,
-//     aspectRatio: 1,
-//   },
-//   video: {
-//     width: 300,
-//     height: 300,
-//     marginTop: 20,
-//   },
-// });

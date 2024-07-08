@@ -101,7 +101,7 @@ const CaptureImage = ({ route, navigation }) => {
     <View style={styles.container}>
       {isUploading ? (
         <>
-          <Text style={{ fontSize: 20, marginBottom: 20, fontWeight: "bold" }}>
+          <Text style={{ fontSize: 20, marginBottom: 20, fontWeight: "light" }}>
             Upload this image
           </Text>
           <View
@@ -166,7 +166,7 @@ const CaptureImage = ({ route, navigation }) => {
         </>
       ) : (
         <>
-          <Text style={{ fontSize: 20, marginBottom: 20, fontWeight: "bold" }}>
+          <Text style={{ fontSize: 20, marginBottom: 20, fontWeight: "light" }}>
             Take a picture of the alphabet
           </Text>
           <View
