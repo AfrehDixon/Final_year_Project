@@ -112,7 +112,7 @@ export default function ForgetPassword({ navigation }) {
               autoCapitalize="none"
               style={{
                 width: "100%",
-                backgroundColor: Colors.lightPrimary,
+                backgroundColor: "white",
                 height: 60,
               }}
             />

@@ -38,7 +38,7 @@ const CaptureImage = ({ route, navigation }) => {
   const takeImageWithCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
-      quality: 0.5, // Lower quality for faster upload
+      quality: 0.5, 
     });
 
     if (!result.canceled) {
@@ -93,7 +93,7 @@ const CaptureImage = ({ route, navigation }) => {
         placement: "top",
       });
     } finally {
-      setLoading(false); // Ensure loading is set to false in case of success or error
+      setLoading(false); 
     }
   };
 

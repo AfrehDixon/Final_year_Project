@@ -57,8 +57,9 @@ const styles = {
   container: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
     padding: 20,
-    paddingTop: 90,
+    paddingTop: -300,
   },
   iconContainer: {
     alignItems: "center",

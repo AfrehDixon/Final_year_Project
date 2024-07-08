@@ -1,5 +1,3 @@
-
-
 import { CameraView, useCameraPermissions, Camera } from "expo-camera";
 import { Video } from "expo-av";
 import { useState, useRef, useEffect } from "react";
@@ -179,17 +177,15 @@ const styles = StyleSheet.create({
   controlButton: {
     alignItems: "center",
     padding: 10,
-    },
-    recordButton: {
-        position: "absolute",
-        bottom: 20,
-        alignSelf: "center",
-        backgroundColor: "red",
-        borderRadius: 50,
-        padding: 20,
-        },
-      
- 
+  },
+  recordButton: {
+    position: "absolute",
+    bottom: 20,
+    alignSelf: "center",
+    backgroundColor: "red",
+    borderRadius: 50,
+    padding: 20,
+  },
 });
 
 // import React, { useState, useEffect, useRef } from "react";

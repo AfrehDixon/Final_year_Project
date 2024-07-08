@@ -51,17 +51,17 @@ export default function LoginScreen({ navigation, setUserToken }) {
 
   const api = "https://dyslexia-backend.onrender.com/api/v1/user/signin";
   const handlelogin = async () => {
-    setError("");
-    setLoading(true);
+    setError(""); 
+    setLoading(true); 
 
     try {
       if (!email || !password) {
-        setLoading(false); // Update loading state immediately
+        // setError("Please enter both email and password.");
         return toast.show("Please enter both email and password.", {
           type: "danger",
         });
       }
-
+      // setLoading(false);
       const res = await fetch(api, {
         method: "POST",
         headers: {
@@ -82,19 +82,27 @@ export default function LoginScreen({ navigation, setUserToken }) {
         data = await res.text();
       }
 
+      console.log("Response data1:", data);
+      // console.log("Response data:", res);
+      console.log(email, password);
+      // const {tokenn}= data
+
       if (res.ok === true) {
         toast.show("Login successful", {
           type: "success",
           placement: "top",
         });
 
-        // Move navigation outside of AsyncStorage operation
-        navigation.navigate("RegisterChild", { token: data.token });
-
         try {
-          await AsyncStorage.setItem("userToken", data.token);
+          const token = await AsyncStorage.setItem("userToken", data.token);
+
+          setLoading(false); // Reset loading state
+          // navigation.navigate("RegisterChild", { token });
+          navigation.navigate("Home", { token });
+          // setToken(token);
           console.log(await AsyncStorage.getItem("userToken"));
         } catch (e) {
+          // console.log(e);
           toast.show("An error occurred", {
             type: "danger",
           });
@@ -112,8 +120,9 @@ export default function LoginScreen({ navigation, setUserToken }) {
       toast.show("Network error", {
         type: "danger",
       });
+      setLoading(false);
     } finally {
-      setLoading(false); // Ensure loading state is updated at the end
+      setLoading(false); // Reset loading state
     }
   };
 
@@ -160,7 +169,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
                 autoCapitalize="none"
                 style={{
                   width: "100%",
-                  backgroundColor: Colors.lightPrimary,
+                  backgroundColor: "white",
                   height: 60,
                 }}
               />
@@ -181,7 +190,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
                 secureTextEntry={!showPassword}
                 style={{
                   width: "100%",
-                  backgroundColor: Colors.lightPrimary,
+                  backgroundColor: "white",
                   height: 60,
                 }}
                 right={
