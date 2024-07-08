@@ -96,6 +96,7 @@ export default function MainNavigator() {
           headerShown: true,
           title: "Test One",
           headerTitleAlign: "center",
+          headerBackTitleVisible: false,
         }}
       />
       <MainStack.Screen name="Signup" component={SignupScreen} />
@@ -112,6 +113,7 @@ export default function MainNavigator() {
           headerTitleAlign: "center",
           headerLeft: () => null,
           gestureEnabled: false,
+          headerBackTitleVisible: false,
         }}
       />
       <MainStack.Screen
@@ -139,8 +141,10 @@ export default function MainNavigator() {
         component={TestFourScreen}
         options={{
           headerShown: true,
+          headerTitleAlign: "center",
           headerLeft: () => null,
           gestureEnabled: false,
+          headerBackTitleVisible: false,
         }}
       />
       <MainStack.Screen

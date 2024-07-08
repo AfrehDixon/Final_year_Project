@@ -141,15 +141,16 @@ const styles = StyleSheet.create({
     width: "80%",
     alignItems: "center",
     justifyContent: "center",
+
   },
   box: {
     width: "20%",
-    height: 70,
+    height: 65,
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#000",
-    margin: 5,
+    margin: 3,
     borderRadius: 5,
   },
   letter: {

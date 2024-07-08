@@ -11,6 +11,7 @@ export default function TestResult() {
   const route = useRoute();
   const [newMessage, setMessage] = useState("");
   const { data } = route.params;
+  const [message, setNewMessage] = useState("");
 
   const toast = useToast();
 
@@ -38,12 +39,14 @@ export default function TestResult() {
       setMessage(message);
     } catch (e) {
       console.error(e);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text>Game Complete!</Text>
+      <Text>Test Complete!</Text>
       <ConfettiCannon
         count={350}
         origin={{ x: -10, y: 0 }}
