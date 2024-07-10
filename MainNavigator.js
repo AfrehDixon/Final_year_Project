@@ -70,7 +70,7 @@ export default function MainNavigator() {
       <MainStack.Screen
         name="ForgetPassword"
         component={ForgetPassword}
-        options={{ headerShown: true }}
+        options={{ headerShown: false }}
       />
       <MainStack.Screen
         name="Capture"

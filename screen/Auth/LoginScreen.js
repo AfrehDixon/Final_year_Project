@@ -207,7 +207,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
           </View>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate("ForgetPassword", { email })}
+            onPress={() => navigation.navigate("ForgetPassword", {  email })}
           >
             {error ? (
               <Text style={{ color: "red", marginBottom: 15, marginTop: 15 }}>

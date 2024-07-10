@@ -44,6 +44,11 @@ export default function AuthNavigator() {
         options={{ headerShown: false }}
       />
       <AuthStack.Screen
+        name="ForgetPassword"
+        component={ForgetPassword}
+        options={{ headerShown: false }}
+      />
+      <AuthStack.Screen
         name="Signup"
         component={SignupScreen}
         options={{ headerShown: false }}
@@ -89,8 +94,8 @@ export default function AuthNavigator() {
         component={CaptureVideo}
         options={{ headerShown: false }}
       />
-      
-      <AuthStack.Screen
+
+      {/* <AuthStack.Screen
         name="ForgetPassword"
         component={ForgetPassword}
         options={{
@@ -98,7 +103,7 @@ export default function AuthNavigator() {
           title: "Forget Password",
           headerTitleAlign: "center",
         }}
-      />
+      /> */}
       <AuthStack.Screen
         name="OTP"
         component={OTPScreen}

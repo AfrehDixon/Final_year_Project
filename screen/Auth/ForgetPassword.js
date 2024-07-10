@@ -6,7 +6,8 @@ import {
   Pressable,
   Modal,
   SafeAreaView,
-  TouchableOpacity
+  TouchableOpacity,
+  Image,
 } from "react-native";
 import AppTextInput from "../../component/AppInput";
 import AppButton from "../../component/AppButton";
@@ -14,6 +15,8 @@ import OTPInputView from "@twotalltotems/react-native-otp-input";
 import Colors from "../../config/Colors";
 import { Button, PaperProvider, TextInput } from "react-native-paper";
 import { useToast } from "react-native-toast-notifications";
+import { useRoute } from "@react-navigation/native";
+// import forget from "../../assets/forget.png";
 
 export default function ForgetPassword({ navigation }) {
   const [email, setEmail] = useState("");
@@ -25,6 +28,9 @@ export default function ForgetPassword({ navigation }) {
   const [showotp, setShowotp] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
 
+  const route = useRoute();
+
+  // const image1 = require();
   const toast = useToast();
 
   const searchEmail = async () => {
@@ -94,114 +100,139 @@ export default function ForgetPassword({ navigation }) {
 
   return (
     <SafeAreaView style={styles.modalContainer}>
-      {showotp ? (
-        <View style={styles.content}>
-          <Text style={styles.head}>Forget Password</Text>
-          <Text style={styles.title}>
-            Enter your email for the verification process.we will send 4 digits
-            code to your email
-          </Text>
-
-          <View style={{ marginBottom: 20, width: "100%" }}>
-            <TextInput
-              placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
-              leftIcon={{ type: "font-awesome", name: "envelope" }}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              style={{
-                width: "100%",
-                backgroundColor: "white",
-                height: 60,
-              }}
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: " center",
+          backgroundColor: "white",
+          marginTop: 145,
+        }}
+      >
+        {showotp ? (
+          <View style={styles.content}>
+            <Text style={styles.head}>Forget Password</Text>
+            <Image
+              source={require("../../assets/forget.png")}
+              style={styles.image}
             />
-          </View>
-          <View>
-            <AppButton label="Continue" onPress={sendOtp} />
-          </View>
-        </View>
-      ) : (
-        <View style={styles.content}>
-          <Text style={styles.head}>Enter 5 Digits Code</Text>
-          <Text style={styles.title1}>
-            Enter the 4 digit code that you received on your email
-          </Text>
+            <Text style={styles.title1}>
+              Enter your email for the verification process.we will send 4
+              digits code to your email
+            </Text>
 
-          <OTPInputView
-            style={styles.otpInputView}
-            pinCount={4}
-            codeInputFieldStyle={styles.otpInputField}
-            codeInputHighlightStyle={styles.otpInputHighlight}
-            placeholderTextColor="gray"
-            keyboardType="number-pad"
-            onCodeChanged={handleOtpInput}
-          />
-          <View style={{ width: "100%" }}></View>
-          <AppButton
-            label="Confirm OTP"
-            onPress={() => setModalVisible(true)}
-          />
-
-          <Pressable onPress={sendOtp}>
-            <Text style={styles.resendOtpText}>Resend OTP</Text>
-          </Pressable>
-        </View>
-      )}
-
-      <PaperProvider>
-        <View style={styles.container}>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => setModalVisible(false)}
-          >
-            <View style={styles.modalBackground}>
-              <View style={styles.modalContainer2}>
-                <Text style={styles.title}>Reset Password</Text>
-
-                <TextInput
-                  placeholder="New Password"
-                  value={newPassword}
-                  onChangeText={setNewPassword}
-                  secureTextEntry={!showPassword}
-                  style={styles.textInput}
-                  right={
-                    <TextInput.Icon
-                      icon={showPassword ? "eye-off" : "eye"}
-                      onPress={() => setShowPassword(!showPassword)}
-                      style={{ color: "black" }}
-                    />
-                  }
-                />
-                <TextInput
-                  placeholder="Confirm New Password"
-                  value={newPassword}
-                  onChangeText={setNewPassword}
-                  secureTextEntry={!showPassword}
-                  style={styles.textInput}
-                  right={
-                    <TextInput.Icon
-                      icon={showPassword ? "eye-off" : "eye"}
-                      onPress={() => setShowPassword(!showPassword)}
-                      style={{ color: "black" }}
-                    />
-                  }
-                />
-
-                {error ? <Text style={styles.errorText}>{error}</Text> : null}
-
-                <AppButton label="Reset Password" onPress={searchEmail} />
-
-                <TouchableOpacity onPress={() => setModalVisible(false)}>
-                  <Text style={styles.cancelText}>Cancel</Text>
-                </TouchableOpacity>
-              </View>
+            <View
+              style={{
+                marginBottom: 10,
+                width: "100%",
+              }}
+            >
+              <TextInput
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
+                leftIcon={{ type: "font-awesome", name: "envelope" }}
+                placeholderTextColor={"grey"}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                style={{
+                  width: "100%",
+                  backgroundColor: "white",
+                  height: 60,
+                }}
+              />
             </View>
-          </Modal>
-        </View>
-      </PaperProvider>
+            <View style={{ width: "100%" }}>
+              <AppButton label="Continue" onPress={sendOtp} />
+            </View>
+          </View>
+        ) : (
+          <View style={styles.content}>
+            <Text style={styles.head}>Enter 4 Digits Code</Text>
+            <Image
+              source={require("../../assets/codepic.png")}
+              style={styles.image}
+            />
+            <Text style={styles.title1}>
+              Enter the 4 digit code that was sent to {email}
+            </Text>
+
+            <OTPInputView
+              style={styles.otpInputView}
+              pinCount={4}
+              codeInputFieldStyle={styles.otpInputField}
+              codeInputHighlightStyle={styles.otpInputHighlight}
+              placeholderTextColor="gray"
+              keyboardType="number-pad"
+              onCodeChanged={handleOtpInput}
+            />
+            <View style={{ width: "100%" }}></View>
+            <AppButton
+              label="Confirm OTP"
+              onPress={() => setModalVisible(true)}
+            />
+
+            <Pressable onPress={sendOtp}>
+              <Text style={styles.resendOtpText}>Resend OTP</Text>
+            </Pressable>
+          </View>
+        )}
+
+        <PaperProvider>
+          <View style={styles.container}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => setModalVisible(false)}
+            >
+              <View style={styles.modalBackground}>
+                <View style={styles.modalContainer2}>
+                  <Text style={styles.title}>Reset Password</Text>
+
+                  <TextInput
+                    placeholder="New Password"
+                    value={newPassword}
+                    onChangeText={setNewPassword}
+                    secureTextEntry={!showPassword}
+                    placeholderTextColor={"grey"}
+                    style={styles.textInput}
+                    right={
+                      <TextInput.Icon
+                        icon={showPassword ? "eye-off" : "eye"}
+                        onPress={() => setShowPassword(!showPassword)}
+                        style={{ color: "black" }}
+                      />
+                    }
+                  />
+                  <TextInput
+                    placeholder="Confirm New Password"
+                    value={newPassword}
+                    onChangeText={setNewPassword}
+                    secureTextEntry={!showPassword}
+                    placeholderTextColor={"grey"}
+                    style={styles.textInput}
+                    right={
+                      <TextInput.Icon
+                        icon={showPassword ? "eye-off" : "eye"}
+                        onPress={() => setShowPassword(!showPassword)}
+                        style={{ color: "black" }}
+                      />
+                    }
+                  />
+
+                  {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
+                  <AppButton label="Reset Password" onPress={searchEmail} />
+
+                  <TouchableOpacity onPress={() => setModalVisible(false)}>
+                    <Text style={styles.cancelText}>Cancel</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+          </View>
+        </PaperProvider>
+      </View>
     </SafeAreaView>
   );
 }
@@ -209,14 +240,23 @@ export default function ForgetPassword({ navigation }) {
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: "white",
   },
   modalBackground: {
-    flex: 2,
+    // flex: 2,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    // backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  title1: {
+    textAlign: "center",
+    marginBottom: 30,
+    fontSize: 16,
+  },
+  image: {
+    width: 300,
+    height: 200,
+    marginBottom: 20,
   },
   modalContainer2: {
     width: 350,
@@ -232,14 +272,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   content: {
-    width: "100%",
-    flex: 1,
+    // width: "100%",
+    // flex: 1,
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    // padding: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    // marginBottom:100,
+
     alignItems: "center",
+    backgroundColor: " yellow",
   },
   title: {
     fontSize: 15,
