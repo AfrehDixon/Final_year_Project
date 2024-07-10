@@ -8,9 +8,10 @@ import { IconButton, Button } from "react-native-paper";
 
 export default function HandwritinResult({ navigation }) {
   const route = useRoute();
-  const [newmessage, setMessage] = useState("");
-  const { Model_Prediction } = route.params;
-
+  const [newmessage2, setMessage] = useState("");
+  // const { Model_Prediction } = route.params;
+  const [prediction, setPrediction] = useState("");
+  const [sendData, setSendData] = useState(true);
   const toast = useToast();
 
   useEffect(() => {
@@ -21,7 +22,8 @@ export default function HandwritinResult({ navigation }) {
   }, []);
 
   const SendResults = async () => {
-    setMessage(Model_Prediction);
+    // setMessage(Model_Prediction);
+    setSendData(!sendData)
   };
 
   return (
@@ -36,21 +38,31 @@ export default function HandwritinResult({ navigation }) {
         explosionSpeed={1000}
       />
 
-      <Text style={styles.prediction}>{newmessage}</Text>
+      <Text style={styles.prediction}>{newmessage2}</Text>
       <View style={styles.btn}>
-       
-        <Button mode="contained" style={styles.button} onPress={SendResults}>
-          Check Result
-        </Button>
-        <Button
-          mode="contained"
-          style={styles.button}
-          onPress={() => navigation.navigate("Home")}
-        >
-          Back to Home
-        </Button>
+        {sendData ? (
+          <>
+            <Button
+              mode="contained"
+              style={styles.button}
+              onPress={SendResults}
+            >
+              Check Result
+            </Button>
+          </>
+        ) : (
+          <>
+           
+            <Button
+              mode="contained"
+              style={styles.button}
+              onPress={() => navigation.navigate("Home" , {newmessage2})}
+            >
+              Back to Home
+            </Button>
+          </>
+        )}
       </View>
-     
     </View>
     // </View>
   );
@@ -82,6 +94,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     width: "90%",
-    gap:40
-  }
+    gap: 40,
+  },
 });

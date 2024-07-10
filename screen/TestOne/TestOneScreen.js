@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../../config/Colors";
-import CountDown from "react-native-countdown-component";
+
 
 const TestOneScreen = () => {
   const navigation = useNavigation();
@@ -114,16 +114,16 @@ const TestOneScreen = () => {
       </View>
       <View style={styles.scoreContainer}>
         <Text style={styles.score}> {clicks}</Text>
-        {/* <Text style={styles.timer}>Timer: {timer}</Text> */}
-        <CountDown
+        <Text style={styles.timer}>Timer: {timer}</Text>
+        {/* <CountDown
           until={16}
           size={20}
-          onFinish={navigateToNext}
+          onFinish={() => navigateToNext}
           digitStyle={{ backgroundColor: "#FFF" }}
           digitTxtStyle={{ color: "#1CC625" }}
           timeToShow={["M", "S"]}
           timeLabels={{ m: "MM", s: "SS" }}
-        />
+        /> */}
       </View>
     </View>
   );
@@ -171,6 +171,3 @@ const styles = StyleSheet.create({
 });
 
 export default TestOneScreen;
-
-
-

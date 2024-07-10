@@ -10,8 +10,9 @@ export default function TestResult() {
   const [loading, setLoading] = useState(false);
   const route = useRoute();
   const [newMessage, setMessage] = useState("");
-  const { data } = route.params;
+  // const { data } = route.params;
   const [message, setNewMessage] = useState("");
+  const [sendData, setSendData] = useState(true);
 
   const toast = useToast();
 
@@ -25,23 +26,26 @@ export default function TestResult() {
   const api = "https://game-model-2.onrender.com/predict";
   const SendResults = async () => {
     setLoading(true);
-    try {
-      const res = await fetch(api, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({ data }),
-      });
-      const result = await res.json();
-      const { message } = result;
-      setMessage(message);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
+    setSendData(!sendData);
+
+    // try {
+    //   const res = await fetch(api, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Accept: "application/json",
+    //     },
+    //     body: JSON.stringify({ data }),
+    //   });
+    //   const result = await res.json();
+    //   const { message } = result;
+    //   setMessage(message);
+    // } catch (e) {
+    //   console.error(e);
+    // } finally {
+    //   setLoading(false);
+
+    // }
   };
 
   return (
@@ -56,35 +60,41 @@ export default function TestResult() {
       />
       <Text style={styles.prediction}>{newMessage}</Text>
       <View style={styles.btn}>
-        {loading ? (
+        {sendData ? (
           <>
-            <Button
-              mode="contained"
-              style={styles.button}
-              onPress={SendResults}
-            >
-              Loading.....
-            </Button>
+            {loading ? (
+              <>
+                <Button
+                  mode="contained"
+                  style={styles.button}
+                  onPress={SendResults}
+                >
+                  Loading.....
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  mode="contained"
+                  style={styles.button}
+                  onPress={SendResults}
+                >
+                  Send Results
+                </Button>
+              </>
+            )}
           </>
         ) : (
           <>
             <Button
               mode="contained"
               style={styles.button}
-              onPress={SendResults}
+              onPress={() => navigation.navigate("Home", { newMessage })}
             >
-              Check Result
+              Back to Home
             </Button>
           </>
         )}
-
-        <Button
-          mode="contained"
-          style={styles.button}
-          onPress={() => navigation.navigate("Home")}
-        >
-          Back to Home
-        </Button>
       </View>
     </View>
   );

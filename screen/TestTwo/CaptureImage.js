@@ -23,6 +23,7 @@ const CaptureImage = ({ route, navigation }) => {
 
   const [isUploading, setIsUploading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [prediction , setPrediction] =useState('')
 
   useEffect(() => {
     (async () => {

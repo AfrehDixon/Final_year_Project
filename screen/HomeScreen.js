@@ -60,7 +60,7 @@ const HomeScreen = ({ navigation }) => {
             </View>
             <Button
               mode="contained"
-              onPress={() => navigation.navigate("TestOneInitial")}
+              onPress={() => navigation.navigate("Result")}
               style={{ backgroundColor: Colors.background }}
             >
               Start Test
@@ -75,7 +75,8 @@ const HomeScreen = ({ navigation }) => {
             </View>
             <Button
               mode="contained"
-              onPress={() => navigation.navigate("HandwritingInitial")}
+              // onPress={() => navigation.navigate("HandwritingInitial")}
+              onPress={() => navigation.navigate("ResultTwo")}
               style={{ backgroundColor: Colors.background }}
             >
               Upload Image

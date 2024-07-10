@@ -107,6 +107,7 @@ const SettingsScreen = () => {
             <Divider />
             <Divider />
             <View style={styles.settingItem}>
+            {/* <MaterialCommunityIcons name="notification" size={30} /> */}
               <Text style={styles.settingText}>Enable Notifications</Text>
               <Switch
                 value={isNotificationsEnabled}
@@ -117,6 +118,7 @@ const SettingsScreen = () => {
             </View>
             <Divider />
             <Divider />
+            
             <View style={styles.settingItem}>
               <Text style={styles.settingText}>Play Background Sound</Text>
               <Switch
