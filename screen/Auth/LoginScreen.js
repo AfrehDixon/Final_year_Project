@@ -164,6 +164,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
                 placeholder="Email"
                 value={email}
                 onChangeText={setEmail}
+                placeholderTextColor={"grey"}
                 leftIcon={{ type: "font-awesome", name: "envelope" }}
                 keyboardType="email-address"
                 autoCapitalize="none"
@@ -187,6 +188,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
                 placeholder=" Password"
                 value={password}
                 onChangeText={setPassword}
+                placeholderTextColor={"grey"}
                 secureTextEntry={!showPassword}
                 style={{
                   width: "100%",

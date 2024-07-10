@@ -174,6 +174,7 @@ export default function SignupScreen({ navigation }) {
               <View style={{ marginBottom: 7.5 }}>
                 <TextInput
                   placeholder="username"
+                  placeholderTextColor={"grey"}
                   value={name}
                   onChangeText={setUsername}
                   autoCapitalize="none"
@@ -189,6 +190,7 @@ export default function SignupScreen({ navigation }) {
                   placeholder="email"
                   value={email}
                   onChangeText={setEmail}
+                  placeholderTextColor={"grey"}
                   keyboardType="email-address"
                   autoCapitalize="none"
                   style={{
@@ -233,6 +235,7 @@ export default function SignupScreen({ navigation }) {
               >
                 <TextInput
                   placeholder=" Password"
+                  placeholderTextColor={"grey"}
                   value={password}
                   onChangeText={setPassword}
                   secureTextEntry={!showPassword1}
@@ -263,6 +266,7 @@ export default function SignupScreen({ navigation }) {
                   value={confirmPassword}
                   onChangeText={setconfirmPassword}
                   secureTextEntry={!showPassword2}
+                  placeholderTextColor={"grey"}
                   style={{
                     width: "100%",
                     backgroundColor: "white",
@@ -364,11 +368,12 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 20,
   },
   checkboxLabel: {
-    marginLeft: 8,
-    fontSize: FontSize.medium,
+    marginLeft: 4,
+    // fontSize: FontSize.large,
+    fontSize: 15,
     color: Colors.text,
   },
 });
