@@ -25,7 +25,6 @@ import ReadingScreenIntial from "./screen/TestThree/ReadingScreenInitial";
 import ReadingScreen from "./screen/TestThree/ReadingScreen";
 import CaptureVideo from "./screen/TestThree/CaptureVideo";
 
-
 const MainStack = createNativeStackNavigator();
 
 export default function MainNavigator() {
@@ -97,6 +96,7 @@ export default function MainNavigator() {
           title: "Test One",
           headerTitleAlign: "center",
           headerBackTitleVisible: false,
+          preventRemove: true,
         }}
       />
       <MainStack.Screen name="Signup" component={SignupScreen} />

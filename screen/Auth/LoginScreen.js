@@ -177,9 +177,9 @@ export default function LoginScreen({ navigation, setUserToken }) {
 
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginBottom: 15,
+                // flexDirection: "row",
+                // alignItems: "center",
+                // marginBottom: 15,
                 width: "100%",
               }}
             >
@@ -300,7 +300,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
               </Text>
             </TouchableOpacity>
 
-            <View
+            {/* <View
               style={{
                 marginVertical: Spacing * 3,
               }}
@@ -338,7 +338,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
                   />
                 </TouchableOpacity>
               </View>
-            </View>
+            </View> */}
           </View>
         </View>
       </View>

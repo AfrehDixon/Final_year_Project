@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Colors from "../../config/Colors";
-
+import CountDown from "react-native-countdown-component";
 
 const TestOneScreen = () => {
   const navigation = useNavigation();
@@ -43,11 +43,11 @@ const TestOneScreen = () => {
   const [clicks, setClicks] = useState(0);
   const [misses, setMisses] = useState(0);
 
-  const navigateToNext = () => {
-    const stateArray = [1, 7, hits, clicks, misses, hits, accuracy, missRate];
-    navigation.navigate("TestTwoInitial", { stateArray });
-    console.log(stateArray);
-  };
+  // const navigateToNext = () => {
+  //   const stateArray = [1, 7, hits, clicks, misses, hits, accuracy, missRate];
+  //   navigation.replace("TestTwoInitial", { stateArray });
+  //   console.log(stateArray);
+  // };
 
   const onStart = () => {
     setTimerId(
@@ -99,6 +99,29 @@ const TestOneScreen = () => {
   const accuracy = hits + misses > 0 ? hits / clicks : 0;
   const missRate = clicks > 0 ? misses / clicks : 0;
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const navigateToNext = () => {
+        const stateArray = [
+          1,
+          7,
+          hits,
+          clicks,
+          misses,
+          hits,
+          accuracy,
+          missRate,
+        ];
+        navigation.replace("TestTwoInitial", { stateArray });
+        console.log(stateArray);
+      };
+
+      return () => {
+        navigation.go();
+      };
+    }, [])
+  );
+
   return (
     <View style={styles.container}>
       <View style={styles.grid}>
@@ -115,7 +138,7 @@ const TestOneScreen = () => {
       <View style={styles.scoreContainer}>
         <Text style={styles.score}> {clicks}</Text>
         <Text style={styles.timer}>Timer: {timer}</Text>
-        {/* <CountDown
+        <CountDown
           until={16}
           size={20}
           onFinish={() => navigateToNext}
@@ -123,7 +146,7 @@ const TestOneScreen = () => {
           digitTxtStyle={{ color: "#1CC625" }}
           timeToShow={["M", "S"]}
           timeLabels={{ m: "MM", s: "SS" }}
-        /> */}
+        />
       </View>
     </View>
   );
@@ -171,3 +194,5 @@ const styles = StyleSheet.create({
 });
 
 export default TestOneScreen;
+
+

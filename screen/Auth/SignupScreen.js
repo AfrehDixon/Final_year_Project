@@ -179,7 +179,7 @@ export default function SignupScreen({ navigation }) {
                   autoCapitalize="none"
                   style={{
                     width: "100%",
-                    backgroundColor: Colors.lightPrimary,
+                    backgroundColor: "white",
                     height: 60,
                   }}
                 />
@@ -193,13 +193,13 @@ export default function SignupScreen({ navigation }) {
                   autoCapitalize="none"
                   style={{
                     width: "100%",
-                    backgroundColor: Colors.lightPrimary,
+                    backgroundColor: "white",
                     height: 60,
                   }}
                 />
               </View>
 
-              <View
+              {/* <View
                 style={{
                   marginBottom: 7.5,
                 }}
@@ -211,7 +211,34 @@ export default function SignupScreen({ navigation }) {
                   secureTextEntry={!showPassword1}
                   style={{
                     width: "100%",
-                    backgroundColor: Colors.lightPrimary,
+                    backgroundColor: "white",
+                    height: 60,
+                  }}
+                  right={
+                    <TextInput.Icon
+                      icon={showPassword1 ? "eye-off" : "eye"}
+                      onPress={() => setShowPassword1(!showPassword1)}
+                      style={{ color: "black" }}
+                    />
+                  }
+                />
+              </View> */}
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginBottom: 15,
+                  width: "100%",
+                }}
+              >
+                <TextInput
+                  placeholder=" Password"
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry={!showPassword1}
+                  style={{
+                    width: "100%",
+                    backgroundColor: "white",
                     height: 60,
                   }}
                   right={
@@ -238,7 +265,7 @@ export default function SignupScreen({ navigation }) {
                   secureTextEntry={!showPassword2}
                   style={{
                     width: "100%",
-                    backgroundColor: Colors.lightPrimary,
+                    backgroundColor: "white",
                     height: 60,
                   }}
                   right={
@@ -330,7 +357,7 @@ export default function SignupScreen({ navigation }) {
         </View>
       </PaperProvider>
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
