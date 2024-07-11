@@ -56,15 +56,18 @@ export default function ForgetPassword({ navigation }) {
           placement: "top",
         });
         navigation.navigate("Login");
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       } else if (res.status === 200) {
         toast.show("Password reset Sucessfull", {
           type: "success",
           placement: "top",
         });
         navigation.navigate("Login");
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       }
     } catch (e) {
       console.log(e);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     }
   };
 
@@ -89,9 +92,11 @@ export default function ForgetPassword({ navigation }) {
         type: "success",
         placement: "top",
       });
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } catch (e) {
       console.log(e);
     }
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
   };
 
   const handleOtpInput = (otp) => {

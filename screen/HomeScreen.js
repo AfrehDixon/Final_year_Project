@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRoute } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import * as Haptics from "expo-haptics";
 
 import {
   StyleSheet,
@@ -64,6 +65,11 @@ const HomeScreen = ({ navigation }) => {
     }
   };
   getchild();
+
+  const openSettings = () => {
+    navigation.navigate("Settings");
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+  };
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -92,7 +98,7 @@ const HomeScreen = ({ navigation }) => {
             name="settings"
             size={30}
             color={"white"}
-            onPress={() => navigation.navigate("Settings")}
+            onPress={openSettings}
           />
         </View>
         <Text style={styles.greeting}>

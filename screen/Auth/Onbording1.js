@@ -61,12 +61,13 @@ const OnboardingScreen = ({ navigation }) => {
       }}
       // titleStyles={{ color: Colors.background, marginTop: -50 }}
       transitionAnimationDuration={500}
-      subTitleStyles={{ fontSize: 17 }}
+      subTitleStyles={{ fontSize: 15, fontFamily: "Roboto-Regular" }}
       titleStyles={{
         fontSize: 30,
         color: Colors.background,
         fontWeight: "bold",
         marginTop: -50,
+        fontFamily: "Poppins-Bold",
         // fontFamily: 'Poppins-Regular',
       }}
       SkipButtonComponent={(SkipButton) => (

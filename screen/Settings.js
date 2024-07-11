@@ -25,6 +25,7 @@ import FontSize from "../config/FontSize";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../Context";
 import { Icon } from "react-native-elements";
+import * as Haptics from "expo-haptics";
 
 const SettingsScreen = () => {
   const navigation = useNavigation();
@@ -66,6 +67,7 @@ const SettingsScreen = () => {
 
   const handleLogout = async () => {
     setIsLoggedIn(false);
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     try {
       const remove = await AsyncStorage.removeItem("userToken");
       console.log(remove);
@@ -89,12 +91,12 @@ const SettingsScreen = () => {
   };
   getchild();
 
-   function getRandomImageUrl(width = 200, height = 200) {
-     return `https://picsum.photos/${width}/${height}?random=${Math.random()}`;
-   }
-   useEffect(() => {
-     setImageUrl(getRandomImageUrl());
-   }, []);
+  function getRandomImageUrl(width = 200, height = 200) {
+    return `https://picsum.photos/${width}/${height}?random=${Math.random()}`;
+  }
+  useEffect(() => {
+    setImageUrl(getRandomImageUrl());
+  }, []);
 
   return (
     <PaperProvider>
@@ -185,7 +187,14 @@ const SettingsScreen = () => {
                 onValueChange={() => setIsSoundEnabled(!isSoundEnabled)}
               />
             </View>
-            <TouchableOpacity style={styles.settingsItem}>
+            <TouchableOpacity
+              style={styles.settingsItem}
+              onPress={() =>
+                Haptics.notificationAsync(
+                  Haptics.NotificationFeedbackType.Success
+                )
+              }
+            >
               <Icon name="volume-up" size={24} color="#1abc9c" />
               <Text style={styles.settingsText}>Sounds & Haptics</Text>
               <Icon name="chevron-right" size={24} />

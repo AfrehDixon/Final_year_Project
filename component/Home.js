@@ -9,6 +9,7 @@ import Settings from "../screen/Settings";
 import HomeScreen from "../screen/HomeScreen";
 import { useRoute } from "@react-navigation/native";
 // import Ionicons from "@expo/vector-icons/Ionicons";
+import * as Haptics from "expo-haptics";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,8 +26,10 @@ const Home = ({logout}) => {
             iconName = focused ? "book" : "book-outline";
           } else if (route.name === "Settings") {
             iconName = focused ? "settings" : "settings-outline";
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
           } else if (route.name === "HomeScreen") {
             iconName = focused ? "home" : "home-outline";
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
           }
 
           return <Ionicons name={iconName} size={25} color={color} />;

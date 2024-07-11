@@ -19,7 +19,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
 import Checkbox from "expo-checkbox";
-
+import * as Haptics from "expo-haptics";
 import Colors from "../../config/Colors";
 import FontSize from "../../config/FontSize";
 import Spacing from "../../config/Spacing";
@@ -44,6 +44,13 @@ export default function SignupScreen({ navigation }) {
       setError("");
       setLoading(true);
     try {
+      if (!email || !password || !name || !password|| !confirmPassword) {
+        // setError("Please enter both email and password.");
+        return toast.show("Please provide all details.", {
+          type: "danger",
+        });
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      }
       const res = await fetch(api, {
         method: "POST",
         headers: {
@@ -64,6 +71,7 @@ export default function SignupScreen({ navigation }) {
           type: "danger",
           position: "top",
         });
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
         setError(data.error);
       } else {
         toast.show(data.message, {
@@ -80,8 +88,10 @@ export default function SignupScreen({ navigation }) {
         type: "danger",
         position: "top",
       });
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     } finally {
       setLoading(false);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     }
   }
 
@@ -161,6 +171,7 @@ export default function SignupScreen({ navigation }) {
                   fontSize: FontSize.xLarge,
                   color: Colors.background,
                   marginVertical: Spacing * 2,
+                  fontFamily: "Roboto-Regular",
                 }}
               >
                 Create account as Parent
@@ -267,10 +278,12 @@ export default function SignupScreen({ navigation }) {
                   onChangeText={setconfirmPassword}
                   secureTextEntry={!showPassword2}
                   placeholderTextColor={"grey"}
+                  placeholderTextStyle={'fontFamily: "Roboto-Regular"'}
                   style={{
                     width: "100%",
                     backgroundColor: "white",
                     height: 60,
+                    fontFamily: "Roboto-Regular",
                   }}
                   right={
                     <TextInput.Icon
@@ -314,6 +327,7 @@ export default function SignupScreen({ navigation }) {
                       justifyContent: "center",
                       alignItems: "center",
                       gap: 10,
+                      fontFamily: "Roboto-Regular",
                     }}
                   >
                     <ActivityIndicator size="small" color="white" />
@@ -322,6 +336,7 @@ export default function SignupScreen({ navigation }) {
                         color: "white",
                         fontSize: 16,
                         fontWeight: "bold",
+                        fontFamily: "Roboto-Regular",
                       }}
                     >
                       Loading...
@@ -332,8 +347,9 @@ export default function SignupScreen({ navigation }) {
                     style={{
                       color: "white",
                       fontSize: 16,
-                      fontWeight: "bold",
+                      // fontWeight: "bold",
                       textAlign: "center",
+                      fontFamily: "Roboto-Regular",
                     }}
                   >
                     Sign Up
@@ -351,6 +367,7 @@ export default function SignupScreen({ navigation }) {
                     color: Colors.background,
                     textAlign: "center",
                     fontSize: FontSize.medium,
+                    fontFamily: "Roboto-Regular",
                   }}
                 >
                   Log in to your account
@@ -375,5 +392,6 @@ const styles = StyleSheet.create({
     // fontSize: FontSize.large,
     fontSize: 15,
     color: Colors.text,
+    fontFamily: "Roboto-Regular",
   },
 });

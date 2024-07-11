@@ -31,6 +31,7 @@ import Spacing from "../../config/Spacing";
 import OTPScreen from "./OTPScreen";
 import ForgetPassword from "./ForgetPassword";
 import { AuthContext, UserContext } from "../../Context";
+import * as Haptics from "expo-haptics";
 
 export default function LoginScreen({ navigation, setUserToken }) {
   const [email, setEmail] = useState("");
@@ -43,16 +44,12 @@ export default function LoginScreen({ navigation, setUserToken }) {
   // const {setUserToken} = route.params
   const toast = useToast();
 
- 
-
   const { setToken } = useContext(AuthContext);
-
-
 
   const api = "https://dyslexia-backend.onrender.com/api/v1/user/signin";
   const handlelogin = async () => {
-    setError(""); 
-    setLoading(true); 
+    setError("");
+    setLoading(true);
 
     try {
       if (!email || !password) {
@@ -60,6 +57,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
         return toast.show("Please enter both email and password.", {
           type: "danger",
         });
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       }
       // setLoading(false);
       const res = await fetch(api, {
@@ -106,23 +104,28 @@ export default function LoginScreen({ navigation, setUserToken }) {
           toast.show("An error occurred", {
             type: "danger",
           });
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
         }
       } else if (!data.verified) {
         toast.show(data.error, {
           type: "danger",
         });
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       } else {
         toast.show(data.error, {
           type: "danger",
         });
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       }
     } catch (error) {
       toast.show("Network error", {
         type: "danger",
       });
       setLoading(false);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     }
   };
 
@@ -146,7 +149,8 @@ export default function LoginScreen({ navigation, setUserToken }) {
                 fontSize: FontSize.xLarge,
                 color: Colors.background,
                 marginVertical: Spacing * 3,
-                fontWeight: "medium",
+                // fontWeight: "medium",
+                fontFamily: "Roboto-Regular",
               }}
             >
               Sign In To Your Account
@@ -207,7 +211,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
           </View>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate("ForgetPassword", {  email })}
+            onPress={() => navigation.navigate("ForgetPassword", { email })}
           >
             {error ? (
               <Text style={{ color: "red", marginBottom: 15, marginTop: 15 }}>
@@ -224,6 +228,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
                   color: Colors.primary,
                   alignSelf: "flex-end",
                   marginTop: 10,
+                  fontFamily: "Roboto-Regular",
                 }}
               >
                 Forgot your password ?
@@ -296,6 +301,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
                   color: Colors.text,
                   textAlign: "center",
                   fontSize: FontSize.medium,
+                  fontFamily: "Roboto-Regular",
                 }}
               >
                 Create new account
