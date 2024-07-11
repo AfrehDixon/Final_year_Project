@@ -75,7 +75,7 @@ const TestThreeScreen = ({ navigation }) => {
   }, [index]);
 
   useEffect(() => {
-    if (timer > 41) {
+    if (timer > 26) {
       onStop();
       navigateToNext();
     }

@@ -97,7 +97,7 @@ const RegisterChild = ({ navigation }) => {
               autoCapitalize="none"
               style={{
                 width: "100%",
-                backgroundColor: Colors.lightPrimary,
+                backgroundColor: "white",
                 height: 60,
               }}
             />
@@ -112,7 +112,7 @@ const RegisterChild = ({ navigation }) => {
               autoCapitalize="none"
               style={{
                 width: "49%",
-                backgroundColor: Colors.lightPrimary,
+                backgroundColor: "white",
                 height: 60,
               }}
             />
@@ -125,7 +125,7 @@ const RegisterChild = ({ navigation }) => {
               autoCapitalize="none"
               style={{
                 width: "50%",
-                backgroundColor: Colors.lightPrimary,
+                backgroundColor: "white",
                 height: 60,
               }}
             />
@@ -145,7 +145,6 @@ const RegisterChild = ({ navigation }) => {
               </View>
             </RadioButton.Group>
           </View>
-
 
           <TouchableOpacity
             style={{

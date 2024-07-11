@@ -27,7 +27,6 @@ import ReadingScreen from "./screen/TestThree/ReadingScreen";
 import HandwritinResult from "./screen/TestTwo/HandwritingResult";
 import CaptureVideo from "./screen/TestThree/CaptureVideo";
 
-
 const AuthStack = createNativeStackNavigator();
 
 export default function AuthNavigator() {

@@ -35,7 +35,11 @@ export default function MainNavigator() {
         component={Home}
         options={{ headerShown: false }}
       />
-
+      {/* <MainStack
+        name="Home"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      /> */}
       <MainStack.Screen
         name="HandwritingInitial"
         component={HandwritingInitial}

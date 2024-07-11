@@ -12,6 +12,7 @@ import * as ImagePicker from "expo-image-picker";
 import { ProgressBar, ActivityIndicator, Button } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useToast } from "react-native-toast-notifications";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Spacing from "../../config/Spacing";
 import Colors from "../../config/Colors";
@@ -82,6 +83,11 @@ const CaptureImage = ({ route, navigation }) => {
       } else {
         const { Model_Prediction } = responseData;
         navigation.navigate("ResultTwo", { Model_Prediction });
+        const Predictions = await AsyncStorage.setItem(
+          "predictionTwo",
+          Model_Prediction
+        );
+
       }
 
       toast.show("Upload Successful", {

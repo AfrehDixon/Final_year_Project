@@ -124,7 +124,7 @@ const TestFourScreen = () => {
   };
 
   useEffect(() => {
-    if (timer >= 40) {
+    if (timer >= 25) {
       onStop();
       navigateToNext();
     }

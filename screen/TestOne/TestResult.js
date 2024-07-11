@@ -4,13 +4,13 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { useToast } from "react-native-toast-notifications";
 import { IconButton, Button } from "react-native-paper";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function TestResult() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const route = useRoute();
   const [newMessage, setMessage] = useState("");
-  // const { data } = route.params;
+  const { data } = route.params;
   const [message, setNewMessage] = useState("");
   const [sendData, setSendData] = useState(true);
 
@@ -26,26 +26,29 @@ export default function TestResult() {
   const api = "https://game-model-2.onrender.com/predict";
   const SendResults = async () => {
     setLoading(true);
-    setSendData(!sendData);
+    
 
-    // try {
-    //   const res = await fetch(api, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json",
-    //     },
-    //     body: JSON.stringify({ data }),
-    //   });
-    //   const result = await res.json();
-    //   const { message } = result;
-    //   setMessage(message);
-    // } catch (e) {
-    //   console.error(e);
-    // } finally {
-    //   setLoading(false);
-
-    // }
+    try {
+      const res = await fetch(api, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ data }),
+      });
+      const result = await res.json();
+      const { message } = result;
+      setMessage(message);
+      const Predictions = await AsyncStorage.setItem("prediction", 
+        newMessage,
+      );
+      setSendData(!sendData);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

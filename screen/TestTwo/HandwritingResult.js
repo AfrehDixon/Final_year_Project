@@ -5,6 +5,7 @@ import ConfettiCannon from "react-native-confetti-cannon";
 import { useNavigation } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
 import { IconButton, Button } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function HandwritinResult({ navigation }) {
   const route = useRoute();
@@ -22,8 +23,17 @@ export default function HandwritinResult({ navigation }) {
   }, []);
 
   const SendResults = async () => {
-    setMessage(Model_Prediction);
-    setSendData(!sendData);
+    try {
+      setMessage(Model_Prediction);
+      const PredictionTwo = await AsyncStorage.setItem(
+        "predictionTwo",
+        Model_Prediction
+        
+      );
+      setSendData(!sendData);
+    } catch (e) {
+      console.log("Error");
+    }
   };
 
   return (
@@ -55,7 +65,7 @@ export default function HandwritinResult({ navigation }) {
             <Button
               mode="contained"
               style={styles.button}
-              onPress={() => navigation.navigate("Home", { newmessage2 })}
+              onPress={() => navigation.navigate("Home")}
             >
               Back to Home
             </Button>

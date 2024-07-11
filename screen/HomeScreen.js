@@ -172,7 +172,9 @@
 
 // export default HomeScreen;
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRoute } from "@react-navigation/native";
 
 import {
   StyleSheet,
@@ -180,24 +182,95 @@ import {
   View,
   Image,
   ScrollView,
+  Button,
   TouchableOpacity,
 } from "react-native";
-
+import Colors from "../config/Colors";
 import { Video } from "expo-av";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+const HomeScreen = ({ navigation }) => {
+  const [videoUri, setVideoUri] = useState("");
+  const [child, setchild] = useState();
+  const [imageUrl, setImageUrl] = useState(getRandomImageUrl());
 
-const HomeScreen = ({navigation}) => {
-  const [videoUri , setVideoUri] = useState('')
+  const route = useRoute();
+
+  function getRandomImageUrl(width = 200, height = 200) {
+    return `https://picsum.photos/${width}/${height}?random=${Math.random()}`;
+  }
+  useEffect(() => {
+    setImageUrl(getRandomImageUrl());
+  }, []);
+  // const Predictions = await AsyncStorage.setItem('predictio')
+
+  // const {newmessage2,newMessage} = route.params
+
+  const getPrediction = async () => {
+    try {
+      const AppPredictionOne = await AsyncStorage.getItem("prediction");
+      // const childJSON = JSON.parse(Childdata);
+      // console.log(childJSON.name);
+      // setchild(childJSON);
+      console.log(AppPredictionOne);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getPredictionTwo = async () => {
+    try {
+      const AppPredictionTwo = await AsyncStorage.getItem("predictionTwo");
+      // const childJSON = JSON.parse(Childdata);
+      // console.log(childJSON.name);
+      // setchild(childJSON);
+      console.log(AppPredictionTwo);
+      // console.log("dgfd");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // getPrediction();
+
+  const getchild = async () => {
+    try {
+      const Childdata = await AsyncStorage.getItem("child");
+      const childJSON = JSON.parse(Childdata);
+      // console.log(childJSON.name);
+      setchild(childJSON);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getchild();
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Image
-          style={styles.profilePic}
-          source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URI
-        />
-        <Text style={styles.greeting}>Hi, Dixonn</Text>
+        <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
+          <MaterialCommunityIcons name="menu" size={30} color={"white"} />
+          <MaterialCommunityIcons name="bell" size={30} color={"white"} />
+        </View>
+        {/* <Button title="get" onPress={getPrediction} /> */}
+        {/* <Button title="get" onPress={getPredictionTwo} /> */}
+
+        <Image source={imageUrl} style={{ width: "200" }} />
+
+        <View style={{ alignSelf: "center" }}>
+          {/* <Image
+            style={styles.profilePic}
+            source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URI
+          /> */}
+          <Image
+            style={styles.profilePic}
+            source={{ uri: imageUrl }} // Replace with actual image URI
+          />
+        </View>
+        <Text style={styles.greeting}>
+          {`Welcome ${child?.name}`}{" "}
+          <MaterialCommunityIcons name="star" size={25} color={"yellow"} />
+        </Text>
         <Text style={styles.subGreeting}>
-          Up your learning skill with LexyAfriq.
+          Up your reading skill with{" "}
+          <Text style={{ color: "yellow" }}>LexyAfriq.</Text>
         </Text>
       </View>
       <View style={styles.categoriesContainer}>
@@ -209,7 +282,7 @@ const HomeScreen = ({navigation}) => {
           <Image
             style={styles.categoryIcon}
             // source={{ uri: "https://via.placeholder.com/100" }}
-            source={require("../assets/test11.png")}
+            source={require("../assets/test1.jpg")}
           />
           <Text style={styles.categoryText}>Learn</Text>
           <Text style={styles.categorySubText}>Word Game</Text>
@@ -234,15 +307,15 @@ const HomeScreen = ({navigation}) => {
         >
           <Image
             style={styles.categoryIcon}
-            source={require("../assets/test1.jpg")}
+            source={require("../assets/test3.jpg")}
           />
-          <Text style={styles.categoryText}>Participate</Text>
+          <Text style={styles.categoryText}> Video Test</Text>
           <Text style={styles.categorySubText}>Available competitions</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.categoryCard}>
           <Image
             style={styles.categoryIcon}
-            source={require("../assets/test2.jpg")}
+            source={require("../assets/test1.jpg")}
           />
           <Video
             // source={{ uri: videoUri }}
@@ -266,17 +339,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   header: {
-    backgroundColor: "#6200ee",
+    backgroundColor: "#0c195c",
+    // backgroundColor: "#6200ee",
     padding: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    alignItems: "center",
+    // alignItems: "center",
   },
   profilePic: {
     width: 80,
     height: 80,
     borderRadius: 40,
     marginBottom: 10,
+    borderWidth: 5,
+    borderColor: "white",
   },
   greeting: {
     color: "#fff",

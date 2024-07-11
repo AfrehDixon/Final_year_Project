@@ -43,11 +43,11 @@ const TestOneScreen = () => {
   const [clicks, setClicks] = useState(0);
   const [misses, setMisses] = useState(0);
 
-  // const navigateToNext = () => {
-  //   const stateArray = [1, 7, hits, clicks, misses, hits, accuracy, missRate];
-  //   navigation.replace("TestTwoInitial", { stateArray });
-  //   console.log(stateArray);
-  // };
+  const navigateToNext = () => {
+    const stateArray = [1, 7, hits, clicks, misses, hits, accuracy, missRate];
+    navigation.replace("TestTwoInitial", { stateArray });
+    console.log(stateArray);
+  };
 
   const onStart = () => {
     setTimerId(
@@ -99,28 +99,28 @@ const TestOneScreen = () => {
   const accuracy = hits + misses > 0 ? hits / clicks : 0;
   const missRate = clicks > 0 ? misses / clicks : 0;
 
-  useFocusEffect(
-    React.useCallback(() => {
-      const navigateToNext = () => {
-        const stateArray = [
-          1,
-          7,
-          hits,
-          clicks,
-          misses,
-          hits,
-          accuracy,
-          missRate,
-        ];
-        navigation.replace("TestTwoInitial", { stateArray });
-        console.log(stateArray);
-      };
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     const navigateToNext = () => {
+  //       const stateArray = [
+  //         1,
+  //         7,
+  //         hits,
+  //         clicks,
+  //         misses,
+  //         hits,
+  //         accuracy,
+  //         missRate,
+  //       ];
+  //       navigation.replace("TestTwoInitial", { stateArray });
+  //       console.log(stateArray);
+  //     };
 
-      return () => {
-        navigation.go();
-      };
-    }, [])
-  );
+  //     return () => {
+  //       navigation.goBack();
+  //     };
+  //   }, [])
+  // );
 
   return (
     <View style={styles.container}>
@@ -138,7 +138,7 @@ const TestOneScreen = () => {
       <View style={styles.scoreContainer}>
         <Text style={styles.score}> {clicks}</Text>
         <Text style={styles.timer}>Timer: {timer}</Text>
-        <CountDown
+        {/* <CountDown
           until={16}
           size={20}
           onFinish={() => navigateToNext}
@@ -146,7 +146,7 @@ const TestOneScreen = () => {
           digitTxtStyle={{ color: "#1CC625" }}
           timeToShow={["M", "S"]}
           timeLabels={{ m: "MM", s: "SS" }}
-        />
+        /> */}
       </View>
     </View>
   );
