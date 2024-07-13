@@ -33,7 +33,7 @@ const HomeScreen = ({ navigation }) => {
 
   const getPrediction = async () => {
     try {
-      const AppPredictionOne = await AsyncStorage.getItem("prediction");
+      const AppPredictionOne = await AsyncStorage.getItem("userData");
 
       console.log(AppPredictionOne);
     } catch (error) {
@@ -76,7 +76,7 @@ const HomeScreen = ({ navigation }) => {
         {/* <MaterialCommunityIcons name="menu" size={30} color={"white"} /> */}
 
         {/* <MaterialCommunityIcons name="settings" size={30} color={"white"} /> */}
-        {/* <Button title="get" onPress={getPrediction} /> */}
+        <Button title="get" onPress={getPrediction} />
         {/* <Button title="get" onPress={getPredictionTwo} /> */}
         <View>
           {/* <Image source={imageUrl} style={{ width: "200" }} /> */}
@@ -180,6 +180,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#6200ee",
     padding: 20,
     borderBottomLeftRadius: 20,
+    marginTop:50,
     borderBottomRightRadius: 20,
     // alignItems: "center",
   },

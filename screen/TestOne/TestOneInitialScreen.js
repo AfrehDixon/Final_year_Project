@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 const TestOneInitialScreen = ({ navigation }) => {
   const handleStartTest = () => {
+    // navigation.navigate("Result");
     navigation.navigate("TestOne");
   };
 

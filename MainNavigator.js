@@ -133,6 +133,8 @@ export default function MainNavigator() {
           headerTitleAlign: "center",
           headerLeft: () => null,
           gestureEnabled: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
         }}
       />
       <MainStack.Screen
@@ -159,6 +161,8 @@ export default function MainNavigator() {
           headerTitleAlign: "center",
           headerLeft: () => null,
           gestureEnabled: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
         }}
       />
       <MainStack.Screen

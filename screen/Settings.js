@@ -133,7 +133,7 @@ const SettingsScreen = () => {
             <Text style={styles.headerTitle}>Settings</Text>
           </View> */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Account</Text>
+            {/* <Text style={styles.sectionTitle}>Account</Text> */}
             <TouchableOpacity style={styles.accountItem}>
               {/* <Image
                 style={styles.profilePic}
