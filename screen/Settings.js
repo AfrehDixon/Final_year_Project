@@ -70,8 +70,9 @@ const SettingsScreen = () => {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     try {
       const remove = await AsyncStorage.removeItem("userToken");
+      const userdata = await AsyncStorage.removeItem("userData");
       console.log(remove);
-      navigation.navigate("Onboarding");
+      navigation.replace("Onboarding");
       console.log("token removed");
     } catch (error) {
       console.error("Failed to remove token:", error);
@@ -97,6 +98,25 @@ const SettingsScreen = () => {
   useEffect(() => {
     setImageUrl(getRandomImageUrl());
   }, []);
+
+  async function RegisterChild() {
+    const storedData = await AsyncStorage.getItem("userData");
+    const storedData1 = storedData ? JSON.parse(storedData) : {};
+    
+    let userData = {
+      ...storedData1,
+      // email:'',
+      
+      predictions: [],
+    };
+    
+    userData.predictions.push('');
+    navigation.navigate("RegisterChild");
+
+    await AsyncStorage.setItem("userData", JSON.stringify(userData));
+    console.log('prediction set to empty')
+    console.log(userData)
+  }
 
   return (
     <PaperProvider>
@@ -154,7 +174,8 @@ const SettingsScreen = () => {
                 name="plus"
                 size={28}
                 color={Colors.background}
-                onPress={() => navigation.navigate("RegisterChild")}
+                // onPress={() => navigation.navigate("RegisterChild")}
+                onPress={RegisterChild}
                 style={{ width: "bold" }}
               />
             </TouchableOpacity>

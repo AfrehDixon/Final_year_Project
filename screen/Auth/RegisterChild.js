@@ -70,6 +70,7 @@ const RegisterChild = ({ navigation }) => {
         navigation.navigate("Home");
       } catch (error) {
         console.log(error);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -77,6 +78,7 @@ const RegisterChild = ({ navigation }) => {
         type: "danger",
         position: "top",
       });
+      setLoading(false)
     }
   };
 

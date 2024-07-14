@@ -211,7 +211,7 @@ const ReadingScreen = () => {
       };
 
       let userData = {
-        email: "gracealiko08@gmail.com",
+        // email: "dixonafreh20@gmail.com",
         predictions: [newPrediction],
       };
 

@@ -140,6 +140,7 @@ export default function HandwritingResult({ navigation }) {
         prediction: Model_Prediction,
       };
 
+
       let userData = {
         email: "gracealiko08@gmail.com",
         predictions: [newPrediction],
@@ -150,6 +151,22 @@ export default function HandwritingResult({ navigation }) {
         userData = JSON.parse(storedData);
         userData.predictions.push(newPrediction);
       }
+
+      await AsyncStorage.setItem("userData", JSON.stringify(userData));
+      // const storedData = await AsyncStorage.getItem("userData");
+      // const storedData1 = storedData ? JSON.parse(storedData) : {};
+
+      // let userData = {
+      //   ...storedData1,
+      //   // email: "dixonafreh20@gmail.com",
+      //   predictions: [newPrediction],
+      // };
+
+      //   userData.predictions.push(newPrediction);
+      // const storedData = await AsyncStorage.getItem("userData");
+      // if (storedData) {
+      //   userData = JSON.parse(storedData);
+      // }
 
       await AsyncStorage.setItem("userData", JSON.stringify(userData));
 

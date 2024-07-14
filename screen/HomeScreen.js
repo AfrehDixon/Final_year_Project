@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRoute } from "@react-navigation/native";
+// import { useRoute } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import * as Haptics from "expo-haptics";
 
@@ -16,13 +16,14 @@ import {
 import Colors from "../config/Colors";
 import { Video } from "expo-av";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
 
 const HomeScreen = ({ navigation }) => {
+  const route = useRoute();
+  // const { email } = route.params;
   const [videoUri, setVideoUri] = useState("");
   const [child, setchild] = useState();
   const [imageUrl, setImageUrl] = useState(getRandomImageUrl());
-
-  const route = useRoute();
 
   function getRandomImageUrl(width = 200, height = 200) {
     return `https://picsum.photos/${width}/${height}?random=${Math.random()}`;
@@ -32,6 +33,10 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   const getPrediction = async () => {
+    // let userData = {
+    //   email: email,
+    //   // predictions: [newPrediction],
+    // };
     try {
       const AppPredictionOne = await AsyncStorage.getItem("userData");
 
@@ -40,18 +45,40 @@ const HomeScreen = ({ navigation }) => {
       console.log(error);
     }
   };
-  const getPredictionTwo = async () => {
+
+  // getPrediction()
+  const api = "https://dyslexia-backend.onrender.com/api/v1/test/test-results";
+
+  const getPrediction1 = async () => {
+    const data = await AsyncStorage.getItem("userData");
     try {
-      const AppPredictionTwo = await AsyncStorage.getItem("predictionTwo");
-      // const childJSON = JSON.parse(Childdata);
-      // console.log(childJSON.name);
-      // setchild(childJSON);
-      console.log(AppPredictionTwo);
-      // console.log("dgfd");
+      const res = await fetch(api, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        // body: JSON.stringify({ data }),
+        body: data,
+      });
+      const result = await res.json();
+      console.log(result);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
+  // const getPredictionTwo = async () => {
+  //   try {
+  //     const AppPredictionTwo = await AsyncStorage.getItem("predictionTwo");
+  //     // const childJSON = JSON.parse(Childdata);
+  //     // console.log(childJSON.name);
+  //     // setchild(childJSON);
+  //     console.log(AppPredictionTwo);
+  //     // console.log("dgfd");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   // getPrediction();
 
   const getchild = async () => {
@@ -77,6 +104,7 @@ const HomeScreen = ({ navigation }) => {
 
         {/* <MaterialCommunityIcons name="settings" size={30} color={"white"} /> */}
         <Button title="get" onPress={getPrediction} />
+        <Button title="get" onPress={getPrediction1} />
         {/* <Button title="get" onPress={getPredictionTwo} /> */}
         <View>
           {/* <Image source={imageUrl} style={{ width: "200" }} /> */}
@@ -180,7 +208,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#6200ee",
     padding: 20,
     borderBottomLeftRadius: 20,
-    marginTop:50,
+    marginTop: 50,
     borderBottomRightRadius: 20,
     // alignItems: "center",
   },
