@@ -102,20 +102,20 @@ const SettingsScreen = () => {
   async function RegisterChild() {
     const storedData = await AsyncStorage.getItem("userData");
     const storedData1 = storedData ? JSON.parse(storedData) : {};
-    
+
     let userData = {
       ...storedData1,
       // email:'',
-      
+
       predictions: [],
     };
-    
-    userData.predictions.push('');
+
+    userData.predictions.push("");
     navigation.navigate("RegisterChild");
 
     await AsyncStorage.setItem("userData", JSON.stringify(userData));
-    console.log('prediction set to empty')
-    console.log(userData)
+    console.log("prediction set to empty");
+    console.log(userData);
   }
 
   return (

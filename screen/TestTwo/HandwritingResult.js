@@ -28,7 +28,7 @@
 //       const PredictionTwo = await AsyncStorage.setItem(
 //         "predictionTwo",
 //         Model_Prediction
-        
+
 //       );
 //       setSendData(!sendData);
 //     } catch (e) {
@@ -131,6 +131,12 @@ export default function HandwritingResult({ navigation }) {
     });
   }, []);
 
+  useEffect(() => {
+    if (sendData) {
+      SendResults();
+    }
+  }, [sendData]);
+
   const SendResults = async () => {
     try {
       setMessage(Model_Prediction);
@@ -140,19 +146,22 @@ export default function HandwritingResult({ navigation }) {
         prediction: Model_Prediction,
       };
 
+      const storedData = await AsyncStorage.getItem("userData");
+      const parsedData = storedData ? JSON.parse(storedData) : {};
 
       let userData = {
-        email: "gracealiko08@gmail.com",
-        predictions: [newPrediction],
+        ...parsedData,
+        predictions: [
+          ...(parsedData.predictions || []).filter(
+            (prediction) => prediction && typeof prediction === "object"
+          ),
+          newPrediction,
+        ],
       };
 
-      const storedData = await AsyncStorage.getItem("userData");
-      if (storedData) {
-        userData = JSON.parse(storedData);
-        userData.predictions.push(newPrediction);
-      }
-
       await AsyncStorage.setItem("userData", JSON.stringify(userData));
+
+      // await AsyncStorage.setItem("userData", JSON.stringify(userData));
       // const storedData = await AsyncStorage.getItem("userData");
       // const storedData1 = storedData ? JSON.parse(storedData) : {};
 
@@ -170,7 +179,7 @@ export default function HandwritingResult({ navigation }) {
 
       await AsyncStorage.setItem("userData", JSON.stringify(userData));
 
-      setSendData(!sendData);
+      setSendData(false);
     } catch (e) {
       console.error(e);
     }
@@ -186,7 +195,7 @@ export default function HandwritingResult({ navigation }) {
         autoStartDelay={5}
         explosionSpeed={1000}
       />
-      
+
       <Text style={styles.prediction}>{newMessage2}</Text>
       <View style={styles.btn}>
         {sendData ? (

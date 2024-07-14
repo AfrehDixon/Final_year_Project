@@ -86,36 +86,52 @@ export default function LoginScreen({ navigation, setUserToken }) {
       // const {tokenn}= data
 
       if (res.ok === true) {
-        toast.show("Login successful", {
-          type: "success",
-          placement: "top",
-        });
+        // toast.show("Login successful", {
+        //   type: "success",
+        //   placement: "top",
+        // });
 
-        // Fetch existing user data from AsyncStorage
-        let userData = await AsyncStorage.getItem("userData");
-        userData = userData ? JSON.parse(userData) : {};
-
-        if (!userData.email) {
-          userData.email = email;
-        }
-        // Update email in userData
-        userData.email = email;
-        // Initialize predictions array if it doesn't exist
-
-        if (!userData.predictions) {
-          userData.predictions = [];
-        }
+        // userData.predictions = userData.predictions.filter(
+        //   (prediction) => prediction !== ""
+        // );
         // Store updated userData back to AsyncStorage
-        await AsyncStorage.setItem("userData", JSON.stringify(userData));
+        // await AsyncStorage.setItem("userData", JSON.stringify(userData));
 
         try {
           const token = await AsyncStorage.setItem("userToken", data.token);
 
           setLoading(false); // Reset loading state
           // navigation.navigate("RegisterChild", { token });
-          navigation.replace("Home", { token });
+
+          // const storedData = await AsyncStorage.getItem("userData");
+          // const parsedData = storedData ? JSON.parse(storedData) : {};
+
+          let userData = {
+            // ...parsedData,
+            email: email,
+            // predictions: [...(parsedData.predictions || []), newPrediction],
+          };
+
+          await AsyncStorage.setItem("userData", JSON.stringify(userData));
+
+          // Fetch existing user data from AsyncStorage
+          // let userData = await AsyncStorage.getItem("userData");
+          // userData = userData ? JSON.parse(userData) : {};
+
+          // if (!userData.email) {
+          //   userData.email = email;
+          // }
+
+          // if (!userData.predictions) {
+          //   userData.predictions = [];
+          // }
+          // Update email in userData
+          // userData.email = email;
+          // Initialize predictions array if it doesn't exist
+
           // setToken(token);
-          console.log(await AsyncStorage.getItem("userToken"));
+          // console.log(await AsyncStorage.setItem("userToken"));
+          navigation.replace("Home", { token });
         } catch (e) {
           // console.log(e);
           toast.show("An error occurred", {

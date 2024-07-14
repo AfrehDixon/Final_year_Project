@@ -145,7 +145,7 @@ export default function TestResult() {
   const [newMessage, setNewMessage] = useState("");
   // const [modelName, setModelName] = useState("");
   const [sendData, setSendData] = useState(true);
-  // const { data } = route.params;
+  const { data } = route.params;
   const toast = useToast();
 
   useEffect(() => {
@@ -155,46 +155,76 @@ export default function TestResult() {
     });
   }, []);
 
+   useEffect(() => {
+     if (sendData) {
+       SendResults();
+     }
+   }, [sendData]);
+
   const api = "https://game-model-2.onrender.com/predict";
 
   const SendResults = async () => {
     setLoading(true);
     try {
-      // const res = await fetch(api, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Accept: "application/json",
-      //   },
-      //   body: JSON.stringify({ data }),
-      // });
-      // const result = await res.json();
-      // const { message } = result;
-      // setNewMessage(message);
+      const res = await fetch(api, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ data }),
+      });
+      const result = await res.json();
+      const { message } = result;
+      setNewMessage(message);
 
       const newPrediction = {
         model: "Eye Tracking Model",
-        prediction: "Helloe world",
+        prediction: message,
       };
+
+        
+
+        const storedData = await AsyncStorage.getItem("userData");
+        const parsedData = storedData ? JSON.parse(storedData) : {};
+
+         let userData = {
+           ...parsedData,
+           predictions: [
+             ...(parsedData.predictions || []).filter(
+               (prediction) => prediction && typeof prediction === "object"
+             ),
+             newPrediction,
+           ],
+         };
+
+        await AsyncStorage.setItem("userData", JSON.stringify(userData));
       // const newPrediction = {
       //   model: "Eye Tracking Model",
       //   prediction: message,
       // };
+      // const storedData1 = storedData ? JSON.parse(storedData) : {};
 
+      // let userData = {
+      //   ...storedData1,
+      //   predictions: [newPrediction],
+      // };
 
-       let userData = {
-         email: "gracealiko08@gmail.com",
-         predictions: [newPrediction],
-       };
+      // // const storedData = await AsyncStorage.getItem("userData");
+      // if (!storedData.predictions) {
+      //   storedData.predictions = [];
+      // }
 
-       const storedData = await AsyncStorage.getItem("userData");
-       if (storedData) {
-         userData = JSON.parse(storedData);
-         userData.predictions.push(newPrediction);
-       }
+      // storedData.predictions = storedData.predictions.filter(
+      //   (prediction) => prediction !== ""
+      // );
 
-       await AsyncStorage.setItem("userData", JSON.stringify(userData));
-     
+      //  if (storedData) {
+      //  const userData1 = JSON.parse(storedData);
+      // const NewData = storedData.predictions.push(newPrediction);
+      // }
+
+      // await AsyncStorage.setItem("userData", JSON.stringify(NewData));
 
       // const storedData = await AsyncStorage.getItem("userData");
       // const storedData1 = storedData ? JSON.parse(storedData) : {};
@@ -202,7 +232,7 @@ export default function TestResult() {
       //  if (!userData.predictions) {
       //    userData.predictions = [];
       // }
-      
+
       // let userData = {
       //   ...storedData1,
 
@@ -223,7 +253,7 @@ export default function TestResult() {
 
       // await AsyncStorage.setItem("userData", JSON.stringify(userData));
 
-      setSendData(!sendData);
+      setSendData(false);
     } catch (e) {
       console.error(e);
     } finally {
@@ -247,8 +277,8 @@ export default function TestResult() {
         value={modelName}
         onChangeText={setModelName}
       /> */}
-      {/* <Text style={styles.prediction}>{newMessage}</Text> */}
-      <Text style={styles.prediction}>Hello</Text>
+      <Text style={styles.prediction}>{newMessage}</Text>
+      {/* <Text style={styles.prediction}>Hello</Text> */}
       <View style={styles.btn}>
         {sendData ? (
           loading ? (
@@ -319,5 +349,3 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
-
-

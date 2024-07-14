@@ -148,7 +148,7 @@
 
 
 
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { View, Button, Text, StyleSheet, Alert, TextInput } from "react-native";
 import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
@@ -162,6 +162,13 @@ const ReadingScreen = () => {
   const { videoUri } = route.params;
   const [modelName, setModelName] = useState("");
   const [predictionMessage, setPredictionMessage] = useState("");
+
+
+  useEffect(() => {
+    if (sendData) {
+      SendResults();
+    }
+  }, [sendData]);
 
   const pickImageFromLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -215,13 +222,13 @@ const ReadingScreen = () => {
         predictions: [newPrediction],
       };
 
-      const storedData = await AsyncStorage.getItem("userData");
+      // const storedData = await AsyncStorage.getItem("userData");
       if (storedData) {
         userData = JSON.parse(storedData);
         userData.predictions.push(newPrediction);
       }
 
-      await AsyncStorage.setItem("userData", JSON.stringify(userData));
+      // await AsyncStorage.setItem("userData", JSON.stringify(userData));
 
       Alert.alert("Upload Result", JSON.stringify(response.data));
     } catch (error) {
