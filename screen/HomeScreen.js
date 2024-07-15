@@ -10,13 +10,14 @@ import {
   View,
   Image,
   ScrollView,
-  Button,
+  // Button,
   TouchableOpacity,
 } from "react-native";
 import Colors from "../config/Colors";
 import { Video } from "expo-av";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
+import { IconButton, Button } from "react-native-paper";
 
 const HomeScreen = ({ navigation }) => {
   const route = useRoute();
@@ -91,7 +92,7 @@ const HomeScreen = ({ navigation }) => {
         {/* <Button title="get" onPress={getPrediction} /> */}
         {/* <Button title="get" onPress={getPrediction1} /> */}
 
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 35 }}>
           <View
             style={{
               alignItems: "center",
@@ -99,16 +100,28 @@ const HomeScreen = ({ navigation }) => {
               justifyContent: "space-between",
             }}
           >
-            <Image style={styles.profilePic} source={{ uri: imageUrl }} />
+            <Ionicons
+              name="menu"
+              size={30}
+              color={"white"}
+              // style={{alignSelf: 'flex-end'}}
+              onPress={openSettings}
+            />
             <Ionicons
               name="settings"
               size={30}
               color={"white"}
+              // style={{alignSelf: 'flex-end'}}
               onPress={openSettings}
             />
           </View>
+          {/* <Image style={styles.profilePic} source={{ uri: imageUrl }} /> */}
+          <Image
+            style={styles.profilePic}
+            source={require("../assets/profileimage.jpg")}
+          />
           <Text style={styles.greeting}>
-            {`Welcome ${child?.name}`}
+            {`Hi ${child?.name}`}
             <MaterialCommunityIcons name="star" size={23} color={"#efdc4f"} />
           </Text>
           <Text style={styles.subGreeting}>
@@ -118,8 +131,9 @@ const HomeScreen = ({ navigation }) => {
         </View>
       </View>
 
+      {/* <Text style={styles.categoriesTitle}>Categories</Text> */}
       <View style={styles.categoriesContainer}>
-        <Text style={styles.categoriesTitle}>Categories</Text>
+        <View></View>
         <TouchableOpacity
           style={styles.categoryCard}
           onPress={() => navigation.navigate("TestOneInitial")}
@@ -128,8 +142,8 @@ const HomeScreen = ({ navigation }) => {
             style={styles.categoryIcon}
             source={require("../assets/test1.jpg")}
           />
-          <Text style={styles.categoryText}>Learn</Text>
-          <Text style={styles.categorySubText}>Word Game</Text>
+          <Text style={styles.categoryText}>Test 1</Text>
+          {/* <Text style={styles.categorySubText}>Word Game</Text> */}
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.categoryCard}
@@ -137,12 +151,12 @@ const HomeScreen = ({ navigation }) => {
         >
           <Image
             style={styles.categoryIcon}
-            source={require("../assets/test2.jpg")}
+            source={require("../assets/testwrite.jpg")}
           />
-          <Text style={styles.categoryText}>Handwriting Test</Text>
-          <Text style={styles.categorySubText}>
+          <Text style={styles.categoryText}> Test 2</Text>
+          {/* <Text style={styles.categorySubText}>
             Starts test by Capturing your Alphabet
-          </Text>
+          </Text> */}
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.categoryCard}
@@ -150,17 +164,17 @@ const HomeScreen = ({ navigation }) => {
         >
           <Image
             style={styles.categoryIcon}
-            source={require("../assets/test3.jpg")}
+            source={require("../assets/write.jpg")}
           />
-          <Text style={styles.categoryText}> Video Test</Text>
-          <Text style={styles.categorySubText}>
+          <Text style={styles.categoryText}>Test 3</Text>
+          {/* <Text style={styles.categorySubText}>
             Start Test by Capturing Yourself.
-          </Text>
+          </Text> */}
         </TouchableOpacity>
         <TouchableOpacity style={styles.categoryCard}>
           <Image
             style={styles.categoryIcon}
-            source={require("../assets/test1.jpg")}
+            source={require("../assets/test2.jpg")}
           />
           <Video
             // source={{ uri: videoUri }}
@@ -171,9 +185,12 @@ const HomeScreen = ({ navigation }) => {
             // onPlaybackStatusUpdate={(status) => setVideoStatus(() => status)}
           />
           <Text style={styles.categoryText}>Showcase</Text>
-          <Text style={styles.categorySubText}>Your selected videos</Text>
+          {/* <Text style={styles.categorySubText}>Your selected videos</Text> */}
         </TouchableOpacity>
-        <Button title="get" onPress={getPrediction1} />
+        {/* <Button title="get" onPress={getPrediction1} /> */}
+        <Button mode="contained" style={styles.button} onPress={getPrediction1}>
+          Send Prediction Result
+        </Button>
       </View>
     </ScrollView>
   );
@@ -196,38 +213,59 @@ const styles = StyleSheet.create({
   profilePic: {
     width: 80,
     height: 80,
-    borderRadius: 40,
-    marginBottom: 10,
-    borderWidth: 5,
+    borderRadius: 50,
+    marginBottom: 5,
+    borderWidth: 4,
     borderColor: "white",
+    alignSelf: "center",
+    // marginTop:50,
   },
   greeting: {
     color: "#fff",
-    fontSize: 22,
+    fontSize: 16,
     fontWeight: "bold",
   },
   subGreeting: {
     color: "#fff",
-    fontSize: 13,
+    fontSize: 12,
+    marginTop: 5,
   },
   categoriesContainer: {
-    padding: 20,
+    // padding: 10,
+    // backgroundColor: 'red',
+    // flexDirection: "row",
+    // gap: 10,
+    // flexBasis: '50%',
+    // flexGrow: '50%'
+    // margin:10,
+    padding: 10,
+    height: 800,
+    // backgroundColor: "red",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
   categoriesTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 20,
+    paddingLeft: 10,
+    // marginBottom: 20,
+    // paddingLe:10
   },
   categoryCard: {
     backgroundColor: "#fff",
     borderRadius: 10,
     padding: 20,
-    marginBottom: 20,
+    marginBottom: 10,
     alignItems: "center",
+    flexBasis: "47%",
+    margin: 5,
+    // backgroundColor: "red",
   },
   categoryIcon: {
     width: "100%",
-    height: 200,
+    // width:180,
+    height: 180,
     marginBottom: 10,
     borderRadius: 20,
   },
@@ -238,6 +276,14 @@ const styles = StyleSheet.create({
   categorySubText: {
     fontSize: 14,
     color: "#666",
+  },
+  button: {
+    backgroundColor: "#0c195c",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 15,
+    width: "100%",
   },
 });
 

@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Button
 } from "react-native";
 import Colors from "../../config/Colors";
 import AppButton from "../../component/AppButton";
@@ -91,7 +92,7 @@ const RegisterChild = ({ navigation }) => {
           <Text style={styles.heading}>Register Your Child</Text>
           <View style={{ marginBottom: 20 }}>
             <TextInput
-              placeholder="child's name"
+              placeholder="Name"
               value={childName}
               onChangeText={setChildName}
               leftIcon={{ type: "font-awesome", name: "envelope" }}
@@ -123,7 +124,7 @@ const RegisterChild = ({ navigation }) => {
               value={childGrade}
               onChangeText={setChildGrade}
               leftIcon={{ type: "font-awesome", name: "envelope" }}
-              // keyboardType=""
+              keyboardType="number-pad"
               autoCapitalize="none"
               style={{
                 width: "50%",
@@ -147,6 +148,7 @@ const RegisterChild = ({ navigation }) => {
               </View>
             </RadioButton.Group>
           </View>
+          <Button title="Next" onPress={()=> navigation.navigate('Home')} />
 
           <TouchableOpacity
             style={{
@@ -219,11 +221,13 @@ const styles = StyleSheet.create({
   radioButtonContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
+    // backgroundColor:'red'
   },
   heading: {
     fontSize: 24,
     marginBottom: 20,
     textAlign: "center",
+    color: Colors.background,
   },
   selectedButtonText: {
     color: Colors.white,

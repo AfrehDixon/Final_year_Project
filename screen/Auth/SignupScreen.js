@@ -154,11 +154,14 @@ export default function SignupScreen({ navigation }) {
             flex: 1,
             justifyContent: "center",
             backgroundColor: "#fff",
+            padding: 20,
           }}
         >
           <View
             style={{
               padding: Spacing * 2,
+              // backgroundColor: "red",
+              // marginTop:5
             }}
           >
             <View
@@ -168,7 +171,7 @@ export default function SignupScreen({ navigation }) {
             >
               <Text
                 style={{
-                  fontSize: FontSize.xLarge,
+                  fontSize: 19,
                   color: Colors.background,
                   marginVertical: Spacing * 2,
                   fontFamily: "Roboto-Regular",
@@ -184,7 +187,7 @@ export default function SignupScreen({ navigation }) {
             >
               <View style={{ marginBottom: 7.5 }}>
                 <TextInput
-                  placeholder="username"
+                  placeholder="Username"
                   placeholderTextColor={"grey"}
                   value={name}
                   onChangeText={setUsername}
@@ -198,7 +201,7 @@ export default function SignupScreen({ navigation }) {
               </View>
               <View style={{ marginBottom: 7.5 }}>
                 <TextInput
-                  placeholder="email"
+                  placeholder="Email"
                   value={email}
                   onChangeText={setEmail}
                   placeholderTextColor={"grey"}
@@ -212,10 +215,9 @@ export default function SignupScreen({ navigation }) {
                 />
               </View>
 
-             
               <View style={{ width: "100%" }}>
                 <TextInput
-                  placeholder="password"
+                  placeholder="Password"
                   value={password}
                   onChangeText={setPassword}
                   placeholderTextColor={"grey"}
@@ -230,6 +232,7 @@ export default function SignupScreen({ navigation }) {
                       icon={showPassword1 ? "eye-off" : "eye"}
                       onPress={() => setShowPassword1(!showPassword1)}
                       style={{ color: "black" }}
+                      size={17}
                     />
                   }
                 />
@@ -243,7 +246,7 @@ export default function SignupScreen({ navigation }) {
                 }}
               >
                 <TextInput
-                  placeholder="confirm password"
+                  placeholder="Confirm password"
                   value={confirmPassword}
                   onChangeText={setconfirmPassword}
                   secureTextEntry={!showPassword2}
@@ -260,18 +263,19 @@ export default function SignupScreen({ navigation }) {
                       icon={showPassword2 ? "eye-off" : "eye"}
                       onPress={() => setShowPassword2(!showPassword2)}
                       style={{ color: "black" }}
+                      size={17}
                     />
                   }
                 />
               </View>
-              <View style={styles.checkboxContainer}>
+              {/* <View style={styles.checkboxContainer}>
                 <Checkbox
                   value={rememberMe}
                   onValueChange={setRememberMe}
                   color={rememberMe ? Colors.primary : undefined}
                 />
                 <Text style={styles.checkboxLabel}>Remember me</Text>
-              </View>
+              </View> */}
 
               <TouchableOpacity
                 style={{

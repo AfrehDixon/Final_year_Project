@@ -11,10 +11,10 @@ const TestScreenTwo = ({ navigation }) => {
   const charArray = ["q", "d", "p", "b"];
   const [hits, setHits] = useState(0);
   const [letter, setLetter] = useState([
-    "E",
-    "E",
-    "E",
-    "E",
+    // "E",
+    // "E",
+    // "E",
+    // "E",
     "E",
     "E",
     "E",
@@ -31,14 +31,14 @@ const TestScreenTwo = ({ navigation }) => {
     "E",
     "E",
     "E",
-    "E",
-    "E",
-    "E",
-    "E",
-    "E",
-    "E",
-    "E",
-    "E",
+    // "E",
+    // "E",
+    // "E",
+    // "E",
+    // "E",
+    // "E",
+    // "E",
+    // "E",
   ]);
   const [clicks, setClicks] = useState(0);
   const [misses, setMisses] = useState(0);
@@ -91,7 +91,7 @@ const TestScreenTwo = ({ navigation }) => {
   };
 
   const getRandomIndex = () => {
-    const indexValue = Math.floor(Math.random() * 28);
+    const indexValue = Math.floor(Math.random() * 16);
     let arr = [...letter];
     arr[letter.indexOf("F")] = "E";
     arr[indexValue] = "F";

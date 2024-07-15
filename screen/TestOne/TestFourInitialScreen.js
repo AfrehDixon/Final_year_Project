@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { IconButton, Button } from "react-native-paper";
 
-
 const TestFourInitialScreen = ({ navigation }) => {
   const route = useRoute();
   const { FinalArrayPassThree } = route.params;
@@ -26,14 +25,13 @@ const TestFourInitialScreen = ({ navigation }) => {
       <View style={styles.section}>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
-          <Text>
-            You will see words on the screen.
-          </Text>
+          <Text>You will see words on the screen.</Text>
         </View>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            Your task is to identify and click on the letters that doesnt make the word correct.
+            Your task is to identify and click on the letters that doesnt make
+            the word correct.
           </Text>
         </View>
         <View style={styles.benefit}>
@@ -96,7 +94,7 @@ const styles = {
     color: "red",
   },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#0c195c",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

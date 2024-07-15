@@ -105,7 +105,7 @@ export default function OTPScreen({ navigation }) {
           <Text style={styles.subtitle}>
             Enter 4 digits code received on your email
           </Text>
-          <Text style={styles.emailText}>{email}</Text>
+          {/* <Text style={styles.emailText}>{email}</Text> */}
           <View style={styles.otpContainer}>
             <OTPInputView
               style={styles.otpInputView}
@@ -174,9 +174,10 @@ const styles = StyleSheet.create({
   },
   otpInputView: {
     width: "100%",
-    height: 200,
+    height: 130,
     paddingHorizontal: 32,
-    marginTop: -60,
+    marginTop: -10,
+    // backgroundColor:'red'
   },
   otpInputField: {
     width: 50,
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 8,
     borderBottomWidth: 3,
-    borderBottomColor: Colors.success,
+    // borderBottomColor: Colors.success,
   },
   submitButton: {
     padding: Spacing * 2,
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   resendButton: {
-    marginTop: 50,
+    // marginTop: 50,
   },
   resendButtonText: {
     color: "blue",

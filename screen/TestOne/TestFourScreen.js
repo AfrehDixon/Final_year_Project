@@ -10,7 +10,7 @@ const TestFourScreen = () => {
 
   const correctWords = [
     "yam",
-    "mango",
+
     "rice",
     "fish",
     "ball",
@@ -133,8 +133,6 @@ const TestFourScreen = () => {
   const accuracy = hits + misses > 0 ? hits / clicks : 0;
   const missRate = clicks > 0 ? misses / clicks : 0;
 
-
-
   return (
     <View style={styles.container}>
       <View style={styles.grid}>
@@ -180,7 +178,7 @@ const styles = StyleSheet.create({
   box: {
     // width: "15%",
     width: 60,
-    height:60,
+    height: 60,
     aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -188,12 +186,11 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     margin: 5,
     borderRadius: 5,
-
   },
   letter: {
     fontSize: 24,
     padding: 10,
-    textAlign:'center'
+    textAlign: "center",
   },
   scoreContainer: {
     marginTop: 20,

@@ -8,34 +8,34 @@ const TestOneScreen = () => {
   const navigation = useNavigation();
   const charArray = ["q", "d", "p", "b"];
   const [letter, setLetter] = useState([
-    "q",
-    "b",
-    "p",
-    "q",
-    "p",
-    "b",
-    "d",
-    "d",
-    "p",
-    "q",
-    "b",
-    "d",
-    "p",
-    "q",
-    "d",
-    "p",
-    "q",
-    "b",
-    "q",
+    // "q",
+    // "b",
+    // "p",
+    // "q",
     "p",
     "b",
     "d",
     "d",
     "p",
     "q",
+    "b",
     "d",
     "p",
     "q",
+    "d",
+    "p",
+    "q",
+    "b",
+    "q",
+    "p",
+    // "b",
+    // "d",
+    // "d",
+    // "p",
+    // "q",
+    // "d",
+    // "p",
+    // "q",
   ]);
   const [timerId, setTimerId] = useState();
   const [timer, setTimer] = useState(0);
@@ -76,7 +76,7 @@ const TestOneScreen = () => {
   };
 
   const getRandomChar = () => {
-    let arr = new Array(25);
+    let arr = new Array(16);
     for (let i = 0; i < letter.length; i++) {
       arr[i] = charArray[Math.floor(Math.random() * charArray.length)];
     }
@@ -194,5 +194,3 @@ const styles = StyleSheet.create({
 });
 
 export default TestOneScreen;
-
-

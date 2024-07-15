@@ -121,14 +121,14 @@ const SettingsScreen = () => {
   return (
     <PaperProvider>
       <View style={styles.container}>
-      
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
-          
           <View style={styles.section}>
             {/* <Text style={styles.sectionTitle}>Account</Text> */}
             <TouchableOpacity style={styles.accountItem}>
-             
-              <Image style={styles.profilePic} source={{ uri: imageUrl }} />
+              <Image
+                style={styles.profilePic}
+                source={require("../assets/profileimage.jpg")}
+              />
               <View style={styles.accountTextContainer}>
                 <Text style={styles.accountName}>{`${child?.name}`}</Text>
                 <Text

@@ -9,7 +9,7 @@ const getRandomAlphabets = (count) => {
   return shuffled.slice(0, count);
 };
 const generateRandomLetters = (count) => {
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const alphabet = "bdpqmwnqugqilvw";
   let randomLetters = [];
 
   for (let i = 0; i < count; i++) {

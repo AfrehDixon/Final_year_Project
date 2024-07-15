@@ -57,16 +57,20 @@ const OnboardingScreen = ({ navigation }) => {
         alignItems: "center",
         flex: 1,
         backgroundColor: "#fff",
-        marginTop: -50,
+        marginTop: -39,
       }}
       // titleStyles={{ color: Colors.background, marginTop: -50 }}
       transitionAnimationDuration={500}
-      subTitleStyles={{ fontSize: 15, fontFamily: "Roboto-Regular" }}
+      subTitleStyles={{
+        fontSize: 14,
+        fontFamily: "Roboto-Regular",
+        paddingHorizontal: 20,
+      }}
       titleStyles={{
-        fontSize: 30,
+        fontSize: 22,
         color: Colors.background,
         fontWeight: "bold",
-        marginTop: -50,
+        marginTop: -30,
         fontFamily: "Poppins-Bold",
         // fontFamily: 'Poppins-Regular',
       }}
@@ -95,7 +99,8 @@ const OnboardingScreen = ({ navigation }) => {
           backgroundColor: "#fff",
           image: (
             <Image
-              source={require("../../assets/bookreading2.png")}
+              // source={require("../../assets/signupimage.jpg")}
+              source={require("../../assets/welcome.jpg")}
               style={styles.image}
             />
           ),
@@ -107,7 +112,7 @@ const OnboardingScreen = ({ navigation }) => {
           backgroundColor: "#fff",
           image: (
             <Image
-              source={require("../../assets/education.png")}
+              source={require("../../assets/welcome.jpg")}
               style={styles.image}
             />
           ),
@@ -125,7 +130,7 @@ export default OnboardingScreen;
 
 const styles = StyleSheet.create({
   image: {
-    width: 300,
+    width: 200,
     height: 300,
   },
 });

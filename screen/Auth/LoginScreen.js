@@ -95,17 +95,17 @@ export default function LoginScreen({ navigation, setUserToken }) {
           const token = await AsyncStorage.setItem("userToken", data.token);
 
           setLoading(false); // Reset loading state
-          // navigation.navigate("RegisterChild", { token });
-
+          
           let userData = {
             email: email,
           };
-
+          
           await AsyncStorage.setItem("userData", JSON.stringify(userData));
-
+          
           // setToken(token);
+          navigation.navigate("RegisterChild", { token });
           // console.log(await AsyncStorage.setItem("userToken"));
-          navigation.replace("Home", { token });
+          // navigation.replace("Home", { token });
         } catch (e) {
           // console.log(e);
           toast.show("An error occurred", {
@@ -151,9 +151,13 @@ export default function LoginScreen({ navigation, setUserToken }) {
               alignItems: "center",
             }}
           >
-            <Text
+            <Image
+              source={require("../../assets/sign.png")}
+              style={styles.image}
+            />
+            {/* <Text
               style={{
-                fontSize: FontSize.xLarge,
+                fontSize: 18,
                 color: Colors.background,
                 marginVertical: Spacing * 3,
                 // fontWeight: "medium",
@@ -161,7 +165,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
               }}
             >
               Sign In To Your Account
-            </Text>
+            </Text> */}
           </View>
           <View
             style={
@@ -228,6 +232,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
                     icon={showPassword ? "eye-off" : "eye"}
                     onPress={() => setShowPassword(!showPassword)}
                     style={{ color: "black" }}
+                    size={17}
                   />
                 }
               />
@@ -248,7 +253,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
             >
               <Text
                 style={{
-                  fontSize: FontSize.medium,
+                  fontSize: 13,
                   color: Colors.primary,
                   alignSelf: "flex-end",
                   marginTop: 10,
@@ -328,7 +333,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
                   fontFamily: "Roboto-Regular",
                 }}
               >
-                Create new account
+                Create account
               </Text>
             </TouchableOpacity>
 
@@ -389,6 +394,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     backgroundColor: "#fff",
+    padding: 20,
+  },
+  image: {
+    width: 200,
+    height: 250,
+    marginBottom: 20,
   },
   input: {
     width: "100%",

@@ -13,13 +13,14 @@ import * as Haptics from "expo-haptics";
 
 const Tab = createBottomTabNavigator();
 
-const Home = ({logout}) => {
-  const route = useRoute()
+const Home = ({ logout }) => {
+  const route = useRoute();
   // const {data} = route.params
   return (
     <Tab.Navigator
+      
       screenOptions={({ route, focused }) => ({
-        tabBarIcon: ({ color, size }) => {
+        tabBarIcon: ({ color , size }) => {
           let iconName;
 
           if (route.name === "Learn") {
@@ -32,7 +33,7 @@ const Home = ({logout}) => {
             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
           }
 
-          return <Ionicons name={iconName} size={25} color={color} />;
+          return <Ionicons name={iconName} size={24} color={color} />;
         },
       })}
       // screenOptions={{
@@ -51,7 +52,7 @@ const Home = ({logout}) => {
         name="Settings"
         component={Settings}
         options={{ headerTitleAlign: "center" }}
-        initialParams={{logout: logout}}
+        initialParams={{ logout: logout }}
       />
     </Tab.Navigator>
   );
