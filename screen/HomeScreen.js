@@ -38,9 +38,9 @@ const HomeScreen = ({ navigation }) => {
     //   // predictions: [newPrediction],
     // };
     try {
-      const AppPredictionOne = await AsyncStorage.getItem("userData");
+      const AppPrediction = await AsyncStorage.getItem("userData");
 
-      console.log(AppPredictionOne);
+      console.log(AppPrediction);
     } catch (error) {
       console.log(error);
     }
@@ -50,6 +50,7 @@ const HomeScreen = ({ navigation }) => {
   const api = "https://dyslexia-backend.onrender.com/api/v1/test/test-results";
 
   const getPrediction1 = async () => {
+    getPrediction();
     const data = await AsyncStorage.getItem("userData");
     try {
       const res = await fetch(api, {
@@ -58,7 +59,7 @@ const HomeScreen = ({ navigation }) => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        // body: JSON.stringify({ data }),
+
         body: data,
       });
       const result = await res.json();
@@ -67,19 +68,6 @@ const HomeScreen = ({ navigation }) => {
       console.error(error);
     }
   };
-  // const getPredictionTwo = async () => {
-  //   try {
-  //     const AppPredictionTwo = await AsyncStorage.getItem("predictionTwo");
-  //     // const childJSON = JSON.parse(Childdata);
-  //     // console.log(childJSON.name);
-  //     // setchild(childJSON);
-  //     console.log(AppPredictionTwo);
-  //     // console.log("dgfd");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // getPrediction();
 
   const getchild = async () => {
     try {
@@ -100,44 +88,36 @@ const HomeScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        {/* <MaterialCommunityIcons name="menu" size={30} color={"white"} /> */}
+        {/* <Button title="get" onPress={getPrediction} /> */}
+        {/* <Button title="get" onPress={getPrediction1} /> */}
 
-        {/* <MaterialCommunityIcons name="settings" size={30} color={"white"} /> */}
-        <Button title="get" onPress={getPrediction} />
-        <Button title="get" onPress={getPrediction1} />
-        {/* <Button title="get" onPress={getPredictionTwo} /> */}
-        <View>
-          {/* <Image source={imageUrl} style={{ width: "200" }} /> */}
+        <View style={{ marginTop: 20 }}>
+          <View
+            style={{
+              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Image style={styles.profilePic} source={{ uri: imageUrl }} />
+            <Ionicons
+              name="settings"
+              size={30}
+              color={"white"}
+              onPress={openSettings}
+            />
+          </View>
+          <Text style={styles.greeting}>
+            {`Welcome ${child?.name}`}
+            <MaterialCommunityIcons name="star" size={23} color={"#efdc4f"} />
+          </Text>
+          <Text style={styles.subGreeting}>
+            Up your reading skill with{" "}
+            <Text style={{ color: "#efdc4f" }}>LexyAfriq.</Text>
+          </Text>
         </View>
-
-        <View
-          style={{
-            alignItems: "center",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          {/* <Image
-            style={styles.profilePic}
-            source={{ uri: "https://via.placeholder.com/150" }} // Replace with actual image URI
-          /> */}
-          <Image style={styles.profilePic} source={{ uri: imageUrl }} />
-          <Ionicons
-            name="settings"
-            size={30}
-            color={"white"}
-            onPress={openSettings}
-          />
-        </View>
-        <Text style={styles.greeting}>
-          {`Welcome ${child?.name}`}
-          <MaterialCommunityIcons name="star" size={23} color={"#efdc4f"} />
-        </Text>
-        <Text style={styles.subGreeting}>
-          Up your reading skill with{" "}
-          <Text style={{ color: "#efdc4f" }}>LexyAfriq.</Text>
-        </Text>
       </View>
+
       <View style={styles.categoriesContainer}>
         <Text style={styles.categoriesTitle}>Categories</Text>
         <TouchableOpacity
@@ -146,7 +126,6 @@ const HomeScreen = ({ navigation }) => {
         >
           <Image
             style={styles.categoryIcon}
-            // source={{ uri: "https://via.placeholder.com/100" }}
             source={require("../assets/test1.jpg")}
           />
           <Text style={styles.categoryText}>Learn</Text>
@@ -158,7 +137,6 @@ const HomeScreen = ({ navigation }) => {
         >
           <Image
             style={styles.categoryIcon}
-            // source={{ uri: "https://via.placeholder.com/100" }}
             source={require("../assets/test2.jpg")}
           />
           <Text style={styles.categoryText}>Handwriting Test</Text>
@@ -175,7 +153,9 @@ const HomeScreen = ({ navigation }) => {
             source={require("../assets/test3.jpg")}
           />
           <Text style={styles.categoryText}> Video Test</Text>
-          <Text style={styles.categorySubText}>Available competitions</Text>
+          <Text style={styles.categorySubText}>
+            Start Test by Capturing Yourself.
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.categoryCard}>
           <Image
@@ -193,6 +173,7 @@ const HomeScreen = ({ navigation }) => {
           <Text style={styles.categoryText}>Showcase</Text>
           <Text style={styles.categorySubText}>Your selected videos</Text>
         </TouchableOpacity>
+        <Button title="get" onPress={getPrediction1} />
       </View>
     </ScrollView>
   );
@@ -208,7 +189,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#6200ee",
     padding: 20,
     borderBottomLeftRadius: 20,
-    marginTop: 50,
+    // marginTop: 50,
     borderBottomRightRadius: 20,
     // alignItems: "center",
   },

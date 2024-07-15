@@ -45,32 +45,56 @@ export default function AuthNavigator() {
       <AuthStack.Screen
         name="ForgetPassword"
         component={ForgetPassword}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
       <AuthStack.Screen
         name="Signup"
         component={SignupScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
       <AuthStack.Screen
         name="HandwritingInitial"
         component={HandwritingInitial}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
       <AuthStack.Screen
         name="Alphabet"
         component={AlphabetScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
       <AuthStack.Screen
         name="ReadingInitial"
         component={ReadingScreenIntial}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
       <AuthStack.Screen
         name="ReadingScreen"
         component={ReadingScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
       {/* <AuthStack.Screen
         name="Handwriting"
@@ -80,18 +104,30 @@ export default function AuthNavigator() {
       <AuthStack.Screen
         name="Capture"
         component={CaptureImage}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
 
       <AuthStack.Screen
         name="ResultTwo"
         component={HandwritinResult}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
       <AuthStack.Screen
         name="CaptureVideo"
         component={CaptureVideo}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
 
       {/* <AuthStack.Screen
@@ -112,6 +148,8 @@ export default function AuthNavigator() {
           headerBackVisible: false,
           title: "OTP Verification",
           headerTitleAlign: "center",
+          headerBackTitleVisible: false,
+          preventRemove: true,
         }}
       />
       <AuthStack.Screen
@@ -123,12 +161,18 @@ export default function AuthNavigator() {
           headerTitleAlign: "center",
           headerLeft: () => null,
           gestureEnabled: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
         }}
       />
       <AuthStack.Screen
         name="Home"
         component={Home}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
       <AuthStack.Screen
         name="TestOneInitial"
@@ -138,7 +182,11 @@ export default function AuthNavigator() {
         //   title: "Test One Initial",
         //   headerTitleAlign: "center",
         // }}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
       <AuthStack.Screen
         name="TestOne"
@@ -147,6 +195,8 @@ export default function AuthNavigator() {
           headerShown: true,
           title: "Test One",
           headerTitleAlign: "center",
+          headerBackTitleVisible: false,
+          preventRemove: true,
         }}
       />
       <AuthStack.Screen
@@ -157,7 +207,11 @@ export default function AuthNavigator() {
         //   headerLeft: () => null,
         //   gestureEnabled: false,
         // }}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
       <AuthStack.Screen
         name="TestTwo"
@@ -167,12 +221,18 @@ export default function AuthNavigator() {
           headerTitleAlign: "center",
           headerLeft: () => null,
           gestureEnabled: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
         }}
       />
       <AuthStack.Screen
         name="TestThreeInitial"
         component={TestThreeInitialScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
       <AuthStack.Screen
         name="TestThree"
@@ -182,12 +242,20 @@ export default function AuthNavigator() {
           headerTitleAlign: "center",
           headerLeft: () => null,
           gestureEnabled: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
         }}
       />
       <AuthStack.Screen
         name="TestFourInitial"
         component={TestFourInitialScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+          headerBackTitleVisible: false,
+          preventRemove: true,
+        }}
       />
       <AuthStack.Screen
         name="TestFour"
@@ -196,6 +264,8 @@ export default function AuthNavigator() {
           headerShown: true,
           headerLeft: () => null,
           gestureEnabled: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
         }}
       />
       <AuthStack.Screen
@@ -206,6 +276,8 @@ export default function AuthNavigator() {
           headerTitleAlign: "center",
           headerLeft: () => null,
           gestureEnabled: false,
+          headerBackTitleVisible: false,
+          preventRemove: true,
         }}
       />
     </AuthStack.Navigator>

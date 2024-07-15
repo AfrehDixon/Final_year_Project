@@ -17,6 +17,7 @@ import { Button, PaperProvider, TextInput } from "react-native-paper";
 import { useToast } from "react-native-toast-notifications";
 import { useRoute } from "@react-navigation/native";
 // import forget from "../../assets/forget.png";
+import * as Haptics from "expo-haptics";
 
 export default function ForgetPassword({ navigation }) {
   const [email, setEmail] = useState("");
@@ -63,7 +64,7 @@ export default function ForgetPassword({ navigation }) {
           placement: "top",
         });
         navigation.navigate("Login");
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       }
     } catch (e) {
       console.log(e);
@@ -95,8 +96,8 @@ export default function ForgetPassword({ navigation }) {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } catch (e) {
       console.log(e);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     }
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
   };
 
   const handleOtpInput = (otp) => {
@@ -246,6 +247,13 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     backgroundColor: "white",
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop:200,
+    // backgroundColor: "red",
   },
   modalBackground: {
     // flex: 2,

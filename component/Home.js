@@ -26,7 +26,7 @@ const Home = ({logout}) => {
             iconName = focused ? "book" : "book-outline";
           } else if (route.name === "Settings") {
             iconName = focused ? "settings" : "settings-outline";
-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+            // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
           } else if (route.name === "HomeScreen") {
             iconName = focused ? "home" : "home-outline";
             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);

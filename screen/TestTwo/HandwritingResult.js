@@ -161,21 +161,6 @@ export default function HandwritingResult({ navigation }) {
 
       await AsyncStorage.setItem("userData", JSON.stringify(userData));
 
-      // await AsyncStorage.setItem("userData", JSON.stringify(userData));
-      // const storedData = await AsyncStorage.getItem("userData");
-      // const storedData1 = storedData ? JSON.parse(storedData) : {};
-
-      // let userData = {
-      //   ...storedData1,
-      //   // email: "dixonafreh20@gmail.com",
-      //   predictions: [newPrediction],
-      // };
-
-      //   userData.predictions.push(newPrediction);
-      // const storedData = await AsyncStorage.getItem("userData");
-      // if (storedData) {
-      //   userData = JSON.parse(storedData);
-      // }
 
       await AsyncStorage.setItem("userData", JSON.stringify(userData));
 

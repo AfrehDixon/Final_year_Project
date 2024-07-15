@@ -110,7 +110,7 @@ const SettingsScreen = () => {
       predictions: [],
     };
 
-    userData.predictions.push("");
+    // userData.predictions.push("");
     navigation.navigate("RegisterChild");
 
     await AsyncStorage.setItem("userData", JSON.stringify(userData));
@@ -121,44 +121,13 @@ const SettingsScreen = () => {
   return (
     <PaperProvider>
       <View style={styles.container}>
-        {/* <Appbar.Header style={{ backgroundColor: Colors.white,justifyContent:'center',alignItems:'center' }}>
-      <Appbar.Content title="Settings" />
-      </Appbar.Header> */}
+      
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
-          {/* <View style={styles.avatarContainer}> */}
-          {/* <Image
-              source={require("../assets/ddd.jpg")}
-              style={styles.avatar}
-            /> */}
-          {/* <View style={styles.infoContainer}>
-              <Text style={styles.name}>{`${child?.name}`}</Text>
-              <Text style={styles.name}>{`Age : ${child?.age} years`}</Text>
-              <Text style={styles.name}>{`Grade: ${child?.grade}`}</Text>
-              <Text style={styles.grade}>Level 100</Text>
-            </View> */}
-
-          {/* <TouchableOpacity
-              style={styles.addButton}
-              onPress={() => navigation.navigate("RegisterChild")}
-            >
-              <MaterialCommunityIcons
-                name="plus"
-                size={30}
-                color={Colors.white}
-              />
-            </TouchableOpacity> */}
-          {/* </View> */}
-          {/* <View style={styles.header}>
-            <Icon name="arrow-back" size={24} onPress={() => {}} />
-            <Text style={styles.headerTitle}>Settings</Text>
-          </View> */}
+          
           <View style={styles.section}>
             {/* <Text style={styles.sectionTitle}>Account</Text> */}
             <TouchableOpacity style={styles.accountItem}>
-              {/* <Image
-                style={styles.profilePic}
-                source={{ uri: "https://via.placeholder.com/50" }} // Replace with actual image URI
-              /> */}
+             
               <Image style={styles.profilePic} source={{ uri: imageUrl }} />
               <View style={styles.accountTextContainer}>
                 <Text style={styles.accountName}>{`${child?.name}`}</Text>

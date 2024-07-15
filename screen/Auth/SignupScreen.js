@@ -212,43 +212,13 @@ export default function SignupScreen({ navigation }) {
                 />
               </View>
 
-              {/* <View
-                style={{
-                  marginBottom: 7.5,
-                }}
-              >
+             
+              <View style={{ width: "100%" }}>
                 <TextInput
-                  placeholder=" password"
+                  placeholder="password"
                   value={password}
                   onChangeText={setPassword}
-                  secureTextEntry={!showPassword1}
-                  style={{
-                    width: "100%",
-                    backgroundColor: "white",
-                    height: 60,
-                  }}
-                  right={
-                    <TextInput.Icon
-                      icon={showPassword1 ? "eye-off" : "eye"}
-                      onPress={() => setShowPassword1(!showPassword1)}
-                      style={{ color: "black" }}
-                    />
-                  }
-                />
-              </View> */}
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginBottom: 15,
-                  width: "100%",
-                }}
-              >
-                <TextInput
-                  placeholder=" Password"
                   placeholderTextColor={"grey"}
-                  value={password}
-                  onChangeText={setPassword}
                   secureTextEntry={!showPassword1}
                   style={{
                     width: "100%",

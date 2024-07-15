@@ -86,16 +86,10 @@ export default function LoginScreen({ navigation, setUserToken }) {
       // const {tokenn}= data
 
       if (res.ok === true) {
-        // toast.show("Login successful", {
-        //   type: "success",
-        //   placement: "top",
-        // });
-
-        // userData.predictions = userData.predictions.filter(
-        //   (prediction) => prediction !== ""
-        // );
-        // Store updated userData back to AsyncStorage
-        // await AsyncStorage.setItem("userData", JSON.stringify(userData));
+        toast.show("Login successful", {
+          type: "success",
+          placement: "top",
+        });
 
         try {
           const token = await AsyncStorage.setItem("userToken", data.token);
@@ -103,31 +97,11 @@ export default function LoginScreen({ navigation, setUserToken }) {
           setLoading(false); // Reset loading state
           // navigation.navigate("RegisterChild", { token });
 
-          // const storedData = await AsyncStorage.getItem("userData");
-          // const parsedData = storedData ? JSON.parse(storedData) : {};
-
           let userData = {
-            // ...parsedData,
             email: email,
-            // predictions: [...(parsedData.predictions || []), newPrediction],
           };
 
           await AsyncStorage.setItem("userData", JSON.stringify(userData));
-
-          // Fetch existing user data from AsyncStorage
-          // let userData = await AsyncStorage.getItem("userData");
-          // userData = userData ? JSON.parse(userData) : {};
-
-          // if (!userData.email) {
-          //   userData.email = email;
-          // }
-
-          // if (!userData.predictions) {
-          //   userData.predictions = [];
-          // }
-          // Update email in userData
-          // userData.email = email;
-          // Initialize predictions array if it doesn't exist
 
           // setToken(token);
           // console.log(await AsyncStorage.setItem("userToken"));
@@ -158,7 +132,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     } finally {
       setLoading(false);
-      // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     }
   };
 
@@ -213,7 +187,7 @@ export default function LoginScreen({ navigation, setUserToken }) {
               />
             </View>
 
-            <View
+            {/* <View
               style={{
                 // flexDirection: "row",
                 // alignItems: "center",
@@ -232,6 +206,23 @@ export default function LoginScreen({ navigation, setUserToken }) {
                   backgroundColor: "white",
                   height: 60,
                 }}
+                right={
+                  <TextInput.Icon
+                    icon={showPassword ? "eye-off" : "eye"}
+                    onPress={() => setShowPassword(!showPassword)}
+                    style={{ color: "black" }}
+                  />
+                }
+              />
+            </View> */}
+            <View style={{ width: "100%" }}>
+              <TextInput
+                placeholder="Password"
+                value={password}
+                onChangeText={setPassword}
+                placeholderTextColor={"grey"}
+                secureTextEntry={!showPassword}
+                style={{ width: "100%", backgroundColor: "white", height: 60 }}
                 right={
                   <TextInput.Icon
                     icon={showPassword ? "eye-off" : "eye"}

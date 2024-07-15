@@ -135,6 +135,7 @@ export default function CaptureVideo({ navigation }) {
       {/* {!cameraVisible && ( */}
       <Button
         title="Next"
+        style={{}}
         onPress={() => navigation.navigate("ReadingScreen", { videoUri })}
       />
       {/* )} */}
