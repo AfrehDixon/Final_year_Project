@@ -121,7 +121,7 @@ const TestThreeScreen = ({ navigation }) => {
         setIndex((prevIndex) => (prevIndex + 1) % words.length);
       }, 1000);
     } else {
-      setMessage("Try Again!");
+      // setMessage("Try Again!");
       setMisses(misses + 1);
     }
   };

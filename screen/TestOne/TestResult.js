@@ -7,6 +7,7 @@ import ConfettiCannon from "react-native-confetti-cannon";
 import { useToast } from "react-native-toast-notifications";
 import { Button } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
 
 export default function TestResult() {
   const navigation = useNavigation();
@@ -19,9 +20,10 @@ export default function TestResult() {
   const toast = useToast();
 
   useEffect(() => {
-    toast.show("Game Complete", {
+    Toast.show({
       type: "success",
-      placement: "top",
+      text1: "Test Completed Successful",
+      // text2: "This is some something 👋",
     });
   }, []);
 

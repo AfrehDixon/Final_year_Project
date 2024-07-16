@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  Button
+  Button,
 } from "react-native";
 import Colors from "../../config/Colors";
 import AppButton from "../../component/AppButton";
@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useToast } from "react-native-toast-notifications";
 import { RadioButton, ActivityIndicator } from "react-native-paper";
 import Spacing from "../../config/Spacing";
+import Toast from "react-native-toast-message";
 
 const RegisterChild = ({ navigation }) => {
   const [selectedAge, setSelectedAge] = useState("");
@@ -33,10 +34,10 @@ const RegisterChild = ({ navigation }) => {
     setLoading(true);
 
     if (!childName || !selectedAge || !gender || !childGrade) {
-      toast.show("Please fill all details of your child", {
-        type: "danger",
-
-        placement: "top",
+      Toast.show({
+        type: "error",
+        text1: "Please fill all fields",
+        // text2: "This is some something 👋",
       });
       setLoading(false);
     }
@@ -61,9 +62,10 @@ const RegisterChild = ({ navigation }) => {
       const data = await res.json();
       console.log(data);
 
-      toast.show("Child Registered Successfully", {
+      Toast.show({
         type: "success",
-        position: "top",
+        text1: "Child registration Successful",
+        // text2: "This is some something 👋",
       });
 
       try {
@@ -75,11 +77,12 @@ const RegisterChild = ({ navigation }) => {
       }
     } catch (error) {
       console.log(error);
-      toast.show("Error Registering Child", {
-        type: "danger",
-        position: "top",
+      Toast.show({
+        type: "error",
+        text1: "Error Registering Child",
+        // text2: "This is some something 👋",
       });
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -148,7 +151,7 @@ const RegisterChild = ({ navigation }) => {
               </View>
             </RadioButton.Group>
           </View>
-          <Button title="Next" onPress={()=> navigation.navigate('Home')} />
+          <Button title="Next" onPress={() => navigation.navigate("Home")} />
 
           <TouchableOpacity
             style={{

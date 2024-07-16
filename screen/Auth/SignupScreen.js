@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-  Text
+  Text,
 } from "react-native";
 import {
   TextInput,
@@ -23,6 +23,7 @@ import * as Haptics from "expo-haptics";
 import Colors from "../../config/Colors";
 import FontSize from "../../config/FontSize";
 import Spacing from "../../config/Spacing";
+import Toast from "react-native-toast-message";
 
 export default function SignupScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -41,14 +42,16 @@ export default function SignupScreen({ navigation }) {
 
   const handlesignup = async () => {
     // navigation.replace("OTP", { email });
-      setError("");
-      setLoading(true);
+    setError("");
+    setLoading(true);
     try {
-      if (!email || !password || !name || !password|| !confirmPassword) {
+      if (!email || !password || !name || !password || !confirmPassword) {
         // setError("Please enter both email and password.");
-        return toast.show("Please provide all details.", {
-          type: "danger",
-        });
+           Toast.show({
+             type: "error",
+             text1: "Please enter all the fields.",
+             // text2: "This is some something 👋",
+           });
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       }
       const res = await fetch(api, {
@@ -67,33 +70,36 @@ export default function SignupScreen({ navigation }) {
       console.log(data);
 
       if (res.status === 400) {
-        toast.show(data.error, {
-          type: "danger",
-          position: "top",
+        Toast.show({
+          type: "error",
+          text1: data.error,
+          // text2: "This is some something 👋",
         });
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-        setError(data.error);
+        // setError(data.error);
       } else {
-        toast.show(data.message, {
+        Toast.show({
           type: "success",
-          position: "top",
+          text1: data.message,
+          // text2: "This is some something 👋",
         });
-        console.log(data.message)
+        console.log(data.message);
         navigation.replace("OTP", { email });
       }
     } catch (error) {
-      console.error("Network error");
+      // console.error("Network error");
       setLoading(false);
-      toast.show("Network error", {
-        type: "danger",
-        position: "top",
+      Toast.show({
+        type: "error",
+        text1: "Network error",
+        // text2: "This is some something 👋",
       });
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     } finally {
       setLoading(false);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     }
-  }
+  };
 
   // const handlesignup = async () => {
   //   setError("");

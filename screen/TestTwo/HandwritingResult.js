@@ -115,7 +115,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
 import { Button } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import Toast from "react-native-toast-message";
 export default function HandwritingResult({ navigation }) {
   const route = useRoute();
   const [newMessage2, setMessage] = useState("");
@@ -125,10 +125,11 @@ export default function HandwritingResult({ navigation }) {
   const toast = useToast();
 
   useEffect(() => {
-    toast.show("Test Complete", {
-      type: "success",
-      placement: "top",
-    });
+      Toast.show({
+        type: "success",
+        text1: "Test Completed Successful",
+        // text2: "This is some something 👋",
+      });
   }, []);
 
   useEffect(() => {

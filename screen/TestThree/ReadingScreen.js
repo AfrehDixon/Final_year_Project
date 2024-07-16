@@ -147,6 +147,7 @@ import { Video } from "expo-av";
 import { useRoute } from "@react-navigation/native";
 import Spacing from "../../config/Spacing";
 import Colors from "../../config/Colors";
+import Toast from "react-native-toast-message";
 
 const ReadingScreen = () => {
   const [videoUri, setVideoUri] = useState(null);

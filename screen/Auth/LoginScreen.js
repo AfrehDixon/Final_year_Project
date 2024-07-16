@@ -24,6 +24,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useToast } from "react-native-toast-notifications";
+import Toast from "react-native-toast-message";
 
 import Colors from "../../config/Colors";
 import FontSize from "../../config/FontSize";
@@ -53,10 +54,15 @@ export default function LoginScreen({ navigation, setUserToken }) {
 
     try {
       if (!email || !password) {
-        // setError("Please enter both email and password.");
-        return toast.show("Please enter both email and password.", {
-          type: "danger",
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: "Please enter both email and password.👋",
         });
+        // setError("Please enter both email and password.");
+        // return toast.show("Please enter both email and password.", {
+        //   type: "danger",
+        // });
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       }
       // setLoading(false);
@@ -86,47 +92,62 @@ export default function LoginScreen({ navigation, setUserToken }) {
       // const {tokenn}= data
 
       if (res.ok === true) {
-        toast.show("Login successful", {
+        Toast.show({
           type: "success",
-          placement: "top",
+          text1: "Login successful",
+          // text2: "This is some something 👋",
         });
 
         try {
           const token = await AsyncStorage.setItem("userToken", data.token);
 
           setLoading(false); // Reset loading state
-          
+
           let userData = {
             email: email,
           };
-          
+
           await AsyncStorage.setItem("userData", JSON.stringify(userData));
-          
+
           // setToken(token);
           navigation.navigate("RegisterChild", { token });
           // console.log(await AsyncStorage.setItem("userToken"));
           // navigation.replace("Home", { token });
         } catch (e) {
           // console.log(e);
-          toast.show("An error occurred", {
-            type: "danger",
+          // toast.show("An error occurred", {
+          //   type: "danger",
+          // });
+          Toast.show({
+            type: "error",
+            text1: "Error",
+            text2: "Login Error.👋",
           });
           // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
         }
       } else if (!data.verified) {
-        toast.show(data.error, {
-          type: "danger",
+        Toast.show({
+          type: "error",
+          text1: data.error,
+          // text2: "Login Error.👋",
         });
+        // toast.show(data.error, {
+        //   type: "danger",
+        // });
         // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       } else {
-        toast.show(data.error, {
-          type: "danger",
+        Toast.show({
+          type: "error",
+          text1: data.error,
+          // text2: "Login Error.👋",
         });
         // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       }
     } catch (error) {
-      toast.show("Network error", {
-        type: "danger",
+      Toast.show({
+        type: "error",
+        text1: "Network error",
+        // text2: "Login Error.👋",
       });
       setLoading(false);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);

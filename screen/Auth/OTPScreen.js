@@ -13,6 +13,7 @@ import OTPInputView from "@twotalltotems/react-native-otp-input";
 import { useToast } from "react-native-toast-notifications";
 import Colors from "../../config/Colors";
 import Spacing from "../../config/Spacing";
+import Toast from "react-native-toast-message";
 
 export default function OTPScreen({ navigation }) {
   const route = useRoute();

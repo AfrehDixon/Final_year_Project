@@ -38,12 +38,13 @@
 
 import React, { useCallback, useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { ImageBackground, StyleSheet, Text, View ,Image } from "react-native";
+import { ImageBackground, StyleSheet, Text, View, Image } from "react-native";
 import { useFonts } from "expo-font";
 // import AppLoading from "expo-app-loading";
 import Navigation from "./Navigation";
 import { ToastProvider } from "react-native-toast-notifications";
 import { AuthProvider } from "./Context";
+import Toast from "react-native-toast-message";
 // import { SplashScreen } from "./screen/Auth/SplashScreen";
 
 const image = require("./assets/logo2.jpeg");
@@ -71,7 +72,7 @@ const App = () => {
     "Roboto-Regular": require("./assets/fonts/Roboto_Slab/static/RobotoSlab-Regular.ttf"),
     "Roboto-Bold": require("./assets/fonts/Roboto_Slab/static/RobotoSlab-Bold.ttf"),
     "Poppins-Medium": require("./assets/fonts/Poppins/Poppins-Medium.ttf"),
-    "Poppins-Bold": require("./assets/fonts/Poppins/Poppins-Bold.ttf")
+    "Poppins-Bold": require("./assets/fonts/Poppins/Poppins-Bold.ttf"),
   });
 
   if (!fontsLoaded) {
@@ -88,11 +89,10 @@ const App = () => {
     // //     </View>
 
     <View style={styles.container}>
-      <ToastProvider offsetBottom={40}>
-        <AuthProvider>
-          <Navigation />
-        </AuthProvider>
-      </ToastProvider>
+      <AuthProvider>
+        <Navigation />
+        <Toast />
+      </AuthProvider>
     </View>
   );
 };

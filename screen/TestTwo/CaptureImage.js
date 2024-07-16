@@ -13,6 +13,7 @@ import { ProgressBar, ActivityIndicator, Button } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useToast } from "react-native-toast-notifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
 
 import Spacing from "../../config/Spacing";
 import Colors from "../../config/Colors";
@@ -90,14 +91,16 @@ const CaptureImage = ({ route, navigation }) => {
 
       }
 
-      toast.show("Upload Successful", {
-        type: "success",
-        placement: "top",
-      });
+     Toast.show({
+       type: "success",
+       text1: "Upload Successful",
+       // text2: "This is some something 👋",
+     });
     } catch (error) {
-      toast.show(error.message, {
-        type: "danger",
-        placement: "top",
+      Toast.show({
+        type: "error",
+        text1: error.message,
+        // text2: "This is some something 👋",
       });
     } finally {
       setLoading(false); 
