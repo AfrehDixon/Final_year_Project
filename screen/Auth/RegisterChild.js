@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   View,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
   Button,
+  ActivityIndicator,
 } from "react-native";
 import Colors from "../../config/Colors";
 import AppButton from "../../component/AppButton";
 import { Text, TextInput } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useToast } from "react-native-toast-notifications";
-import { RadioButton, ActivityIndicator } from "react-native-paper";
+import { RadioButton } from "react-native-paper";
 import Spacing from "../../config/Spacing";
 import Toast from "react-native-toast-message";
+import RadioGroup from "react-native-radio-buttons-group";
+import { color } from "react-native-elements/dist/helpers";
 
 const RegisterChild = ({ navigation }) => {
   const [selectedAge, setSelectedAge] = useState("");
@@ -21,30 +24,104 @@ const RegisterChild = ({ navigation }) => {
   const [gender, setGender] = useState("");
   const [childGrade, setChildGrade] = useState("");
   const [loading, setLoading] = useState(false);
-  const [checked, setChecked] = useState(["Female", "Male"]);
+  const [checked, setChecked] = useState("male");
 
+  const radioButtons = useMemo(
+    () => [
+      {
+        id: "1",
+        label: "Male",
+        value: "Male",
+        // borderColor: 'gender ? "red" : "blue"',
+        color: Colors.background,
+      },
+      {
+        id: "2",
+        label: "Female",
+        value: "Female",
+        color: Colors.background,
+      },
+    ],
+    []
+  );
   const toast = useToast();
 
   const handleGenderChange = (value) => {
     setGender(value);
   };
 
+  // const handleRegisterChild = async () => {
+  //   const token = await AsyncStorage.getItem("userToken");
+
+  //   const registerchildlink =
+  //     "https://dyslexia-backend.onrender.com/api/v1/user/register-child";
+  //   try {
+  //     setLoading(true);
+  //     if (!childName || !selectedAge || !gender || !childGrade) {
+  //       Toast.show({
+  //         type: "error",
+  //         text1: "Please fill all fields",
+  //         // text2: "This is some something 👋",
+  //       });
+  //       setLoading(false);
+  //     }
+  //     const res = await fetch(registerchildlink, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "X-Access-Token": token,
+  //       },
+  //       body: JSON.stringify({
+  //         name: childName,
+  //         age: selectedAge,
+  //         grade: 4,
+  //         gender: gender,
+  //       }),
+  //     });
+
+  //     const data = await res.json();
+  //     console.log(data);
+  //     try {
+  //       const child = await AsyncStorage.setItem("child", JSON.stringify(data));
+  //     } catch (error) {
+  //       console.log(error);
+  //       setLoading(false);
+  //     }
+
+  //     // Toast.show({
+  //     //   type: "error",
+  //     //   text1: "Child Registered Successfully",
+  //     //   // text2: "This is some something 👋",
+  //     // });
+  //     navigation.navigate("Home");
+  //   } catch (error) {
+  //     console.log(error);
+  //     Toast.show({
+  //       type: "error",
+  //       text1: error,
+  //       // text2: "This is some something 👋",
+  //     });
+  //     // setLoading(false);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleRegisterChild = async () => {
     const token = await AsyncStorage.getItem("userToken");
-    setLoading(true);
-
-    if (!childName || !selectedAge || !gender || !childGrade) {
-      Toast.show({
-        type: "error",
-        text1: "Please fill all fields",
-        // text2: "This is some something 👋",
-      });
-      setLoading(false);
-    }
 
     const registerchildlink =
       "https://dyslexia-backend.onrender.com/api/v1/user/register-child";
     try {
+      setLoading(true);
+      if (!childName || !selectedAge || !gender || !childGrade) {
+        Toast.show({
+          type: "error",
+          text1: "Please fill all fields",
+        });
+        setLoading(false);
+        return; // Stop execution if validation fails
+      }
       const res = await fetch(registerchildlink, {
         method: "POST",
         headers: {
@@ -54,34 +131,45 @@ const RegisterChild = ({ navigation }) => {
         body: JSON.stringify({
           name: childName,
           age: selectedAge,
-          grade: 4,
+          grade: childGrade, // Use the state variable
           gender: gender,
         }),
       });
 
       const data = await res.json();
       console.log(data);
+      
 
-      Toast.show({
-        type: "success",
-        text1: "Child registration Successful",
-        // text2: "This is some something 👋",
-      });
-
-      try {
-        const child = await AsyncStorage.setItem("child", JSON.stringify(data));
-        navigation.navigate("Home");
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
+      if (res.ok) {
+        // Check if the response is ok and data is as expected
+        try {
+          await AsyncStorage.setItem("child", JSON.stringify(data));
+          navigation.navigate("Home");
+          Toast.show({
+            type: "success",
+            text1: "Child Registered Successfully",
+          });
+          // Navigate only if registration is successful
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        console.log(data.error);
+        // Handle registration failure
+        Toast.show({
+          type: "error",
+          text1: "Registration failed",
+          text2: data.message || "Please try again later.",
+        });
       }
     } catch (error) {
       console.log(error);
       Toast.show({
         type: "error",
-        text1: "Error Registering Child",
-        // text2: "This is some something 👋",
+        text1: "An error occurred",
+        text2: "Please try again later.",
       });
+    } finally {
       setLoading(false);
     }
   };
@@ -137,21 +225,46 @@ const RegisterChild = ({ navigation }) => {
             />
           </View>
           <View style={styles.radioButtonContainer}>
+            <RadioGroup
+              radioButtons={radioButtons}
+              onPress={setGender}
+              selectedId={gender}
+              layout="row"
+              size="10"
+              radioStyle={{ padding: 10 }}
+            />
+          </View>
+
+          {/* <View style={styles.radioButtonContainer}>
             <RadioButton.Group
               onValueChange={handleGenderChange}
               value={gender}
             >
-              <View style={styles.radioButtonItem}>
-                <RadioButton value="male" />
+              <TouchableOpacity
+                style={styles.radioButtonItem}
+                // onPress={() => setChecked("male")}
+              >
+                <RadioButton
+                  value="male"
+                  status={checked === "male" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("male")}
+                />
                 <Text>Male</Text>
-              </View>
-              <View style={styles.radioButtonItem}>
-                <RadioButton value="female" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.radioButtonItem}
+                // onPress={() => setChecked("female")}
+              >
+                <RadioButton
+                  value="female"
+                  status={checked === "female" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("female")}
+                />
                 <Text>Female</Text>
-              </View>
+              </TouchableOpacity>
             </RadioButton.Group>
-          </View>
-          <Button title="Next" onPress={() => navigation.navigate("Home")} />
+          </View> */}
+          {/* <Button title="Next" onPress={() => navigation.navigate("Home")} /> */}
 
           <TouchableOpacity
             style={{

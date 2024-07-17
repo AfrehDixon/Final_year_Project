@@ -26,7 +26,7 @@ const TestOneInitialScreen = ({ navigation }) => {
           <IconButton icon="check" size={20} style={styles.icon} />
 
           <Text>
-            You will see a 5x5 grid containing the letters "d" and "b".
+            You will see a 4x4 grid containing the letters "d" and "b".
           </Text>
         </View>
         <View style={styles.benefit}>

@@ -184,7 +184,7 @@ export default function MainNavigator() {
           title: "Register Child",
           headerTitleAlign: "center",
           headerLeft: () => null,
-          gestureEnabled: false,
+          gestureEnabled: true,
         }}
       />
     </MainStack.Navigator>

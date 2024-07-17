@@ -18,6 +18,7 @@ import { Video } from "expo-av";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import { IconButton, Button } from "react-native-paper";
+import Toast from "react-native-toast-message";
 
 const HomeScreen = ({ navigation }) => {
   const route = useRoute();

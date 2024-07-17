@@ -13,8 +13,9 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
-import { TextInput, Text, ActivityIndicator } from "react-native-paper";
+import { TextInput, Text } from "react-native-paper";
 import AppInput from "../../component/AppInput";
 import AppButton from "../../component/AppButton";
 import { Ionicons } from "@expo/vector-icons";
