@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TextInput, Image } from "react-native";
+import { View, Text, StyleSheet, TextInput, Image ,ActivityIndicator } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { useToast } from "react-native-toast-notifications";
@@ -106,6 +106,7 @@ export default function TestResult() {
               style={styles.button}
               onPress={SendResults}
             >
+              <ActivityIndicator />
               Loading.....
             </Button>
           ) : (

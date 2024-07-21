@@ -136,7 +136,14 @@ const TestOneScreen = () => {
         ))}
       </View>
       <View style={styles.scoreContainer}>
-        <View style={{backgroundColor:'white',padding:20 ,borderRadius:10 ,marginBottom:10}}>
+        <View
+          style={{
+            backgroundColor: "white",
+            padding: 20,
+            borderRadius: 10,
+            marginBottom: 10,
+          }}
+        >
           <Text style={styles.score}>Hits : {clicks}</Text>
         </View>
         <View
@@ -224,7 +231,7 @@ const styles = StyleSheet.create({
   },
   score: {
     fontSize: 24,
-    color:'green'
+    color: "green",
   },
   timer: {
     fontSize: 24,

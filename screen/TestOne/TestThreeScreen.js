@@ -1,34 +1,17 @@
+
+
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
-// const words = [
-//   ["w", "h", "u", "s", "e"],
-//   ["t", "a", "b", "l", "e"],
-//   ["c", "h", "a", "i", "r"],
-//   ["b", "r", "e", "a", "d"],
-//   ["w", "a", "t", "e", "r"],
-//   ["s", "h", "e", "e", "p"],
-//   ["f", "r", "u", "i", "t"],
-//   ["c", "a", "m", "e", "l"],
-//   ["c", "h", "a", "l", "k"],
-//   ["g", "r", "a", "i", "n"],
-//   ["b", "e", "a", "c", "h"],
-//   ["l", "e", "m", "o", "n"],
-//   ["t", "i", "g", "e", "r"],
-//   ["c", "l", "o", "c", "k"],
-//   ["g", "l", "a", "s", "s"],
-//   ["b", "r", "i", "c", "k"],
-//   ["s", "t", "o", "n", "e"],
-// ];
 const words = [
-  ["w", "h", "o",'S'],
+  ["w", "h", "o"],
   ["m", "a", "n", "y"],
   ["s", "a", "w"],
   ["d", "o", "n", "e"],
   ["l", "a", "u", "g", "h"],
-  ["p", "e", "o", "p", "l","e"],
-  ["w", "i", "t", "h", ""],
+  ["p", "e", "o", "p", "l", "e"],
+  ["w", "i", "t", "h"],
   ["d", "o", "e", "s"],
   ["s", "a", "i", "d"],
   ["g", "r", "a", "i", "n"],
@@ -46,11 +29,9 @@ const TestThreeScreen = ({ navigation }) => {
   const [word, setWord] = useState(words[0]);
   const [score, setScore] = useState(0);
   const [options, setOptions] = useState([]);
-  const [message, setMessage] = useState("");
   const [clicks, setClicks] = useState(0);
   const [hits, setHits] = useState(0);
   const [misses, setMisses] = useState(0);
-  // const [missRate, setMissRate] = useState(0);
   const [timer, setTimer] = useState(25);
   const [timerId, setTimerId] = useState(null);
   const route = useRoute();
@@ -62,8 +43,8 @@ const TestThreeScreen = ({ navigation }) => {
     const FinalArrayPassThree = [...FinalArrayPass, ...TestThreeArray[14]];
     navigation.navigate("TestFourInitial", { FinalArrayPassThree });
     console.log(FinalArrayPassThree);
-    // console.log(TestThree);
   };
+
   const onStart = () => {
     setTimerId(
       setInterval(() => {
@@ -90,18 +71,14 @@ const TestThreeScreen = ({ navigation }) => {
 
   useEffect(() => {
     setWord(words[index]);
-    setOptions(generateOptions(words[index][4]));
+    setOptions(generateOptions(words[index]));
   }, [index]);
 
-  useEffect(() => {
-    if (timer > 26) {
-      onStop();
-      navigateToNext();
-    }
-  }, [timer]);
 
-  const generateOptions = (correctLetter) => {
+
+  const generateOptions = (word) => {
     const letters = "abcdefghijklmnopqrstuvwxyz";
+    const correctLetter = word[word.length - 1];
     const options = new Set([correctLetter]);
     while (options.size < 3) {
       const randomLetter = letters[Math.floor(Math.random() * letters.length)];
@@ -112,26 +89,24 @@ const TestThreeScreen = ({ navigation }) => {
 
   const handleSelect = (letter) => {
     setClicks(clicks + 1);
-    if (letter === word[4]) {
-      
+    if (letter === word[word.length - 1]) {
       setScore(score + 1);
       setHits(hits + 1);
       setTimeout(() => {
-        setMessage("");
         setIndex((prevIndex) => (prevIndex + 1) % words.length);
       }, 1000);
     } else {
-      // setMessage("Try Again!");
       setMisses(misses + 1);
     }
   };
+
   const accuracy = hits + misses > 0 ? hits / clicks : 0;
   const missRate = clicks > 0 ? misses / clicks : 0;
 
   return (
     <View style={styles.container}>
       <View style={styles.wordGrid}>
-        {word.slice(0, 4).map((letter, idx) => (
+        {word.slice(0, -1).map((letter, idx) => (
           <View key={idx} style={styles.gridItem}>
             <Text style={styles.letter}>{letter}</Text>
           </View>
@@ -151,11 +126,65 @@ const TestThreeScreen = ({ navigation }) => {
           </TouchableOpacity>
         ))}
       </View>
-      <View style={styles.stats}>
-        <Text style={styles.statText}>Clicks: {clicks}</Text>
-      </View>
-      <View>
-        <Text style={styles.timer}>Time: {timer}</Text>
+  
+
+      <View style={styles.scoreContainer}>
+        <View
+          style={{
+            backgroundColor: "white",
+            padding: 20,
+            borderRadius: 10,
+            marginBottom: 10,
+          }}
+        >
+          <Text style={styles.score}>Hits : {clicks}</Text>
+        </View>
+        <View
+          style={{
+            // borderWidth: 2,
+            borderColor: "green",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 10,
+            flexDirection: "row",
+            gap: 10,
+          }}
+        >
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 10,
+              flexDirection: "row",
+              backgroundColor: "white",
+            }}
+          >
+            <Text style={styles.timer}>00</Text>
+          </View>
+          <View
+            style={{
+              // borderWidth: 2,
+              // borderColor:''
+              // borderColor: "green",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 10,
+              flexDirection: "row",
+              backgroundColor: "white",
+            }}
+          >
+            <Text style={styles.timer}>{timer}</Text>
+          </View>
+        </View>
+        {/* <CountDown
+          until={16}
+          size={20}
+          onFinish={() => navigateToNext}
+          digitStyle={{ backgroundColor: "#FFF" }}
+          digitTxtStyle={{ color: "#1CC625" }}
+          timeToShow={["M", "S"]}
+          timeLabels={{ m: "MM", s: "SS" }}
+        /> */}
       </View>
     </View>
   );
@@ -178,7 +207,6 @@ const styles = StyleSheet.create({
     margin: 5,
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "#4682B4",
     backgroundColor: "#7ac18a",
     borderRadius: 5,
   },
@@ -189,9 +217,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
-    margin:5
+    margin: 5,
   },
-
   letter: {
     fontSize: 32,
     color: "#fff",
@@ -208,12 +235,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 40,
     height: 50,
-    textAlign: 'center'
+    textAlign: "center",
   },
   optionText: {
     color: "#fff",
     fontSize: 20,
-    textAlign:'center'
+    textAlign: "center",
   },
   stats: {
     marginTop: 20,
@@ -226,10 +253,19 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginTop: 20,
   },
-  message: {
+  scoreContainer: {
     marginTop: 20,
+    alignItems: "center",
+  },
+  score: {
     fontSize: 24,
     color: "green",
+  },
+  timer: {
+    fontSize: 24,
+    padding: 10,
+    color: "green",
+    // marginTop: 10,
   },
 });
 

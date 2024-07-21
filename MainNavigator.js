@@ -186,7 +186,7 @@ export default function MainNavigator() {
         name="RegisterChild"
         component={RegisterChild}
         options={{
-          headerShown: true,
+          headerShown: false,
           title: "Register Child",
           headerTitleAlign: "center",
           headerLeft: () => null,

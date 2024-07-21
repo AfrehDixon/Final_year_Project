@@ -57,7 +57,7 @@ const TestFourScreen = () => {
   const [misses, setMisses] = useState(0);
   const [index, setIndex] = useState(0);
   const [timerId, setTimerId] = useState();
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(25);
   const [clicks, setClicks] = useState(0);
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const TestFourScreen = () => {
   const onStart = () => {
     setTimerId(
       setInterval(() => {
-        setTimer((state) => state + 1);
+        setTimer((state) => state - 1);
       }, 1000)
     );
   };
@@ -123,7 +123,7 @@ const TestFourScreen = () => {
   };
 
   useEffect(() => {
-    if (timer >= 25) {
+    if (timer < 1) {
       onStop();
       navigateToNext();
     }
@@ -145,17 +145,75 @@ const TestFourScreen = () => {
           </TouchableOpacity>
         ))}
       </View>
+      {/* <View style={styles.scoreContainer}> */}
+      {/* <Text style={styles.score}>Score: {score}</Text> */}
+      {/* <Text style={styles.score}>Hits: {hits}</Text> */}
+      {/* <Text style={styles.score}>Misses: {misses}</Text> */}
+      {/* <Text style={styles.score}>Clicks: {clicks}</Text> */}
+      {/* <Text style={styles.score}>Accuracy: {accuracy.toFixed(1)}</Text> */}
+      {/* <Text style={styles.score}>Miss Rate: {missRate.toFixed(1)}</Text> */}
+      {/* <Text style={styles.timer}>Time: {timer}</Text> */}
+      {/* <TouchableOpacity onPress={navigateToNext}> */}
+      {/* <Text>Next</Text> */}
+      {/* </TouchableOpacity> */}
+      {/* </View> */}
       <View style={styles.scoreContainer}>
-        {/* <Text style={styles.score}>Score: {score}</Text> */}
-        {/* <Text style={styles.score}>Hits: {hits}</Text> */}
-        {/* <Text style={styles.score}>Misses: {misses}</Text> */}
-        <Text style={styles.score}>Clicks: {clicks}</Text>
-        {/* <Text style={styles.score}>Accuracy: {accuracy.toFixed(1)}</Text> */}
-        {/* <Text style={styles.score}>Miss Rate: {missRate.toFixed(1)}</Text> */}
-        <Text style={styles.timer}>Time: {timer}</Text>
-        {/* <TouchableOpacity onPress={navigateToNext}> */}
-        {/* <Text>Next</Text> */}
-        {/* </TouchableOpacity> */}
+        <View
+          style={{
+            backgroundColor: "white",
+            padding: 20,
+            borderRadius: 10,
+            marginBottom: 10,
+          }}
+        >
+          <Text style={styles.score}>Hits : {clicks}</Text>
+        </View>
+        <View
+          style={{
+            // borderWidth: 2,
+            borderColor: "green",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 10,
+            flexDirection: "row",
+            gap: 10,
+          }}
+        >
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 10,
+              flexDirection: "row",
+              backgroundColor: "white",
+            }}
+          >
+            <Text style={styles.timer}>00</Text>
+          </View>
+          <View
+            style={{
+              // borderWidth: 2,
+              // borderColor:''
+              // borderColor: "green",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 10,
+              flexDirection: "row",
+              backgroundColor: "white",
+            }}
+          >
+            <Text style={styles.timer}>{timer}</Text>
+          </View>
+        </View>
+        {/* <CountDown
+          until={16}
+          size={20}
+          onFinish={() => navigateToNext}
+          digitStyle={{ backgroundColor: "#FFF" }}
+          digitTxtStyle={{ color: "#1CC625" }}
+          timeToShow={["M", "S"]}
+          timeLabels={{ m: "MM", s: "SS" }}
+        /> */}
       </View>
     </View>
   );
@@ -166,7 +224,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
   },
   grid: {
     flexDirection: "row",
@@ -176,7 +234,7 @@ const styles = StyleSheet.create({
   },
   box: {
     // width: "15%",
-    width: 60,
+    width: 50,
     height: 60,
     aspectRatio: 1,
     justifyContent: "center",
@@ -198,9 +256,19 @@ const styles = StyleSheet.create({
   score: {
     fontSize: 24,
   },
+  scoreContainer: {
+    marginTop: 20,
+    alignItems: "center",
+  },
+  score: {
+    fontSize: 24,
+    color: "green",
+  },
   timer: {
     fontSize: 24,
-    marginTop: 10,
+    padding: 10,
+    color: "green",
+    // marginTop: 10,
   },
 });
 

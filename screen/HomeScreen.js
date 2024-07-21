@@ -74,6 +74,18 @@ const HomeScreen = ({ navigation }) => {
         text1: result.message,
         // text2: " 👋",
       });
+      const storedData = await AsyncStorage.getItem("userData");
+      const storedData1 = storedData ? JSON.parse(storedData) : {};
+
+      let userData = {
+        ...storedData1,
+        // email:'',
+
+        predictions: [],
+      };
+      await AsyncStorage.setItem("userData", JSON.stringify(userData));
+      console.log("prediction set to empty");
+      console.log(userData);
     } catch (error) {
       console.error(error);
 
@@ -157,7 +169,6 @@ const HomeScreen = ({ navigation }) => {
             resizeMode="contain"
           />
           <Text style={styles.categoryText}>Test 1</Text>
-          
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.categoryCard}
@@ -216,7 +227,13 @@ const HomeScreen = ({ navigation }) => {
             }}
           >
             <Button mode="contained" style={styles.button}>
-              <ActivityIndicator style={{ marginRight: 20 , justifyContent:'center',alignItems:'center'}} />
+              <ActivityIndicator
+                style={{
+                  marginRight: 20,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              />
               Sending Email ....
             </Button>
           </View>
