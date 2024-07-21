@@ -272,7 +272,7 @@ export default function AuthNavigator() {
         name="Result"
         component={TestResult}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTitleAlign: "center",
           headerLeft: () => null,
           gestureEnabled: false,
