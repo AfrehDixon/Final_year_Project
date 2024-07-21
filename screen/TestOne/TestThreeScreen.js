@@ -2,37 +2,18 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
-const words = [
-  ["w", "h", "u", "s", "e"],
-  ["t", "a", "b", "l", "e"],
-  ["c", "h", "a", "i", "r"],
-  ["b", "r", "e", "a", "d"],
-  ["w", "a", "t", "e", "r"],
-  ["s", "h", "e", "e", "p"],
-  ["f", "r", "u", "i", "t"],
-  ["c", "a", "m", "e", "l"],
-  ["c", "h", "a", "l", "k"],
-  ["g", "r", "a", "i", "n"],
-  ["b", "e", "a", "c", "h"],
-  ["l", "e", "m", "o", "n"],
-  ["t", "i", "g", "e", "r"],
-  ["c", "l", "o", "c", "k"],
-  ["g", "l", "a", "s", "s"],
-  ["b", "r", "i", "c", "k"],
-  ["s", "t", "o", "n", "e"],
-];
 // const words = [
-//   ["w", "h", "o"],
-//   ["m", "a", "n", "y"],
-//   ["s", "a", "w"],
-//   ["d", "o", "n", "e"],
-//   ["l", "a", "u", "g", "h"],
-//   ["p", "e", "o", "p", "l","e"],
-//   ["w", "i", "t", "h", ""],
-//   ["d", "o", "e", "s"],
-//   ["s", "a", "i", "d"],
+//   ["w", "h", "u", "s", "e"],
+//   ["t", "a", "b", "l", "e"],
+//   ["c", "h", "a", "i", "r"],
+//   ["b", "r", "e", "a", "d"],
+//   ["w", "a", "t", "e", "r"],
+//   ["s", "h", "e", "e", "p"],
+//   ["f", "r", "u", "i", "t"],
+//   ["c", "a", "m", "e", "l"],
+//   ["c", "h", "a", "l", "k"],
 //   ["g", "r", "a", "i", "n"],
-//   ["t", "h", "e", "i", "r"],
+//   ["b", "e", "a", "c", "h"],
 //   ["l", "e", "m", "o", "n"],
 //   ["t", "i", "g", "e", "r"],
 //   ["c", "l", "o", "c", "k"],
@@ -40,6 +21,25 @@ const words = [
 //   ["b", "r", "i", "c", "k"],
 //   ["s", "t", "o", "n", "e"],
 // ];
+const words = [
+  ["w", "h", "o",'S'],
+  ["m", "a", "n", "y"],
+  ["s", "a", "w"],
+  ["d", "o", "n", "e"],
+  ["l", "a", "u", "g", "h"],
+  ["p", "e", "o", "p", "l","e"],
+  ["w", "i", "t", "h", ""],
+  ["d", "o", "e", "s"],
+  ["s", "a", "i", "d"],
+  ["g", "r", "a", "i", "n"],
+  ["t", "h", "e", "i", "r"],
+  ["l", "e", "m", "o", "n"],
+  ["t", "i", "g", "e", "r"],
+  ["c", "l", "o", "c", "k"],
+  ["g", "l", "a", "s", "s"],
+  ["b", "r", "i", "c", "k"],
+  ["s", "t", "o", "n", "e"],
+];
 
 const TestThreeScreen = ({ navigation }) => {
   const [index, setIndex] = useState(0);
@@ -51,7 +51,7 @@ const TestThreeScreen = ({ navigation }) => {
   const [hits, setHits] = useState(0);
   const [misses, setMisses] = useState(0);
   // const [missRate, setMissRate] = useState(0);
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(25);
   const [timerId, setTimerId] = useState(null);
   const route = useRoute();
   const { FinalArrayPass } = route.params;
@@ -67,7 +67,7 @@ const TestThreeScreen = ({ navigation }) => {
   const onStart = () => {
     setTimerId(
       setInterval(() => {
-        setTimer((prevTimer) => prevTimer + 1);
+        setTimer((prevTimer) => prevTimer - 1);
       }, 1000)
     );
   };
@@ -82,7 +82,7 @@ const TestThreeScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    if (timer > 40) {
+    if (timer < 1) {
       onStop();
       navigateToNext();
     }
@@ -103,7 +103,7 @@ const TestThreeScreen = ({ navigation }) => {
   const generateOptions = (correctLetter) => {
     const letters = "abcdefghijklmnopqrstuvwxyz";
     const options = new Set([correctLetter]);
-    while (options.size < 4) {
+    while (options.size < 3) {
       const randomLetter = letters[Math.floor(Math.random() * letters.length)];
       options.add(randomLetter);
     }
@@ -113,7 +113,7 @@ const TestThreeScreen = ({ navigation }) => {
   const handleSelect = (letter) => {
     setClicks(clicks + 1);
     if (letter === word[4]) {
-      setMessage("Correct!");
+      
       setScore(score + 1);
       setHits(hits + 1);
       setTimeout(() => {

@@ -7,9 +7,11 @@ import {
   Platform,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { ProgressBar, ActivityIndicator, Button } from "react-native-paper";
+import { ProgressBar, Button } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useToast } from "react-native-toast-notifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -25,7 +27,7 @@ const CaptureImage = ({ route, navigation }) => {
 
   const [isUploading, setIsUploading] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [prediction , setPrediction] =useState('')
+  const [prediction, setPrediction] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -41,7 +43,7 @@ const CaptureImage = ({ route, navigation }) => {
   const takeImageWithCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
-      quality: 0.5, 
+      quality: 0.5,
     });
 
     if (!result.canceled) {
@@ -88,14 +90,13 @@ const CaptureImage = ({ route, navigation }) => {
           "predictionTwo",
           Model_Prediction
         );
-
       }
 
-     Toast.show({
-       type: "success",
-       text1: "Upload Successful",
-       // text2: "This is some something 👋",
-     });
+      Toast.show({
+        type: "success",
+        text1: "Upload Successful",
+        // text2: "This is some something 👋",
+      });
     } catch (error) {
       Toast.show({
         type: "error",
@@ -103,7 +104,7 @@ const CaptureImage = ({ route, navigation }) => {
         // text2: "This is some something 👋",
       });
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -111,6 +112,10 @@ const CaptureImage = ({ route, navigation }) => {
     <View style={styles.container}>
       {isUploading ? (
         <>
+          <ImageBackground
+            source={require("../../assets/ass.jpg")}
+            width={600}
+          />
           <Text style={{ fontSize: 20, marginBottom: 20, fontWeight: "light" }}>
             Upload this image
           </Text>
@@ -126,7 +131,7 @@ const CaptureImage = ({ route, navigation }) => {
           <TouchableOpacity
             style={{
               padding: Spacing * 2,
-              backgroundColor: Colors.background,
+              backgroundColor: "#0c195c",
               marginVertical: Spacing * 3,
               borderRadius: Spacing,
               shadowColor: Colors.primary,
@@ -224,7 +229,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#0c195c",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

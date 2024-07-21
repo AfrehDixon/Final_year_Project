@@ -24,6 +24,7 @@ import HandwritinResult from "./screen/TestTwo/HandwritingResult";
 import ReadingScreenIntial from "./screen/TestThree/ReadingScreenInitial";
 import ReadingScreen from "./screen/TestThree/ReadingScreen";
 import CaptureVideo from "./screen/TestThree/CaptureVideo";
+import VideoResult from "./screen/TestThree/VideoResult";
 
 const MainStack = createNativeStackNavigator();
 
@@ -63,6 +64,11 @@ export default function MainNavigator() {
       <MainStack.Screen
         name="ReadingScreen"
         component={ReadingScreen}
+        options={{ headerShown: false }}
+      />
+      <MainStack.Screen
+        name="VideoResult"
+        component={VideoResult}
         options={{ headerShown: false }}
       />
 
@@ -157,7 +163,7 @@ export default function MainNavigator() {
         name="Result"
         component={TestResult}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTitleAlign: "center",
           headerLeft: () => null,
           gestureEnabled: false,

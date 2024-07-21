@@ -16,20 +16,20 @@ const TestScreenTwo = ({ navigation }) => {
     // "E",
     // "E",
     "E",
+    "F",
     "E",
+    "E",
+    "F",
     "E",
     "E",
     "F",
     "E",
     "E",
     "E",
+    "F",
     "E",
     "E",
-    "E",
-    "E",
-    "E",
-    "E",
-    "E",
+    " E",
     "E",
     // "E",
     // "E",
@@ -44,7 +44,7 @@ const TestScreenTwo = ({ navigation }) => {
   const [misses, setMisses] = useState(0);
   const [score, setScore] = useState(0);
   const [timerId, setTimerId] = useState(null);
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(16);
   const { stateArray } = route.params;
   // const [stateArray, setStateArray] = useState(route.params.startArray);
 
@@ -59,7 +59,7 @@ const TestScreenTwo = ({ navigation }) => {
   const onStart = () => {
     setTimerId(
       setInterval(() => {
-        setTimer((prevTimer) => prevTimer + 1);
+        setTimer((prevTimer) => prevTimer - 1);
       }, 1000)
     );
   };
@@ -74,7 +74,7 @@ const TestScreenTwo = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    if (timer > 15) {
+    if (timer < 1) {
       onStop();
       navigateToNext();
     }
@@ -120,10 +120,56 @@ const TestScreenTwo = ({ navigation }) => {
           </TouchableOpacity>
         ))}
       </View>
-      <View>
-        <Text style={styles.clicks}>Clicks: {clicks}</Text>
+      
 
-        <Text style={styles.timer}>Time: {timer}</Text>
+      <View style={styles.scoreContainer}>
+        <View
+          style={{
+            backgroundColor: "white",
+            padding: 20,
+            borderRadius: 10,
+            marginBottom: 10,
+          }}
+        >
+          <Text style={styles.score}>Hits : {clicks}</Text>
+        </View>
+        <View
+          style={{
+            // borderWidth: 2,
+            borderColor: "green",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 10,
+            flexDirection: "row",
+            gap: 10,
+          }}
+        >
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 10,
+              flexDirection: "row",
+              backgroundColor: "white",
+            }}
+          >
+            <Text style={styles.timer}>00</Text>
+          </View>
+          <View
+            style={{
+              // borderWidth: 2,
+              // borderColor:''
+              // borderColor: "green",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 10,
+              flexDirection: "row",
+              backgroundColor: "white",
+            }}
+          >
+            <Text style={styles.timer}>{timer}</Text>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -141,7 +187,6 @@ const styles = StyleSheet.create({
     width: "80%",
     alignItems: "center",
     justifyContent: "center",
-
   },
   box: {
     width: "20%",
@@ -183,6 +228,20 @@ const styles = StyleSheet.create({
   timer: {
     fontSize: 24,
     marginTop: 20,
+  },
+  scoreContainer: {
+    marginTop: 20,
+    alignItems: "center",
+  },
+  score: {
+    fontSize: 24,
+    color: "green",
+  },
+  timer: {
+    fontSize: 24,
+    padding: 10,
+    color: "green",
+    // marginTop: 10,
   },
 });
 

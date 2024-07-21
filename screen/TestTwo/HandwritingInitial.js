@@ -35,7 +35,7 @@ const HandwritingInitial = ({ navigation }) => {
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            Take a picture and submit at the end of the test
+            Take a picture and uplaod at the end of the test
           </Text>
         </View>
       </View>
@@ -92,7 +92,7 @@ const styles = {
     color: "red",
   },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#0c195c",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

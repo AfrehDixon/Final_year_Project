@@ -12,6 +12,7 @@ import {
   ScrollView,
   // Button,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import Colors from "../config/Colors";
 import { Video } from "expo-av";
@@ -26,6 +27,7 @@ const HomeScreen = ({ navigation }) => {
   const [videoUri, setVideoUri] = useState("");
   const [child, setchild] = useState();
   const [imageUrl, setImageUrl] = useState(getRandomImageUrl());
+  const [loading, setLoading] = useState(false);
 
   function getRandomImageUrl(width = 200, height = 200) {
     return `https://picsum.photos/${width}/${height}?random=${Math.random()}`;
@@ -35,6 +37,7 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   const getPrediction = async () => {
+    setLoading(true);
     // let userData = {
     //   email: email,
     //   // predictions: [newPrediction],
@@ -66,8 +69,17 @@ const HomeScreen = ({ navigation }) => {
       });
       const result = await res.json();
       console.log(result);
+      Toast.show({
+        type: "success",
+        text1: result.message,
+        // text2: " 👋",
+      });
     } catch (error) {
       console.error(error);
+
+      setLoading(!loading);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -141,10 +153,11 @@ const HomeScreen = ({ navigation }) => {
         >
           <Image
             style={styles.categoryIcon}
-            source={require("../assets/test1.jpg")}
+            source={require("../assets/test2.jpg")}
+            resizeMode="contain"
           />
           <Text style={styles.categoryText}>Test 1</Text>
-          {/* <Text style={styles.categorySubText}>Word Game</Text> */}
+          
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.categoryCard}
@@ -153,6 +166,7 @@ const HomeScreen = ({ navigation }) => {
           <Image
             style={styles.categoryIcon}
             source={require("../assets/testwrite.jpg")}
+            resizeMode="contain"
           />
           <Text style={styles.categoryText}> Test 2</Text>
           {/* <Text style={styles.categorySubText}>
@@ -166,6 +180,7 @@ const HomeScreen = ({ navigation }) => {
           <Image
             style={styles.categoryIcon}
             source={require("../assets/write.jpg")}
+            resizeMode="contain"
           />
           <Text style={styles.categoryText}>Test 3</Text>
           {/* <Text style={styles.categorySubText}>
@@ -176,6 +191,7 @@ const HomeScreen = ({ navigation }) => {
           <Image
             style={styles.categoryIcon}
             source={require("../assets/test2.jpg")}
+            resizeMode="contain"
           />
           <Video
             // source={{ uri: videoUri }}
@@ -185,15 +201,46 @@ const HomeScreen = ({ navigation }) => {
             isLooping
             // onPlaybackStatusUpdate={(status) => setVideoStatus(() => status)}
           />
-          <Text style={styles.categoryText}>Showcase</Text>
+          <Text style={styles.categoryText}>Play</Text>
           {/* <Text style={styles.categorySubText}>Your selected videos</Text> */}
         </TouchableOpacity>
         {/* <Button title="get" onPress={getPrediction1} /> */}
-        <Button mode="contained" style={styles.button} onPress={getPrediction1}>
-          Send Prediction Result
-        </Button>
+
+        {loading ? (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <Button mode="contained" style={styles.button}>
+              <ActivityIndicator style={{ marginRight: 20 , justifyContent:'center',alignItems:'center'}} />
+              Sending Email ....
+            </Button>
+          </View>
+        ) : (
+          <>
+            <Button
+              mode="contained"
+              style={styles.button}
+              onPress={getPrediction1}
+            >
+              Send Prediction Result
+            </Button>
+          </>
+        )}
       </View>
     </ScrollView>
+  );
+};
+
+const Activity = () => {
+  return (
+    <View style={{ justifyContent: "center", alignItems: "center", zIndex: 1 }}>
+      <ActivityIndicator />
+    </View>
   );
 };
 

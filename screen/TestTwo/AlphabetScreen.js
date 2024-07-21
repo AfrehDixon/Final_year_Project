@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { IconButton, Button } from "react-native-paper";
+import { ImageBackground } from "react-native";
 
 // const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const alphabets = "AbCdEfGHIJKlMNOpQRSTUVWXYZ".split("");
@@ -50,7 +51,6 @@ const AlphabetScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.letter}>{letters[currentLetterIndex]}</Text>
-
       <Button mode="contained" style={styles.button} onPress={handleCapture}>
         Capture Alphabet
       </Button>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#0c195c",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

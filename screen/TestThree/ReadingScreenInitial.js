@@ -29,7 +29,8 @@ const ReadingScreenIntial = ({ navigation }) => {
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            Press the Start icon to start recording while you read and Stop to Stop recording when you are done reading. 
+            Press the Start icon to start recording while you read and Stop to
+            Stop recording when you are done reading.
           </Text>
         </View>
         <View style={styles.benefit}>
@@ -90,7 +91,7 @@ const styles = {
     color: "red",
   },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#0c195c",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

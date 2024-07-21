@@ -26,7 +26,7 @@ const TestThreeInitialScreen = ({ navigation }) => {
       <View style={styles.section}>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
-          <Text>You will see a scramble of 5 letter words</Text>
+          <Text>You will see a scramble of  words</Text>
         </View>
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
@@ -38,7 +38,7 @@ const TestThreeInitialScreen = ({ navigation }) => {
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            You will have 40 seconds to complete this part of the test.
+            You will have 25 seconds to complete this part of the test.
           </Text>
         </View>
       </View>

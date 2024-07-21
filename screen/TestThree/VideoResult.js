@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TextInput, Image } from "react-native";
-import { useRoute, useNavigation } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { useRoute } from "@react-navigation/native";
 import ConfettiCannon from "react-native-confetti-cannon";
+import { useNavigation } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
 import { Button } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
-
-export default function TestResult() {
-  const navigation = useNavigation();
-  const [loading, setLoading] = useState(false);
+export default function VideoResult({ navigation }) {
   const route = useRoute();
-  const [newMessage, setNewMessage] = useState("");
-  // const [modelName, setModelName] = useState("");
+  const [newMessage2, setMessage] = useState("");
+  const [modelName, setModelName] = useState("");
+  const { Model_Prediction } = route.params;
   const [sendData, setSendData] = useState(true);
-  const { data } = route.params;
   const toast = useToast();
 
   useEffect(() => {
@@ -25,32 +23,19 @@ export default function TestResult() {
     });
   }, []);
 
-   useEffect(() => {
-     if (sendData) {
-       SendResults();
-     }
-   }, [sendData]);
-
-  const api = "https://game-model-2.onrender.com/predict";
+  useEffect(() => {
+    if (sendData) {
+      SendResults();
+    }
+  }, [sendData]);
 
   const SendResults = async () => {
-    setLoading(true);
     try {
-      const res = await fetch(api, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({ data }),
-      });
-      const result = await res.json();
-      const { message } = result;
-      setNewMessage(message);
+      setMessage(Model_Prediction);
 
       const newPrediction = {
-        model: "Eye Tracking Model",
-        prediction: message,
+        model: "Video Analysis Model",
+        prediction: Model_Prediction,
       };
 
       const storedData = await AsyncStorage.getItem("userData");
@@ -68,26 +53,33 @@ export default function TestResult() {
 
       await AsyncStorage.setItem("userData", JSON.stringify(userData));
 
+      await AsyncStorage.setItem("userData", JSON.stringify(userData));
+
       setSendData(false);
     } catch (e) {
       console.error(e);
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
-      <View style={{alignContent:'center' ,justifyContent:'center'}}>
+      <View
+        style={{
+          alignContent: "center",
+          justifyContent: "center",
+          borderRadius: 20,
+        }}
+      >
         <Image
-          source={require("../../assets/congrats102.jpg")}
+          source={require("../../assets/congrats11.jpg")}
           style={styles.image}
           resizeMode="contain"
         />
       </View>
-
       <Text style={styles.text}>Congratulation!!</Text>
-      <Text style={{textAlign:'center',fontSize:14}}>You have completed the first test in testing for dyslexia...</Text>
+      <Text style={{ textAlign: "center", fontSize: 14 }}>
+        You have completed the third  test in testing for dyslexia...
+      </Text>
       <ConfettiCannon
         count={350}
         origin={{ x: -10, y: 0 }}
@@ -96,32 +88,17 @@ export default function TestResult() {
         explosionSpeed={1000}
       />
 
-      {/* <Text style={styles.prediction}>{newMessage}</Text> */}
-      {/* <Text style={styles.prediction}>Hello</Text> */}
+      {/* <Text style={styles.prediction}>{newMessage2}</Text> */}
       <View style={styles.btn}>
         {sendData ? (
-          loading ? (
-            <Button
-              mode="contained"
-              style={styles.button}
-              onPress={SendResults}
-            >
-              Loading.....
-            </Button>
-          ) : (
-            <Button
-              mode="contained"
-              style={styles.button}
-              onPress={SendResults}
-            >
-              Send Results
-            </Button>
-          )
+          <Button mode="contained" style={styles.button} onPress={SendResults}>
+            Check Result
+          </Button>
         ) : (
           <Button
             mode="contained"
             style={styles.button}
-            onPress={() => navigation.navigate("Home", { newMessage })}
+            onPress={() => navigation.navigate("Home")}
           >
             Back to Home
           </Button>
@@ -137,12 +114,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    padding:40
-  },
-  image: {
-    width: 400,
-    height: 400,
-    // borderRadius:'80%'
+    padding: 40,
   },
   input: {
     height: 40,
@@ -152,7 +124,15 @@ const styles = StyleSheet.create({
     width: "80%",
     paddingHorizontal: 10,
   },
-
+  text: {
+    fontSize: 24,
+    fontWeight: "bold",
+    // marginBottom: 20,
+  },
+  prediction: {
+    fontSize: 15,
+    marginBottom: 20,
+  },
   button: {
     backgroundColor: "blue",
     paddingVertical: 10,
@@ -166,9 +146,9 @@ const styles = StyleSheet.create({
     width: "90%",
     gap: 40,
   },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
-    // marginBottom: 20,
+  image: {
+    width: 400,
+    height: 400,
+    // borderRadius:'80%'
   },
 });

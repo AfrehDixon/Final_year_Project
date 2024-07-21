@@ -9,8 +9,7 @@ const TestFourScreen = () => {
   const { FinalArrayPassThree } = route.params;
 
   const correctWords = [
-    "yam",
-
+    // "yam",
     "rice",
     "fish",
     "ball",

@@ -28,7 +28,7 @@ const TestTwoInitialScreen = ({ navigation }) => {
         <View style={styles.benefit}>
           <IconButton icon="check" size={20} style={styles.icon} />
           <Text>
-            You will see a 5x5 grid containing the letters "F" and "E".
+            You will see a 4x4 grid containing the letters "F" and "E".
           </Text>
         </View>
         <View style={styles.benefit}>
