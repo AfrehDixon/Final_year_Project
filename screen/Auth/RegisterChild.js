@@ -138,7 +138,6 @@ const RegisterChild = ({ navigation }) => {
 
       const data = await res.json();
       console.log(data);
-      
 
       if (res.ok) {
         // Check if the response is ok and data is as expected
@@ -235,37 +234,6 @@ const RegisterChild = ({ navigation }) => {
             />
           </View>
 
-          {/* <View style={styles.radioButtonContainer}>
-            <RadioButton.Group
-              onValueChange={handleGenderChange}
-              value={gender}
-            >
-              <TouchableOpacity
-                style={styles.radioButtonItem}
-                // onPress={() => setChecked("male")}
-              >
-                <RadioButton
-                  value="male"
-                  status={checked === "male" ? "checked" : "unchecked"}
-                  onPress={() => setChecked("male")}
-                />
-                <Text>Male</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.radioButtonItem}
-                // onPress={() => setChecked("female")}
-              >
-                <RadioButton
-                  value="female"
-                  status={checked === "female" ? "checked" : "unchecked"}
-                  onPress={() => setChecked("female")}
-                />
-                <Text>Female</Text>
-              </TouchableOpacity>
-            </RadioButton.Group>
-          </View> */}
-          {/* <Button title="Next" onPress={() => navigation.navigate("Home")} /> */}
-
           <TouchableOpacity
             style={{
               padding: Spacing * 2,
@@ -316,6 +284,15 @@ const RegisterChild = ({ navigation }) => {
               </Text>
             )}
           </TouchableOpacity>
+
+          <View style={{ borderRadius: 10 }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Home")}
+              style={{ backgroundColor: "white" }}
+            >
+              <Text style={{fontSize:17.5,color:'red'}}>Skip</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </ScrollView>

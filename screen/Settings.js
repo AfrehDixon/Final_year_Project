@@ -35,6 +35,7 @@ const SettingsScreen = () => {
   const [isSoundEnabled, setIsSoundEnabled] = useState(false);
   const [visible, setVisible] = useState(false);
   const [imageUrl, setImageUrl] = useState(getRandomImageUrl());
+  const [loading,setIsLoading] = useState(false)
 
   const { setIsLoggedIn } = useContext(AuthContext);
 
@@ -77,7 +78,7 @@ const SettingsScreen = () => {
     } catch (error) {
       console.error("Failed to remove token:", error);
     }
-    setIsLoading(false);
+    // setIsLoading(false);
   };
 
   const getchild = async () => {

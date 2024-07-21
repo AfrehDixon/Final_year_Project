@@ -106,7 +106,7 @@ export default function TestResult() {
               style={styles.button}
               onPress={SendResults}
             >
-              <ActivityIndicator />
+              <ActivityIndicator style={{marginTop:10}} />
               Loading.....
             </Button>
           ) : (
@@ -160,6 +160,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
     marginTop: 50,
+    justifyContent: 'center',
+    alignItems:'center'
   },
   btn: {
     flexDirection: "row",

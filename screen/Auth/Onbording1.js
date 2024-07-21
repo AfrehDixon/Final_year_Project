@@ -10,7 +10,7 @@ import React from "react";
 import Onboarding from "react-native-onboarding-swiper";
 import Colors from "../../config/Colors";
 
-const Dots = ({ selected }) => {
+const Dots = ({ selected=true  }) => {
   let backgroundColor;
   backgroundColor = selected ? Colors.background : "#808080";
   return (
@@ -134,3 +134,5 @@ const styles = StyleSheet.create({
     height: 300,
   },
 });
+
+
