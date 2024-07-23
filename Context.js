@@ -22,6 +22,8 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(true);
   };
 
+  //       "@react-native-clipboard/clipboard": "^1.14.1",
+  // "@react-native-community/masked-view": "^0.1.11",
   const handleLogout = async () => {
     try {
       const remove = await AsyncStorage.getItem("userToken");

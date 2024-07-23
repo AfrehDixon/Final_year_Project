@@ -268,6 +268,7 @@ export default function AuthNavigator() {
           preventRemove: true,
         }}
       />
+
       <AuthStack.Screen
         name="Result"
         component={TestResult}
