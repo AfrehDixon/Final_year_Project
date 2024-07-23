@@ -19,12 +19,18 @@
     },
     "android": {
       "permissions": [
-        "android.permission.RECORD_AUDIO"
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_MEDIA_LOCATION",
+        "android.permission.CAMERA"
       ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.example.app123"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -59,6 +65,11 @@
       ],
       "expo-video",
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "67499fcd-c5a5-4ae0-b443-8c1bb66bd4d2"
+      }
+    }
   }
 }

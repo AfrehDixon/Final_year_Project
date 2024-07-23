@@ -90,6 +90,7 @@ const ReadingScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={{fontSize:19}}>Recorded Video Ready to be sent </Text>
       {videoUri ? (
         <>
           <View style={styles.videocontainer}>
